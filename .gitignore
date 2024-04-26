@@ -1,0 +1,6 @@
+__pycache__/
+.vscode/
+local.settings.json
+test
+.venv/
+env.env
