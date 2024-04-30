@@ -1,40 +1,48 @@
 # filename: fetch_arxiv_papers.py
-import arxiv
-import datetime
-from dateutil import tz
+import feedparser
+import urllib.parse
+from datetime import datetime, timedelta
 
-# Define the search query and date range
-search_query = 'cat:cs.CL AND (all:"large language model" OR all:"LLM")'
-start_date = datetime.datetime.now(tz.tzutc()) - datetime.timedelta(days=7)
+# Define the base URL for the arXiv API
+ARXIV_API_URL = "http://export.arxiv.org/api/query?"
 
-# Initialize the arXiv client
-client = arxiv.Client()
+# Define the search parameters
+search_query = "cat:cs.CL AND (all:Large Language Models OR all:LLM)"  # cs.CL is the category for Computation and Language
+start_index = 0  # start at the first result
+max_results = 100  # the maximum number of results to fetch
+sort_by = "submittedDate"
+sort_order = "descending"
 
-# Search arXiv papers
-search = arxiv.Search(
-    query=search_query,
-    max_results=100,
-    sort_by=arxiv.SortCriterion.SubmittedDate,
-    sort_order=arxiv.SortOrder.Descending
-)
+# Calculate the date 7 days ago from today
+date_seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%SZ')
 
-# Filter papers from the last 7 days and summarize
-papers_summary = []
-for result in client.results(search):
-    if result.published >= start_date:
-        papers_summary.append({
-            'title': result.title,
-            'summary': result.summary,
-            'published': result.published
-        })
+# Encode the search query to handle spaces and special characters
+encoded_search_query = urllib.parse.quote_plus(search_query)
 
-# Print the summaries
-for paper in papers_summary:
-    print(f"Title: {paper['title']}")
-    print(f"Published Date: {paper['published']}")
-    print(f"Abstract: {paper['summary']}\n")
-    print("--------------------------------------------------\n")
+# Construct the query URL
+query = f"{ARXIV_API_URL}search_query={encoded_search_query}&start={start_index}&max_results={max_results}&sortBy={sort_by}&sortOrder={sort_order}&submittedDate={date_seven_days_ago}"
 
-# Check if there are any papers
-if not papers_summary:
-    print("No papers found in the last 7 days on Large Language Models.")
+# Fetch the results using feedparser
+feed = feedparser.parse(query)
+
+# Open a file to write the output
+with open('arxiv_papers_summary.txt', 'w', encoding='utf-8') as file:
+    # Check if the fetch was successful
+    if feed.get('status') != 200:
+        file.write(f"Failed to fetch data from arXiv. Status code: {feed.get('status')}\n")
+    else:
+        # Write the number of papers found to the file
+        file.write(f"Number of papers found: {len(feed.entries)}\n")
+        # Write the titles and publish dates of the papers to the file
+        for entry in feed.entries:
+            title = entry.title
+            published = entry.published
+            authors = ', '.join(author.name for author in entry.authors)
+            summary = entry.summary
+            file.write(f"Title: {title}\n")
+            file.write(f"Published Date: {published}\n")
+            file.write(f"Authors: {authors}\n")
+            file.write(f"Abstract: {summary}\n")
+            file.write("---------------------------------------------------------\n")
+
+print("The arXiv papers summary has been written to 'arxiv_papers_summary.txt'")

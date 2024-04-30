@@ -91,7 +91,9 @@ def processagent(query, selected_optionmodel):
         n_results=3,
     )
     #returntxt = result.chat_history[-1]['content']
-    returntxt = str(result)
+    #returntxt = str(result)
+    for row in groupchat.messages:
+        returntxt += f"""{row["name"]}: {row["content"]}\n <br><br>"""
 
     return returntxt
 

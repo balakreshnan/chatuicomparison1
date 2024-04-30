@@ -82,7 +82,9 @@ def executeagent(query, selected_model):
     # returntxt = str(result)
 
     # returntxt = result.chat_history[-1]['content']
-    returntxt = result.chat_history
+    # returntxt = result.chat_history
+    for chat in result.chat_history:
+        returntxt += f"{chat['role']} : {chat['content']}  " + "\n <br><br>"
 
     return returntxt
 

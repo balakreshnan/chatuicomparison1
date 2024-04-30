@@ -1,0 +1,214 @@
+Number of papers found: 10
+Title: Stylus: Automatic Adapter Selection for Diffusion Models
+Published Date: 2024-04-29T17:59:16Z
+Authors: Michael Luo, Justin Wong, Brandon Trabucco, Yanping Huang, Joseph E. Gonzalez, Zhifeng Chen, Ruslan Salakhutdinov, Ion Stoica
+Abstract: Beyond scaling base models with more data or parameters, fine-tuned adapters
+provide an alternative way to generate high fidelity, custom images at reduced
+costs. As such, adapters have been widely adopted by open-source communities,
+accumulating a database of over 100K adapters-most of which are highly
+customized with insufficient descriptions. This paper explores the problem of
+matching the prompt to a set of relevant adapters, built on recent work that
+highlight the performance gains of composing adapters. We introduce Stylus,
+which efficiently selects and automatically composes task-specific adapters
+based on a prompt's keywords. Stylus outlines a three-stage approach that first
+summarizes adapters with improved descriptions and embeddings, retrieves
+relevant adapters, and then further assembles adapters based on prompts'
+keywords by checking how well they fit the prompt. To evaluate Stylus, we
+developed StylusDocs, a curated dataset featuring 75K adapters with
+pre-computed adapter embeddings. In our evaluation on popular Stable Diffusion
+checkpoints, Stylus achieves greater CLIP-FID Pareto efficiency and is twice as
+preferred, with humans and multimodal models as evaluators, over the base
+model. See stylus-diffusion.github.io for more.
+---------------------------------------------------------
+Title: Holmes: Benchmark the Linguistic Competence of Language Models
+Published Date: 2024-04-29T17:58:36Z
+Authors: Andreas Waldis, Yotam Perlitz, Leshem Choshen, Yufang Hou, Iryna Gurevych
+Abstract: We introduce Holmes, a benchmark to assess the linguistic competence of
+language models (LMs) - their ability to grasp linguistic phenomena. Unlike
+prior prompting-based evaluations, Holmes assesses the linguistic competence of
+LMs via their internal representations using classifier-based probing. In doing
+so, we disentangle specific phenomena (e.g., part-of-speech of words) from
+other cognitive abilities, like following textual instructions, and meet recent
+calls to assess LMs' linguistic competence in isolation. Composing Holmes, we
+review over 250 probing studies and feature more than 200 datasets to assess
+syntax, morphology, semantics, reasoning, and discourse phenomena. Analyzing
+over 50 LMs reveals that, aligned with known trends, their linguistic
+competence correlates with model size. However, surprisingly, model
+architecture and instruction tuning also significantly influence performance,
+particularly in morphology and syntax. Finally, we propose FlashHolmes, a
+streamlined version of Holmes designed to lower the high computation load while
+maintaining high-ranking precision.
+---------------------------------------------------------
+Title: DPO Meets PPO: Reinforced Token Optimization for RLHF
+Published Date: 2024-04-29T17:58:30Z
+Authors: Han Zhong, Guhao Feng, Wei Xiong, Li Zhao, Di He, Jiang Bian, Liwei Wang
+Abstract: In the classical Reinforcement Learning from Human Feedback (RLHF) framework,
+Proximal Policy Optimization (PPO) is employed to learn from sparse,
+sentence-level rewards -- a challenging scenario in traditional deep
+reinforcement learning. Despite the great successes of PPO in the alignment of
+state-of-the-art closed-source large language models (LLMs), its open-source
+implementation is still largely sub-optimal, as widely reported by numerous
+research studies. To address these issues, we introduce a framework that models
+RLHF problems as a Markov decision process (MDP), enabling the capture of
+fine-grained token-wise information. Furthermore, we provide theoretical
+insights that demonstrate the superiority of our MDP framework over the
+previous sentence-level bandit formulation. Under this framework, we introduce
+an algorithm, dubbed as Reinforced Token Optimization (\texttt{RTO}), which
+learns the token-wise reward function from preference data and performs policy
+optimization based on this learned token-wise reward signal. Theoretically,
+\texttt{RTO} is proven to have the capability of finding the near-optimal
+policy sample-efficiently. For its practical implementation, \texttt{RTO}
+innovatively integrates Direct Preference Optimization (DPO) and PPO. DPO,
+originally derived from sparse sentence rewards, surprisingly provides us with
+a token-wise characterization of response quality, which is seamlessly
+incorporated into our subsequent PPO training stage. Extensive real-world
+alignment experiments verify the effectiveness of the proposed approach.
+---------------------------------------------------------
+Title: Kangaroo: Lossless Self-Speculative Decoding via Double Early Exiting
+Published Date: 2024-04-29T17:53:54Z
+Authors: Fangcheng Liu, Yehui Tang, Zhenhua Liu, Yunsheng Ni, Kai Han, Yunhe Wang
+Abstract: Speculative decoding has demonstrated its effectiveness in accelerating the
+inference of large language models while maintaining a consistent sampling
+distribution. However, the conventional approach of training a separate draft
+model to achieve a satisfactory token acceptance rate can be costly. Drawing
+inspiration from early exiting, we propose a novel self-speculative decoding
+framework \emph{Kangaroo}, which uses a fixed shallow sub-network as a
+self-draft model, with the remaining layers serving as the larger target model.
+We train a lightweight and efficient adapter module on top of the sub-network
+to bridge the gap between the sub-network and the full model's representation
+ability. It is noteworthy that the inference latency of the self-draft model
+may no longer be negligible compared to the large model, necessitating
+strategies to increase the token acceptance rate while minimizing the drafting
+steps of the small model. To address this challenge, we introduce an additional
+early exiting mechanism for generating draft tokens. Specifically, we halt the
+small model's subsequent prediction during the drafting phase once the
+confidence level for the current token falls below a certain threshold.
+Extensive experiments on the Spec-Bench demonstrate the effectiveness of
+Kangaroo. Under single-sequence verification, Kangaroo achieves speedups up to
+$1.68\times$ on Spec-Bench, outperforming Medusa-1 with 88.7\% fewer additional
+parameters (67M compared to 591M). The code for Kangaroo is available at
+https://github.com/Equationliu/Kangaroo.
+---------------------------------------------------------
+Title: Spivavtor: An Instruction Tuned Ukrainian Text Editing Model
+Published Date: 2024-04-29T17:16:22Z
+Authors: Aman Saini, Artem Chernodub, Vipul Raheja, Vivek Kulkarni
+Abstract: We introduce Spivavtor, a dataset, and instruction-tuned models for text
+editing focused on the Ukrainian language. Spivavtor is the Ukrainian-focused
+adaptation of the English-only CoEdIT model. Similar to CoEdIT, Spivavtor
+performs text editing tasks by following instructions in Ukrainian. This paper
+describes the details of the Spivavtor-Instruct dataset and Spivavtor models.
+We evaluate Spivavtor on a variety of text editing tasks in Ukrainian, such as
+Grammatical Error Correction (GEC), Text Simplification, Coherence, and
+Paraphrasing, and demonstrate its superior performance on all of them. We
+publicly release our best-performing models and data as resources to the
+community to advance further research in this space.
+---------------------------------------------------------
+Title: More RLHF, More Trust? On The Impact of Human Preference Alignment On
+  Language Model Trustworthiness
+Published Date: 2024-04-29T17:00:53Z
+Authors: Aaron J. Li, Satyapriya Krishna, Himabindu Lakkaraju
+Abstract: The surge in Large Language Models (LLMs) development has led to improved
+performance on cognitive tasks as well as an urgent need to align these models
+with human values in order to safely exploit their power. Despite the
+effectiveness of preference learning algorithms like Reinforcement Learning
+From Human Feedback (RLHF) in aligning human preferences, their assumed
+improvements on model trustworthiness haven't been thoroughly testified. Toward
+this end, this study investigates how models that have been aligned with
+general-purpose preference data on helpfulness and harmlessness perform across
+five trustworthiness verticals: toxicity, stereotypical bias, machine ethics,
+truthfulness, and privacy. For model alignment, we focus on three widely used
+RLHF variants: Supervised Finetuning (SFT), Proximal Policy Optimization (PPO),
+and Direct Preference Optimization (DPO). Through extensive empirical
+investigations, we discover that the improvement in trustworthiness by RLHF is
+far from guaranteed, and there exists a complex interplay between preference
+data, alignment algorithms, and specific trustworthiness aspects. Together, our
+results underscore the need for more nuanced approaches for model alignment. By
+shedding light on the intricate dynamics of these components within model
+alignment, we hope this research will guide the community towards developing
+language models that are both capable and trustworthy.
+---------------------------------------------------------
+Title: Truth-value judgment in language models: belief directions are context
+  sensitive
+Published Date: 2024-04-29T16:52:57Z
+Authors: Stefan F. Schouten, Peter Bloem, Ilia Markov, Piek Vossen
+Abstract: Recent work has demonstrated that the latent spaces of large language models
+(LLMs) contain directions predictive of the truth of sentences. Multiple
+methods recover such directions and build probes that are described as getting
+at a model's "knowledge" or "beliefs". We investigate this phenomenon, looking
+closely at the impact of context on the probes. Our experiments establish where
+in the LLM the probe's predictions can be described as being conditional on the
+preceding (related) sentences. Specifically, we quantify the responsiveness of
+the probes to the presence of (negated) supporting and contradicting sentences,
+and score the probes on their consistency. We also perform a causal
+intervention experiment, investigating whether moving the representation of a
+premise along these belief directions influences the position of the hypothesis
+along that same direction. We find that the probes we test are generally
+context sensitive, but that contexts which should not affect the truth often
+still impact the probe outputs. Our experiments show that the type of errors
+depend on the layer, the (type of) model, and the kind of data. Finally, our
+results suggest that belief directions are (one of the) causal mediators in the
+inference process that incorporates in-context information.
+---------------------------------------------------------
+Title: A Comprehensive Rubric for Annotating Pathological Speech
+Published Date: 2024-04-29T16:44:27Z
+Authors: Mario Corrales-Astorgano, David Escudero-Mancebo, Lourdes Aguilar, Valle Flores-Lucas, Valentín Cardeñoso-Payo, Carlos Vivaracho-Pascual, César González-Ferreras
+Abstract: Rubrics are a commonly used tool for labeling voice corpora in speech quality
+assessment, although their application in the context of pathological speech
+remains relatively limited. In this study, we introduce a comprehensive rubric
+based on various dimensions of speech quality, including phonetics, fluency,
+and prosody. The objective is to establish standardized criteria for
+identifying errors within the speech of individuals with Down syndrome, thereby
+enabling the development of automated assessment systems. To achieve this
+objective, we utilized the Prautocal corpus. To assess the quality of
+annotations using our rubric, two experiments were conducted, focusing on
+phonetics and fluency. For phonetic evaluation, we employed the Goodness of
+Pronunciation (GoP) metric, utilizing automatic segmentation systems and
+correlating the results with evaluations conducted by a specialized speech
+therapist. While the obtained correlation values were not notably high, a
+positive trend was observed. In terms of fluency assessment, deep learning
+models like wav2vec were used to extract audio features, and we employed an SVM
+classifier trained on a corpus focused on identifying fluency issues to
+categorize Prautocal corpus samples. The outcomes highlight the complexities of
+evaluating such phenomena, with variability depending on the specific type of
+disfluency detected.
+---------------------------------------------------------
+Title: It's Difficult to be Neutral -- Human and LLM-based Sentiment Annotation
+  of Patient Comments
+Published Date: 2024-04-29T16:19:47Z
+Authors: Petter Mæhlum, David Samuel, Rebecka Maria Norman, Elma Jelin, Øyvind Andresen Bjertnæs, Lilja Øvrelid, Erik Velldal
+Abstract: Sentiment analysis is an important tool for aggregating patient voices, in
+order to provide targeted improvements in healthcare services. A prerequisite
+for this is the availability of in-domain data annotated for sentiment. This
+article documents an effort to add sentiment annotations to free-text comments
+in patient surveys collected by the Norwegian Institute of Public Health
+(NIPH). However, annotation can be a time-consuming and resource-intensive
+process, particularly when it requires domain expertise. We therefore also
+evaluate a possible alternative to human annotation, using large language
+models (LLMs) as annotators. We perform an extensive evaluation of the approach
+for two openly available pretrained LLMs for Norwegian, experimenting with
+different configurations of prompts and in-context learning, comparing their
+performance to human annotators. We find that even for zero-shot runs, models
+perform well above the baseline for binary sentiment, but still cannot compete
+with human annotators on the full dataset.
+---------------------------------------------------------
+Title: Benchmarking Benchmark Leakage in Large Language Models
+Published Date: 2024-04-29T16:05:36Z
+Authors: Ruijie Xu, Zengzhi Wang, Run-Ze Fan, Pengfei Liu
+Abstract: Amid the expanding use of pre-training data, the phenomenon of benchmark
+dataset leakage has become increasingly prominent, exacerbated by opaque
+training processes and the often undisclosed inclusion of supervised data in
+contemporary Large Language Models (LLMs). This issue skews benchmark
+effectiveness and fosters potentially unfair comparisons, impeding the field's
+healthy development. To address this, we introduce a detection pipeline
+utilizing Perplexity and N-gram accuracy, two simple and scalable metrics that
+gauge a model's prediction precision on benchmark, to identify potential data
+leakages. By analyzing 31 LLMs under the context of mathematical reasoning, we
+reveal substantial instances of training even test set misuse, resulting in
+potentially unfair comparisons. These findings prompt us to offer several
+recommendations regarding model documentation, benchmark setup, and future
+evaluations. Notably, we propose the "Benchmark Transparency Card" to encourage
+clear documentation of benchmark utilization, promoting transparency and
+healthy developments of LLMs. we have made our leaderboard, pipeline
+implementation, and model predictions publicly available, fostering future
+research.
+---------------------------------------------------------
