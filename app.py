@@ -8,6 +8,7 @@ from autogendesign1 import dynagents
 from frecipe import foodreceipe
 from chatpdf1 import processpdf
 from diagrams import processdiagrams
+from urltodoc import processurl
 
 # Set page size
 st.set_page_config(
@@ -19,7 +20,7 @@ st.set_page_config(
 
 st.sidebar.image("bblogo1.png", use_column_width=True)
 # Sidebar navigation
-nav_option = st.sidebar.selectbox("Navigation", ["Home", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "About"])
+nav_option = st.sidebar.selectbox("Navigation", ["Home", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -40,3 +41,5 @@ elif nav_option == "PDFExtract":
     processpdf()
 elif nav_option == "Diagrams":
     processdiagrams()
+elif nav_option == "URLtoDoc":
+    processurl()
