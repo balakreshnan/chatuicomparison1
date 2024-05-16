@@ -10,6 +10,7 @@ from azure.kusto.data.exceptions import KustoServiceError
 from azure.kusto.data.helpers import dataframe_from_result_table
 import streamlit as st
 #from figmatocode import figmatocode
+import streamlit.components.v1 as components
 
 config = dotenv_values("env.env")
 
@@ -209,7 +210,7 @@ def kustochartp():
         
         selected_optioncharttype = st.selectbox("Select an Chart Type:", charttype)
 
-        modeloptions = ["gpt-35-turbo", "gpt-4-turbo", "llama2", "mixstral"]
+        modeloptions = ["gpt-35-turbo-16k", "gpt-4-turbo", "llama2", "mixstral"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
@@ -267,4 +268,6 @@ def kustochartp():
         print("Javascript Text: ", chart_js)
 
         # Embed HTML content with JavaScript code for the chart
-        st.components.v1.html(chart_js, height=350, width=700, scrolling=True)
+        # st.components.v1.html(chart_js, height=350, width=700, scrolling=True)
+        # st.html(chart_js)
+        components.html(chart_js, scrolling=True, height=600, width=500)

@@ -14,6 +14,7 @@ import autogen
 from typing import Optional
 from typing_extensions import Annotated
 import PyPDF2
+import streamlit.components.v1 as components
 
 config = dotenv_values("env.env")
 
@@ -124,7 +125,7 @@ def processdiagrams():
         selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
         
         # Get user input
-        user_input = st.text_input("Enter scenario to create diagrams:")
+        user_input = st.text_input("Enter scenario to create diagrams:", "Create a ecommerce online shopping card in Azure")
 
         if st.button("Submit"):
             count += 1
@@ -134,7 +135,9 @@ def processdiagrams():
             chart_js = mermaid_chart(rtext)
             print("Javascript Text: ", chart_js)
             # Embed HTML content with JavaScript code for the chart
-            st.components.v1.html(chart_js, height=350, width=600, scrolling=True)
+            #st.html(chart_js)
+            components.html(chart_js, scrolling=True, height=600, width=500)
+            # st.markdown(chart_js, unsafe_allow_html=True)
 
     with col2:
         # Create a button for the user to submit the form

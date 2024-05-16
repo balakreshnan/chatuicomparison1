@@ -62,30 +62,51 @@ DESCRIPTION = "Simple avatar synthesis description"
 # The service host suffix.
 SERVICE_HOST = "customvoice.api.speech.microsoft.com"
 
+def get_html_document(url):
+    response = requests.get(url)
+    return response.content
+
 def get_website_info(url):
     try:
         # Send a GET request to the URL
         response = requests.get(url)
         # Parse the HTML content
         soup = BeautifulSoup(response.text, 'html.parser')
+        # soup = BeautifulSoup(get_html_document(url), 'html.parser')
+        formdata = []
+        my_string = ""
         
         # Extract relevant information
         title = soup.title.string.strip() if soup.title else "No title available"
         meta_description = soup.find("meta", {"name": "description"})
         description = meta_description['content'].strip() if meta_description else "No meta description available"
+
+        form = soup.find('form')
+        if form is not None:
+            content = form.find_all('input')
+            print(content) 
+            # Print the form data
+            for input in content:
+                print(input['name'])
+                formdata.append(f"{input['name']}")
+            my_string = ', '.join(formdata)
+        else:
+            print("Didn't find what I was looking for...")
+            my_string = "No form data available"   
         
-        return title, description
+        return title, description, my_string
     except Exception as e:
         print("An error occurred:", e)
 
-def generate_documentation(url, selected_optionmodel1):
-    title, description = get_website_info(url)
+def generate_documentation(url, selected_optionmodel1):    
+    returntxt = ""
+
+    title, description, my_string = get_website_info(url)
     documentation = f"Website Documentation:\n\nURL: {url}\nTitle: {title}\nMeta Description: {description}"
 
-    returntxt = ""
     message_text = [
     {"role":"system", "content":"You are AI Agent to create documentation for the website. Provide a detailed documentation for the website."}, 
-    {"role": "user", "content": f""" Create step by step documentation for the content provided and also show them examples where we can get the data from. \n Source: {documentation}"""}]
+    {"role": "user", "content": f""" Create step by step documentation for the form available in content provided only and also show them examples where we can get the data from. \n Source: {my_string}"""}]
 
     response = client.chat.completions.create(
         model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
@@ -93,6 +114,7 @@ def generate_documentation(url, selected_optionmodel1):
         temperature=0.0,
         top_p=1.0,
         seed=42,
+        max_tokens=500,
     )
 
     returntxt = response.choices[0].message.content
@@ -121,14 +143,14 @@ def submit_synthesis(inputtext):
         },
         "inputs": [
             {
-                "text": f"{inputtext}",
+                "text": f"""{inputtext}""",
             },
         ],
         "properties": {
             "customized": False, # set to True if you want to use customized avatar
             "talkingAvatarCharacter": "lisa",  # talking avatar character
             "talkingAvatarStyle": "graceful-sitting",  # talking avatar style, required for prebuilt avatar, optional for custom avatar
-            "videoFormat": "webm",  # mp4 or webm, webm is required for transparent background
+            "videoFormat": "mp4",  # mp4 or webm, webm is required for transparent background
             "videoCodec": "vp9",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
             "subtitleType": "soft_embedded",
             "backgroundColor": "transparent",
@@ -200,27 +222,28 @@ def processtextovideo(displaytext):
     return status, url1
 
 def processurl():
-
-    returntxt = ""
     rtext = ""
-
     count = 0
     col1, col2 = st.columns(2)
+    status = None
+    url1 = ""
 
     with col1:
-        modeloptions1 = ["gpt-4-turbo", "gpt-35-turbo", "gpt-4"]
+        modeloptions1 = ["gpt-35-turbo-16k", "gpt-4-turbo", "gpt-35-turbo", "gpt-4"]
         selected_optionmodel1 = st.selectbox("Select the model for the response", modeloptions1)
-        user_input1 = st.text_input("Enter URL:", key=count, value="https://azureaiconf.com/#!/register")
+        user_input1 = st.text_input("Enter URL:", key=count, value="https://uwm.edu/csi/connections/contact/")
         count += 1
         if st.button("Submit"):
             count += 1            
             rtext = generate_documentation(user_input1, selected_optionmodel1)
-
-    with col2:
+    with col2:        
         if rtext:
             st.write(rtext)
-            if st.button("CreateVideo"):
+        if st.button("CreateVideo"):
+            rtext = generate_documentation(user_input1, selected_optionmodel1)
+            if rtext:
                 status, url1 = processtextovideo(rtext)
                 st.write(f"Status: {status}")
-                st.write(f"Video URL: {url1}")
-            
+                st.write(f"Video URL: {url1}") 
+            else:
+                st.write("No text to create video") 

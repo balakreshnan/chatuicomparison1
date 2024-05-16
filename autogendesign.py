@@ -134,4 +134,4 @@ def invokeagent():
                 <div class="container">{rttxt}</div>            
                 </body>
                 </html>"""
-                st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+                st.html(htmloutput)

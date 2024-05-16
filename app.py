@@ -18,6 +18,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"  # or "collapsed"
 )
 
+# Load your CSS file
+def load_css(file_path):
+    with open(file_path, "r") as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+# Call the function to load the CSS
+load_css("styles.css")
+
 st.sidebar.image("bblogo1.png", use_column_width=True)
 # Sidebar navigation
 nav_option = st.sidebar.selectbox("Navigation", ["Home", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "About"])
@@ -43,3 +51,5 @@ elif nav_option == "Diagrams":
     processdiagrams()
 elif nav_option == "URLtoDoc":
     processurl()
+
+st.sidebar.image("microsoft-logo-png-transparent-20.png", use_column_width=True)
