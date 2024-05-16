@@ -30,7 +30,8 @@ client = AzureOpenAI(
   #api_version="2023-09-01-preview"
 )
 
-deployment_name = "gpt-4-vision"
+# deployment_name = "gpt-4-vision"
+deployment_name = "gpt-4-turbo"
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -38,7 +39,7 @@ def encode_image(image_path):
     
 def processimage(base64_image, imgprompt):
     response = client.chat.completions.create(
-    model="gpt-4-vision",
+    model="gpt-4-turbo",
     messages=[
         {
         "role": "user",
@@ -116,7 +117,7 @@ def figmatocode():
     col1, col2 = st.columns(2)
 
     with col1:
-        modeloptions1 = ["gpt-4-vision", "gpt-35-turbo", "gpt-4-turbo"]
+        modeloptions1 = ["gpt-4-turbo", "gpt-35-turbo", "gpt-4-turbo"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)

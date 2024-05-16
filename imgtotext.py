@@ -35,7 +35,8 @@ client = AzureOpenAI(
   #api_version="2023-09-01-preview"
 )
 
-deployment_name = "gpt-4-vision"
+#deployment_name = "gpt-4-vision"
+deployment_name = "gpt-4-turbo"
 
 SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 # We recommend to use passwordless authentication with Azure Identity here; meanwhile, you can also use a subscription key instead
@@ -56,7 +57,7 @@ def encode_image(image_path):
     
 def processimage(base64_image, imgprompt):
     response = client.chat.completions.create(
-    model="gpt-4-vision",
+    model="gpt-4-turbo",
     messages=[
         {
         "role": "user",
@@ -219,7 +220,7 @@ def imgtotext():
     url1 = ""
 
     with col1:
-        modeloptions1 = ["gpt-4-vision", "gpt-35-turbo", "gpt-4-turbo"]
+        modeloptions1 = ["gpt-4-turbo", "gpt-35-turbo", "gpt-4-turbo"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)
