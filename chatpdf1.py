@@ -76,7 +76,7 @@ def processpdf():
     col1, col2 = st.columns(2)
 
     with col1:
-        modeloptions1 = ["gpt-4-turbo", "gpt-35-turbo", "gpt-4"]
+        modeloptions1 = ["gpt-4-turbo", "gpt-35-turbo", "gpt-4", "gpt-4o", "gpt-4o-g"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)

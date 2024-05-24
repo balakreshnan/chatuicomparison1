@@ -26,17 +26,19 @@ css = """
 client = AzureOpenAI(
   azure_endpoint = config["AZURE_OPENAI_ENDPOINT_ASSITANT"], 
   api_key=config["AZURE_OPENAI_KEY_ASSITANT"],  
-  api_version="2024-02-15-preview"
-  #api_version="2024-02-01"
+  #api_version="2024-02-15-preview"
+  #api_version="2024-05-13"
+  api_version="2024-02-01"
   #api_version="2023-12-01-preview"
   #api_version="2023-09-01-preview"
 )
 
-model_name = "gpt-4-turbo"
+#model_name = "gpt-4-turbo"
+model_name = "gpt-4o-g"
 
 llm_config={"config_list": [
-    {"model": "gpt-4-turbo", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+    {"model": "gpt-4o-g", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
     "api_type" : "azure", "api_version" : "2024-02-01"}
     ]}
 
@@ -106,7 +108,7 @@ def invokeagent():
     rttxt = ""
 
     with col1:
-        modeloptions = ["gpt-4-turbo", "gpt-35-turbo", "llama2", "mixstral"]
+        modeloptions = ["gpt-4o-g", "gpt-4o" ,"gpt-4-turbo", "gpt-35-turbo", "llama2", "mixstral"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel = st.selectbox("Select an Model:", modeloptions)

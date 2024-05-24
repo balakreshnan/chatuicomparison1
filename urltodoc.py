@@ -38,15 +38,16 @@ css = """
 """
 
 client = AzureOpenAI(
-  azure_endpoint = config["AZURE_OPENAI_ENDPOINT"], 
-  api_key=config["AZURE_OPENAI_KEY"],  
+  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION"], 
+  api_key=config["AZURE_OPENAI_KEY_VISION"],  
   api_version="2024-02-01"
+  #api_version="2024-05-13"
   #api_version="2024-02-15-preview"
   #api_version="2023-12-01-preview"
   #api_version="2023-09-01-preview"
 )
 
-model_name = "gpt-4-turbo"
+model_name = "gpt-4o"
 #model_name = "gpt-35-turbo-16k"
 
 SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
@@ -229,7 +230,7 @@ def processurl():
     url1 = ""
 
     with col1:
-        modeloptions1 = ["gpt-35-turbo-16k", "gpt-4-turbo", "gpt-35-turbo", "gpt-4"]
+        modeloptions1 = ["gpt-4o", ",gpt-4o-g", "gpt-35-turbo-16k", "gpt-4-turbo", "gpt-35-turbo", "gpt-4"]
         selected_optionmodel1 = st.selectbox("Select the model for the response", modeloptions1)
         user_input1 = st.text_input("Enter URL:", key=count, value="https://uwm.edu/csi/connections/contact/")
         count += 1
