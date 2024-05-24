@@ -21,8 +21,8 @@ css = """
 """
 
 client = AzureOpenAI(
-  azure_endpoint = config["AZURE_OPENAI_ENDPOINT"], 
-  api_key=config["AZURE_OPENAI_KEY"],  
+  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION"], 
+  api_key=config["AZURE_OPENAI_KEY_VISION"],  
   api_version="2024-02-01"
   #api_version="2024-05-13"
   #api_version="2023-12-01-preview"
@@ -211,7 +211,7 @@ def kustochartp():
         
         selected_optioncharttype = st.selectbox("Select an Chart Type:", charttype)
 
-        modeloptions = ["gpt-4o", "gpt-4","gpt-35-turbo-16k", "gpt-4-turbo", "llama2", "mixstral"]
+        modeloptions = ["gpt-4o", "gpt-4o-g","gpt-35-turbo-16k", "gpt-4-turbo", "llama2", "mixstral"]
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
