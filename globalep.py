@@ -67,7 +67,7 @@ def processinfo(response,firstllm, message):
     return returntext
 
 def main():
-    st.title("Analytics apps to create D3.js charts using OpenAI")
+    st.title("GPT-4o Global Endpoint")
     col1, col2 = st.columns(2)
     rttxt = ""
 
