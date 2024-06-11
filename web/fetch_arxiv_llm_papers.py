@@ -1,42 +1,28 @@
 # filename: fetch_arxiv_llm_papers.py
-import feedparser
-import urllib.parse
-from datetime import datetime, timedelta
 
-# Define the base URL for the arXiv API
-ARXIV_API_URL = "http://export.arxiv.org/api/query?"
+import requests
+import datetime
+from dateutil import parser
 
-# Define the search query parameters
-search_query = "cat:cs.CL AND (abs:\"large language model\" OR title:\"large language model\")"
-start = 0
-max_results = 100
-sort_by = "submittedDate"
-sort_order = "descending"
+def fetch_arxiv_papers(query, start_date, end_date, max_results=100):
+    base_url = "http://export.arxiv.org/api/query?"
+    search_query = f"search_query={query}+AND+submittedDate:[{start_date}+TO+{end_date}]"
+    url = f"{base_url}{search_query}&start=0&max_results={max_results}"
+    response = requests.get(url)
+    return response.text
 
-# Calculate the date 7 days ago from today
-date_seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%SZ')
+def main():
+    end_date = datetime.datetime.now()
+    start_date = end_date - datetime.timedelta(days=7)
+    start_date_str = start_date.strftime('%Y%m%d')
+    end_date_str = end_date.strftime('%Y%m%d')
+    
+    query = "cat:cs.CL"  # cs.CL is the category for Computation and Language
+    response = fetch_arxiv_papers(query, start_date_str, end_date_str)
+    
+    # Write the response to a file
+    with open("arxiv_papers.xml", "w", encoding="utf-8") as file:
+        file.write(response)
 
-# Encode the query parameters
-params = {
-    'search_query': search_query,
-    'start': start,
-    'max_results': max_results,
-    'sortBy': sort_by,
-    'sortOrder': sort_order,
-    'submittedDate': date_seven_days_ago
-}
-encoded_params = urllib.parse.urlencode(params, quote_via=urllib.parse.quote)
-
-# Construct the full query URL
-query = f"{ARXIV_API_URL}{encoded_params}"
-
-# Fetch the data from arXiv
-feed = feedparser.parse(query)
-
-# Check if the feed entries exist
-if not feed.entries:
-    print("No papers found for the last 7 days on LLM.")
-else:
-    # Print the titles and abstracts of the papers
-    for entry in feed.entries:
-        print(f"Title: {entry.title}\nAbstract: {entry.summary}\n")
+if __name__ == "__main__":
+    main()

@@ -195,7 +195,8 @@ def dynagents():
                 <div class="container">{rttxt}</div>            
                 </body>
                 </html>"""
-            st.html(htmloutput)
+            #st.html(htmloutput)
+            st.markdown(htmloutput, unsafe_allow_html=True)
 
     
 

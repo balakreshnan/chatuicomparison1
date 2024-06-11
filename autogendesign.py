@@ -103,6 +103,8 @@ def invokeagent():
     #query = "display a simple bar chart?"
     # agentconfig()
 
+    st.title("Agent Design - Chat with AI Agent to solve a Crime Scene Problem")
+
     count = 0
     col1, col2 = st.columns(2)
     rttxt = ""
@@ -112,7 +114,7 @@ def invokeagent():
 
         # Create a dropdown menu using selectbox method
         selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
-        query = st.text_input("Describe the problem statement to figure out:", key=count, value="Suspect robbed a bank and took around 100000 dollars worth of cash.")
+        query = st.text_input("Describe the problem statement to figure out:", key=count, value="Suspect snatched a purse from a older woman and took $200 and some jewelry?")
         count += 1
         #st.write(query)
         # Create a button to generate a response when clicked
