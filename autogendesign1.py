@@ -27,29 +27,30 @@ css = """
 """
 
 client = AzureOpenAI(
-  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_ASSITANT"], 
-  api_key=config["AZURE_OPENAI_KEY_ASSITANT"],  
-  api_version="2024-02-15-preview"
+  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION"], 
+  api_key=config["AZURE_OPENAI_KEY_VISION"],  
+  api_version="2024-05-01-preview"
   #api_version="2024-02-01"
   #api_version="2023-12-01-preview"
   #api_version="2023-09-01-preview"
 )
 
 #model_name = "gpt-4-turbo"
-model_name = "gpt-35-turbo-16k"
+#model_name = "gpt-35-turbo-16k"
+model_name = "gpt-4o-g"
 
 llm_config={"config_list": [
-    {"model": "gpt-35-turbo", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+    {"model": "gpt-35-turbo", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
     "api_type" : "azure", "api_version" : "2024-02-01"},
-    {"model": "gpt-35-turbo-16k", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+    {"model": "gpt-35-turbo-16k", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
     "api_type" : "azure", "api_version" : "2024-02-01"},
-    {"model": "gpt-4o-g", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+    {"model": "gpt-4o-g", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
     "api_type" : "azure", "api_version" : "2024-02-01"},
-    {"model": "gpt-4o", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+    {"model": "gpt-4o", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
     "api_type" : "azure", "api_version" : "2024-02-01"}
     ],
     "timeout": 600,

@@ -9,6 +9,7 @@ from frecipe import foodreceipe
 from chatpdf1 import processpdf
 from diagrams import processdiagrams
 from urltodoc import processurl
+from workbench import processtext
 
 # Set page size
 st.set_page_config(
@@ -28,7 +29,7 @@ load_css("styles.css")
 
 st.sidebar.image("bblogo1.png", use_column_width=True)
 # Sidebar navigation
-nav_option = st.sidebar.selectbox("Navigation", ["Home", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "About"])
+nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -51,5 +52,7 @@ elif nav_option == "Diagrams":
     processdiagrams()
 elif nav_option == "URLtoDoc":
     processurl()
+elif nav_option == "Workbench":
+    processtext()
 
 st.sidebar.image("microsoft-logo-png-transparent-20.png", use_column_width=True)
