@@ -69,7 +69,7 @@ def generate_input_boxes(count):
         input_values.append(value)
     return input_values
 
-def processagent(query, input_values, mainassistant, maindesc):
+def processagent(query, input_values, mainassistant, maindesc, optimizer=False, opttext=""):
     returntxt = ""
     agents = []
     agentsdict = {}
@@ -117,6 +117,18 @@ def processagent(query, input_values, mainassistant, maindesc):
         print('useragent: ', useragent)
         agents.append(useragent)
         cnt += 1
+
+        if optimizer:
+            optagent = autogen.AssistantAgent(
+                name="Optimizer",
+                is_termination_msg=termination_msg,
+                human_input_mode="NEVER",
+                system_message=opttext,
+                description="I am Optimizer who optimize the model for performance",
+                llm_config=llm_config,
+            )
+            agents.append(optagent)
+        
 
         #if "TERMINATE" in returntxt:
         #    break
@@ -169,6 +181,11 @@ def dynagents():
 
         maindesc = st.text_input("Assistant Description:", key=count, value="I am Lead Architect and my job is to understand the use case from business owner and then design the technology pieces needed.")
         count += 1
+
+        optimizer = st.checkbox("Optimize the model for performance", key=count)
+        count += 1
+        opttext = st.text_input("Optimization Text:", key=count, value="Analyze the input and optimize for best performance as output.")
+        count += 1
         # Get the count of input boxes from the user
         count = st.number_input("Enter the count of input boxes:", min_value=1, step=1)
 
@@ -177,7 +194,7 @@ def dynagents():
 
         if st.button("Generate Response"):
             if query:
-                rttxt = processagent(query, input_values, mainassistant, maindesc)
+                rttxt = processagent(query, input_values, mainassistant, maindesc, optimizer=optimizer, opttext=opttext)
                 print('rttxt: ', rttxt)
                 #st.write(rttxt)
 
