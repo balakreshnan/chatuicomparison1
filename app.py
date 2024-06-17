@@ -10,6 +10,7 @@ from chatpdf1 import processpdf
 from diagrams import processdiagrams
 from urltodoc import processurl
 from workbench import processtext
+from stocks import invokestocks 
 
 # Set page size
 st.set_page_config(
@@ -27,9 +28,11 @@ def load_css(file_path):
 # Call the function to load the CSS
 load_css("styles.css")
 
+st.logo("bblogo1.png")
 st.sidebar.image("bblogo1.png", use_column_width=True)
+
 # Sidebar navigation
-nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "About"])
+nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "Stocks", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -54,5 +57,7 @@ elif nav_option == "URLtoDoc":
     processurl()
 elif nav_option == "Workbench":
     processtext()
+elif nav_option == "Stocks":
+    invokestocks()
 
 st.sidebar.image("microsoft-logo-png-transparent-20.png", use_column_width=True)
