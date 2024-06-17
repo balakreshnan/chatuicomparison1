@@ -11,6 +11,7 @@ from diagrams import processdiagrams
 from urltodoc import processurl
 from workbench import processtext
 from stocks import invokestocks 
+#from vaagent import vaprocess
 
 # Set page size
 st.set_page_config(
@@ -59,5 +60,7 @@ elif nav_option == "Workbench":
     processtext()
 elif nav_option == "Stocks":
     invokestocks()
+#elif nav_option == "VisionAgent":
+#    vaprocess()
 
 st.sidebar.image("microsoft-logo-png-transparent-20.png", use_column_width=True)

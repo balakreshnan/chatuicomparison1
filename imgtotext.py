@@ -269,7 +269,8 @@ def imgtotext():
             <div class="container">{displaytext}</div>            
             </body>
             </html>"""
-            st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+            #st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+            st.html(htmloutput)
 
             if st.button("CreateVideo"):
                 status, url1 = processtextovideo(displaytext)
