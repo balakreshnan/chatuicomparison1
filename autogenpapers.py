@@ -14,6 +14,7 @@ import autogen
 from typing import Optional
 from typing_extensions import Annotated
 from autogen import AssistantAgent
+from autogen.coding import LocalCommandLineCodeExecutor
 
 config = dotenv_values("env.env")
 
@@ -59,19 +60,23 @@ def executeagent(query, selected_model):
     user_proxy = autogen.UserProxyAgent(
         name="user_proxy",
         human_input_mode="NEVER",
-        max_consecutive_auto_reply=5,
+        max_consecutive_auto_reply=10,
         is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
+        #code_execution_config={
+        #    "work_dir": "web",
+        #    "use_docker": False,
+        #},  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
         code_execution_config={
-            "work_dir": "web",
-            "use_docker": False,
-        },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
+            # the executor to run the generated code
+            "executor": LocalCommandLineCodeExecutor(work_dir="web"),
+        },
         llm_config=llm_config,
         system_message="""Once the answer is obtained, please reply with `TERMINATE` to end the conversation.""",
         default_auto_reply="exit",
     )
 
     message=f"""
-    summarize: {query}
+    {query}
     """
 
     # the assistant receives a message from the user, which contains the task description
@@ -84,8 +89,15 @@ def executeagent(query, selected_model):
 
     # returntxt = result.chat_history[-1]['content']
     # returntxt = result.chat_history
+    print("Chat history:", result.chat_history)
+
+    print("Summary:", result.summary)
+    print("Cost info:", result.cost)
     for chat in result.chat_history:
         returntxt += f"{chat['role']} : {chat['content']}  " + "\n <br><br>"
+
+    returntxt += f"Summary: {result.summary}  " + "\n <br><br>"
+    returntxt += f"Cost info: {result.cost}  " + "\n <br><br>"
 
     return returntxt
 
@@ -131,4 +143,5 @@ def invokeagentpaper():
                 </body>
                 </html>"""
                 #st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
-                st.text_area("AI Response:", value=rttxt, height=400) 
+                #st.text_area("AI Response:", value=rttxt, height=400) 
+                st.markdown(rttxt)

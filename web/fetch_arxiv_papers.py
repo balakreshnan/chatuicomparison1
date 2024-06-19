@@ -1,36 +1,39 @@
 # filename: fetch_arxiv_papers.py
-import feedparser
-from datetime import datetime, timedelta
 
-# Define the base URL for the arXiv API
-ARXIV_API_URL = "http://export.arxiv.org/api/query?"
+import arxiv
+from datetime import datetime, timedelta, timezone
 
-# Define the search query parameters
-category = "cs.CL"  # cs.CL is the arXiv category for Computation and Language which includes LLM
-search_query = "all:language+AND+all:model"  # This is a simple query, it might need refinement
-start_date = (datetime.now() - timedelta(days=7)).strftime("%Y%m%d%H%M%S")
+# Define the search query and date range
+query = "Large Language Models"
+end_date = datetime.now(timezone.utc)
+start_date = end_date - timedelta(days=7)
 
-# Construct the full query URL
-query = f"search_query={search_query}+AND+submittedDate:[{start_date}+TO+30000101000000]&sortBy=submittedDate&sortOrder=descending"
-url = ARXIV_API_URL + query
+# Perform the search
+search = arxiv.Search(
+    query=query,
+    max_results=100,
+    sort_by=arxiv.SortCriterion.SubmittedDate,
+    sort_order=arxiv.SortOrder.Descending
+)
 
-# Fetch the papers
-def fetch_papers(url):
-    print(f"Fetching papers from arXiv with the following query: {url}")
-    feed = feedparser.parse(url)
-    papers = []
+# Fetch the papers using the Client class
+client = arxiv.Client()
 
-    for entry in feed.entries:
-        # Extract the title and summary (abstract) of each paper
-        title = entry.title
-        summary = entry.summary
-        papers.append((title, summary))
+# Extract relevant information and filter by date
+papers = []
+for result in client.results(search):
+    if start_date <= result.published <= end_date:
+        paper_info = {
+            "title": result.title,
+            "summary": result.summary,
+            "published": result.published,
+            "url": result.entry_id
+        }
+        papers.append(paper_info)
 
-    return papers
-
-# Fetch and print the papers
-papers = fetch_papers(url)
-for title, summary in papers:
-    print(f"Title: {title}\nSummary: {summary}\n")
-
-# Note: This script does not perform summarization. It only fetches and prints the papers.
+# Print the extracted information with UTF-8 encoding
+for paper in papers:
+    print(f"Title: {paper['title']}".encode('utf-8', errors='ignore').decode('utf-8'))
+    print(f"Published: {paper['published']}")
+    print(f"Summary: {paper['summary']}".encode('utf-8', errors='ignore').decode('utf-8'))
+    print(f"URL: {paper['url']}\n")

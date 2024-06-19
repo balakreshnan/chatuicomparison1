@@ -1,21 +1,25 @@
 # filename: fetch_arxiv_llm.py
 
-import requests
-from datetime import datetime, timedelta
+import subprocess
+import sys
 
-def fetch_arxiv_papers():
+# Function to install required packages
+def install_packages():
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "transformers"])
+
+# Install required packages
+install_packages()
+
+import requests
+import datetime
+from dateutil.parser import parse
+
+def fetch_arxiv_papers(query, max_results=100):
     base_url = "http://export.arxiv.org/api/query?"
-    search_query = "cat:cs.CL"  # cs.CL is the category for Computation and Language
-    start_date = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
-    end_date = datetime.now().strftime("%Y-%m-%d")
-    query = f"search_query={search_query}+AND+submittedDate:[{start_date}+TO+{end_date}]&start=0&max_results=100"
-    
-    response = requests.get(base_url + query)
-    if response.status_code == 200:
-        return response.text
-    else:
-        print("Failed to fetch data from arXiv")
-        return None
+    search_query = f"search_query={query}&start=0&max_results={max_results}"
+    response = requests.get(base_url + search_query)
+    return response.text
 
 def parse_arxiv_response(response):
     import xml.etree.ElementTree as ET
@@ -24,8 +28,22 @@ def parse_arxiv_response(response):
     for entry in root.findall("{http://www.w3.org/2005/Atom}entry"):
         title = entry.find("{http://www.w3.org/2005/Atom}title").text
         summary = entry.find("{http://www.w3.org/2005/Atom}summary").text
-        papers.append({"title": title, "summary": summary})
+        published = entry.find("{http://www.w3.org/2005/Atom}published").text
+        papers.append({
+            "title": title,
+            "summary": summary,
+            "published": published
+        })
     return papers
+
+def filter_recent_papers(papers, days=7):
+    recent_papers = []
+    now = datetime.datetime.now()
+    for paper in papers:
+        published_date = parse(paper["published"])
+        if (now - published_date).days <= days:
+            recent_papers.append(paper)
+    return recent_papers
 
 def summarize_papers(papers):
     from transformers import pipeline
@@ -33,16 +51,20 @@ def summarize_papers(papers):
     summaries = []
     for paper in papers:
         summary = summarizer(paper["summary"], max_length=150, min_length=30, do_sample=False)[0]['summary_text']
-        summaries.append({"title": paper["title"], "summary": summary})
+        summaries.append({
+            "title": paper["title"],
+            "summary": summary
+        })
     return summaries
 
 def main():
-    response = fetch_arxiv_papers()
-    if response:
-        papers = parse_arxiv_response(response)
-        summaries = summarize_papers(papers)
-        for summary in summaries:
-            print(f"Title: {summary['title']}\nSummary: {summary['summary']}\n")
+    query = "cat:cs.CL AND ti:language model"
+    response = fetch_arxiv_papers(query)
+    papers = parse_arxiv_response(response)
+    recent_papers = filter_recent_papers(papers)
+    summaries = summarize_papers(recent_papers)
+    for summary in summaries:
+        print(f"Title: {summary['title']}\nSummary: {summary['summary']}\n")
 
 if __name__ == "__main__":
     main()
