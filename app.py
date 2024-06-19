@@ -12,6 +12,7 @@ from urltodoc import processurl
 from workbench import processtext
 from stocks import invokestocks 
 #from vaagent import vaprocess
+from videochat import processvideo
 
 # Set page size
 st.set_page_config(
@@ -33,7 +34,10 @@ st.logo("bblogo1.png")
 st.sidebar.image("bblogo1.png", use_column_width=True)
 
 # Sidebar navigation
-nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", "AgentDesign", "ArxivPapers", "Design with Agents", "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", "Stocks", "About"])
+nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", 
+                                                 "AgentDesign", "ArxivPapers", "Design with Agents", 
+                                                 "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", 
+                                                 "Stocks", "VideoChat", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -60,6 +64,8 @@ elif nav_option == "Workbench":
     processtext()
 elif nav_option == "Stocks":
     invokestocks()
+elif nav_option == "VideoChat":
+    processvideo()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 
