@@ -1,0 +1,2164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="http://arxiv.org/api/query?search_query%3Dcat%3Acs.CL%20AND%20submittedDate%3A%5B20240612%20TO%2020240619%5D%26id_list%3D%26start%3D0%26max_results%3D50" rel="self" type="application/atom+xml"/>
+  <title type="html">ArXiv Query: search_query=cat:cs.CL AND submittedDate:[20240612 TO 20240619]&amp;id_list=&amp;start=0&amp;max_results=50</title>
+  <id>http://arxiv.org/api/nBsyO8EdfvrQJ1zwUoC1hbS36Bw</id>
+  <updated>2024-06-19T00:00:00-04:00</updated>
+  <opensearch:totalResults xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">671</opensearch:totalResults>
+  <opensearch:startIndex xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">0</opensearch:startIndex>
+  <opensearch:itemsPerPage xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">50</opensearch:itemsPerPage>
+  <entry>
+    <id>http://arxiv.org/abs/2406.07886v1</id>
+    <updated>2024-06-12T05:24:58Z</updated>
+    <published>2024-06-12T05:24:58Z</published>
+    <title>Label-aware Hard Negative Sampling Strategies with Momentum Contrastive
+  Learning for Implicit Hate Speech Detection</title>
+    <summary>  Detecting implicit hate speech that is not directly hateful remains a
+challenge. Recent research has attempted to detect implicit hate speech by
+applying contrastive learning to pre-trained language models such as BERT and
+RoBERTa, but the proposed models still do not have a significant advantage over
+cross-entropy loss-based learning. We found that contrastive learning based on
+randomly sampled batch data does not encourage the model to learn hard negative
+samples. In this work, we propose Label-aware Hard Negative sampling strategies
+(LAHN) that encourage the model to learn detailed features from hard negative
+samples, instead of naive negative samples in random batch, using
+momentum-integrated contrastive learning. LAHN outperforms the existing models
+for implicit hate speech detection both in- and cross-datasets. The code is
+available at https://github.com/Hanyang-HCC-Lab/LAHN
+</summary>
+    <author>
+      <name>Jaehoon Kim</name>
+    </author>
+    <author>
+      <name>Seungwan Jin</name>
+    </author>
+    <author>
+      <name>Sohyun Park</name>
+    </author>
+    <author>
+      <name>Someen Park</name>
+    </author>
+    <author>
+      <name>Kyungsik Han</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted to ACL 2024 Findings</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.07886v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.07886v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.07922v1</id>
+    <updated>2024-06-12T06:44:05Z</updated>
+    <published>2024-06-12T06:44:05Z</published>
+    <title>Automated Information Extraction from Thyroid Operation Narrative: A
+  Comparative Study of GPT-4 and Fine-tuned KoELECTRA</title>
+    <summary>  In the rapidly evolving field of healthcare, the integration of artificial
+intelligence (AI) has become a pivotal component in the automation of clinical
+workflows, ushering in a new era of efficiency and accuracy. This study focuses
+on the transformative capabilities of the fine-tuned KoELECTRA model in
+comparison to the GPT-4 model, aiming to facilitate automated information
+extraction from thyroid operation narratives. The current research landscape is
+dominated by traditional methods heavily reliant on regular expressions, which
+often face challenges in processing free-style text formats containing critical
+details of operation records, including frozen biopsy reports. Addressing this,
+the study leverages advanced natural language processing (NLP) techniques to
+foster a paradigm shift towards more sophisticated data processing systems.
+Through this comparative study, we aspire to unveil a more streamlined,
+precise, and efficient approach to document processing in the healthcare
+domain, potentially revolutionizing the way medical data is handled and
+analyzed.
+</summary>
+    <author>
+      <name>Dongsuk Jang</name>
+    </author>
+    <author>
+      <name>Hyeryun Park</name>
+    </author>
+    <author>
+      <name>Jiye Son</name>
+    </author>
+    <author>
+      <name>Hyeonuk Hwang</name>
+    </author>
+    <author>
+      <name>Sujin Kim</name>
+    </author>
+    <author>
+      <name>Jinwook Choi</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">9 pages, 2 figures, 3 tables</arxiv:comment>
+    <arxiv:journal_ref xmlns:arxiv="http://arxiv.org/schemas/atom">AMIA Joint Summits on Translational Science Proceedings, 2024, pp.
+  249-257</arxiv:journal_ref>
+    <link href="http://arxiv.org/abs/2406.07922v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.07922v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.07970v1</id>
+    <updated>2024-06-12T07:49:36Z</updated>
+    <published>2024-06-12T07:49:36Z</published>
+    <title>Guiding In-Context Learning of LLMs through Quality Estimation for
+  Machine Translation</title>
+    <summary>  The quality of output from large language models (LLMs), particularly in
+machine translation (MT), is closely tied to the quality of in-context examples
+(ICEs) provided along with the query, i.e., the text to translate. The
+effectiveness of these ICEs is influenced by various factors, such as the
+domain of the source text, the order in which the ICEs are presented, the
+number of these examples, and the prompt templates used. Naturally, selecting
+the most impactful ICEs depends on understanding how these affect the resulting
+translation quality, which ultimately relies on translation references or human
+judgment. This paper presents a novel methodology for in-context learning (ICL)
+that relies on a search algorithm guided by domain-specific quality estimation
+(QE). Leveraging the XGLM model, our methodology estimates the resulting
+translation quality without the need for translation references, selecting
+effective ICEs for MT to maximize translation quality. Our results demonstrate
+significant improvements over existing ICL methods and higher translation
+performance compared to fine-tuning a pre-trained language model (PLM),
+specifically mBART-50.
+</summary>
+    <author>
+      <name>Javad Pourmostafa Roshan Sharami</name>
+    </author>
+    <author>
+      <name>Dimitar Shterionov</name>
+    </author>
+    <author>
+      <name>Pieter Spronck</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.07970v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.07970v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08055v1</id>
+    <updated>2024-06-12T10:12:52Z</updated>
+    <published>2024-06-12T10:12:52Z</published>
+    <title>Learning Job Title Representation from Job Description Aggregation
+  Network</title>
+    <summary>  Learning job title representation is a vital process for developing automatic
+human resource tools. To do so, existing methods primarily rely on learning the
+title representation through skills extracted from the job description,
+neglecting the rich and diverse content within. Thus, we propose an alternative
+framework for learning job titles through their respective job description (JD)
+and utilize a Job Description Aggregator component to handle the lengthy
+description and bidirectional contrastive loss to account for the bidirectional
+relationship between the job title and its description. We evaluated the
+performance of our method on both in-domain and out-of-domain settings,
+achieving a superior performance over the skill-based approach.
+</summary>
+    <author>
+      <name>Napat Laosaengpha</name>
+    </author>
+    <author>
+      <name>Thanit Tativannarat</name>
+    </author>
+    <author>
+      <name>Chawan Piansaddhayanon</name>
+    </author>
+    <author>
+      <name>Attapol Rutherford</name>
+    </author>
+    <author>
+      <name>Ekapol Chuangsuwanich</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">to be published in Findings of the Association for Computational
+  Linguistics: ACL 2024</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08055v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08055v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08068v1</id>
+    <updated>2024-06-12T10:36:27Z</updated>
+    <published>2024-06-12T10:36:27Z</published>
+    <title>Large Language Models Meet Text-Centric Multimodal Sentiment Analysis: A
+  Survey</title>
+    <summary>  Compared to traditional sentiment analysis, which only considers text,
+multimodal sentiment analysis needs to consider emotional signals from
+multimodal sources simultaneously and is therefore more consistent with the way
+how humans process sentiment in real-world scenarios. It involves processing
+emotional information from various sources such as natural language, images,
+videos, audio, physiological signals, etc. However, although other modalities
+also contain diverse emotional cues, natural language usually contains richer
+contextual information and therefore always occupies a crucial position in
+multimodal sentiment analysis. The emergence of ChatGPT has opened up immense
+potential for applying large language models (LLMs) to text-centric multimodal
+tasks. However, it is still unclear how existing LLMs can adapt better to
+text-centric multimodal sentiment analysis tasks. This survey aims to (1)
+present a comprehensive review of recent research in text-centric multimodal
+sentiment analysis tasks, (2) examine the potential of LLMs for text-centric
+multimodal sentiment analysis, outlining their approaches, advantages, and
+limitations, (3) summarize the application scenarios of LLM-based multimodal
+sentiment analysis technology, and (4) explore the challenges and potential
+research directions for multimodal sentiment analysis in the future.
+</summary>
+    <author>
+      <name>Hao Yang</name>
+    </author>
+    <author>
+      <name>Yanyan Zhao</name>
+    </author>
+    <author>
+      <name>Yang Wu</name>
+    </author>
+    <author>
+      <name>Shilong Wang</name>
+    </author>
+    <author>
+      <name>Tian Zheng</name>
+    </author>
+    <author>
+      <name>Hongbo Zhang</name>
+    </author>
+    <author>
+      <name>Wanxiang Che</name>
+    </author>
+    <author>
+      <name>Bing Qin</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08068v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08068v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08092v1</id>
+    <updated>2024-06-12T11:16:30Z</updated>
+    <published>2024-06-12T11:16:30Z</published>
+    <title>Languages Transferred Within the Encoder: On Representation Transfer in
+  Zero-Shot Multilingual Translation</title>
+    <summary>  Understanding representation transfer in multilingual neural machine
+translation can reveal the representational issue causing the zero-shot
+translation deficiency. In this work, we introduce the identity pair, a
+sentence translated into itself, to address the lack of the base measure in
+multilingual investigations, as the identity pair represents the optimal state
+of representation among any language transfers. In our analysis, we demonstrate
+that the encoder transfers the source language to the representational subspace
+of the target language instead of the language-agnostic state. Thus, the
+zero-shot translation deficiency arises because representations are entangled
+with other languages and are not transferred effectively to the target
+language. Based on our findings, we propose two methods: 1) low-rank
+language-specific embedding at the encoder, and 2) language-specific
+contrastive learning of the representation at the decoder. The experimental
+results on Europarl-15, TED-19, and OPUS-100 datasets show that our methods
+substantially enhance the performance of zero-shot translations by improving
+language transfer capacity, thereby providing practical evidence to support our
+conclusions.
+</summary>
+    <author>
+      <name>Zhi Qu</name>
+    </author>
+    <author>
+      <name>Chenchen Ding</name>
+    </author>
+    <author>
+      <name>Taro Watanabe</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08092v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08092v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08101v2</id>
+    <updated>2024-06-13T03:16:47Z</updated>
+    <published>2024-06-12T11:27:10Z</published>
+    <title>CoXQL: A Dataset for Parsing Explanation Requests in Conversational XAI
+  Systems</title>
+    <summary>  Conversational explainable artificial intelligence (ConvXAI) systems based on
+large language models (LLMs) have garnered significant interest from the
+research community in natural language processing (NLP) and human-computer
+interaction (HCI). Such systems can provide answers to user questions about
+explanations in dialogues, have the potential to enhance users' comprehension
+and offer more information about the decision-making and generation processes
+of LLMs. Currently available ConvXAI systems are based on intent recognition
+rather than free chat, as this has been found to be more precise and reliable
+in identifying users' intentions. However, the recognition of intents still
+presents a challenge in the case of ConvXAI, since little training data exist
+and the domain is highly specific, as there is a broad range of XAI methods to
+map requests onto. In order to bridge this gap, we present CoXQL, the first
+dataset for user intent recognition in ConvXAI, covering 31 intents, seven of
+which require filling multiple slots. Subsequently, we enhance an existing
+parsing approach by incorporating template validations, and conduct an
+evaluation of several LLMs on CoXQL using different parsing strategies. We
+conclude that the improved parsing approach (MP+) surpasses the performance of
+previous approaches. We also discover that intents with multiple slots remain
+highly challenging for LLMs.
+</summary>
+    <author>
+      <name>Qianli Wang</name>
+    </author>
+    <author>
+      <name>Tatiana Anikina</name>
+    </author>
+    <author>
+      <name>Nils Feldhus</name>
+    </author>
+    <author>
+      <name>Simon Ostermann</name>
+    </author>
+    <author>
+      <name>Sebastian Möller</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">4 pages, short paper</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08101v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08101v2" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08173v1</id>
+    <updated>2024-06-12T13:05:27Z</updated>
+    <published>2024-06-12T13:05:27Z</published>
+    <title>Semi-Supervised Spoken Language Glossification</title>
+    <summary>  Spoken language glossification (SLG) aims to translate the spoken language
+text into the sign language gloss, i.e., a written record of sign language. In
+this work, we present a framework named $S$emi-$S$upervised $S$poken $L$anguage
+$G$lossification ($S^3$LG) for SLG. To tackle the bottleneck of limited
+parallel data in SLG, our $S^3$LG incorporates large-scale monolingual spoken
+language text into SLG training. The proposed framework follows the
+self-training structure that iteratively annotates and learns from pseudo
+labels. Considering the lexical similarity and syntactic difference between
+sign language and spoken language, our $S^3$LG adopts both the rule-based
+heuristic and model-based approach for auto-annotation. During training, we
+randomly mix these complementary synthetic datasets and mark their differences
+with a special token. As the synthetic data may be less quality, the $S^3$LG
+further leverages consistency regularization to reduce the negative impact of
+noise in the synthetic data. Extensive experiments are conducted on public
+benchmarks to demonstrate the effectiveness of the $S^3$LG. Our code is
+available at \url{https://github.com/yaohj11/S3LG}.
+</summary>
+    <author>
+      <name>Huijie Yao</name>
+    </author>
+    <author>
+      <name>Wengang Zhou</name>
+    </author>
+    <author>
+      <name>Hao Zhou</name>
+    </author>
+    <author>
+      <name>Houqiang Li</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted to ACL2024 main</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08173v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08173v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08183v2</id>
+    <updated>2024-06-14T09:34:35Z</updated>
+    <published>2024-06-12T13:14:19Z</published>
+    <title>Underneath the Numbers: Quantitative and Qualitative Gender Fairness in
+  LLMs for Depression Prediction</title>
+    <summary>  Recent studies show bias in many machine learning models for depression
+detection, but bias in LLMs for this task remains unexplored. This work
+presents the first attempt to investigate the degree of gender bias present in
+existing LLMs (ChatGPT, LLaMA 2, and Bard) using both quantitative and
+qualitative approaches. From our quantitative evaluation, we found that ChatGPT
+performs the best across various performance metrics and LLaMA 2 outperforms
+other LLMs in terms of group fairness metrics. As qualitative fairness
+evaluation remains an open research question we propose several strategies
+(e.g., word count, thematic analysis) to investigate whether and how a
+qualitative evaluation can provide valuable insights for bias analysis beyond
+what is possible with quantitative evaluation. We found that ChatGPT
+consistently provides a more comprehensive, well-reasoned explanation for its
+prediction compared to LLaMA 2. We have also identified several themes adopted
+by LLMs to qualitatively evaluate gender fairness. We hope our results can be
+used as a stepping stone towards future attempts at improving qualitative
+evaluation of fairness for LLMs especially for high-stakes tasks such as
+depression detection.
+</summary>
+    <author>
+      <name>Micol Spitale</name>
+    </author>
+    <author>
+      <name>Jiaee Cheong</name>
+    </author>
+    <author>
+      <name>Hatice Gunes</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08183v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08183v2" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08202v1</id>
+    <updated>2024-06-12T13:35:10Z</updated>
+    <published>2024-06-12T13:35:10Z</published>
+    <title>A Dialogue Game for Eliciting Balanced Collaboration</title>
+    <summary>  Collaboration is an integral part of human dialogue. Typical task-oriented
+dialogue games assign asymmetric roles to the participants, which limits their
+ability to elicit naturalistic role-taking in collaboration and its
+negotiation. We present a novel and simple online setup that favors balanced
+collaboration: a two-player 2D object placement game in which the players must
+negotiate the goal state themselves. We show empirically that human players
+exhibit a variety of role distributions, and that balanced collaboration
+improves task performance. We also present an LLM-based baseline agent which
+demonstrates that automatic playing of our game is an interesting challenge for
+artificial systems.
+</summary>
+    <author>
+      <name>Isidora Jeknić</name>
+    </author>
+    <author>
+      <name>David Schlangen</name>
+    </author>
+    <author>
+      <name>Alexander Koller</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08202v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08202v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08215v1</id>
+    <updated>2024-06-12T13:44:58Z</updated>
+    <published>2024-06-12T13:44:58Z</published>
+    <title>SumHiS: Extractive Summarization Exploiting Hidden Structure</title>
+    <summary>  Extractive summarization is a task of highlighting the most important parts
+of the text. We introduce a new approach to extractive summarization task using
+hidden clustering structure of the text. Experimental results on CNN/DailyMail
+demonstrate that our approach generates more accurate summaries than both
+extractive and abstractive methods, achieving state-of-the-art results in terms
+of ROUGE-2 metric exceeding the previous approaches by 10%. Additionally, we
+show that hidden structure of the text could be interpreted as aspects.
+</summary>
+    <author>
+      <name>Tikhonov Pavel</name>
+    </author>
+    <author>
+      <name>Anastasiya Ianina</name>
+    </author>
+    <author>
+      <name>Valentin Malykh</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08215v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08215v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08218v1</id>
+    <updated>2024-06-12T13:49:38Z</updated>
+    <published>2024-06-12T13:49:38Z</published>
+    <title>Figuratively Speaking: Authorship Attribution via Multi-Task Figurative
+  Language Modeling</title>
+    <summary>  The identification of Figurative Language (FL) features in text is crucial
+for various Natural Language Processing (NLP) tasks, where understanding of the
+author's intended meaning and its nuances is key for successful communication.
+At the same time, the use of a specific blend of various FL forms most
+accurately reflects a writer's style, rather than the use of any single
+construct, such as just metaphors or irony. Thus, we postulate that FL features
+could play an important role in Authorship Attribution (AA) tasks. We believe
+that our is the first computational study of AA based on FL use. Accordingly,
+we propose a Multi-task Figurative Language Model (MFLM) that learns to detect
+multiple FL features in text at once. We demonstrate, through detailed
+evaluation across multiple test sets, that the our model tends to perform
+equally or outperform specialized binary models in FL detection. Subsequently,
+we evaluate the predictive capability of joint FL features towards the AA task
+on three datasets, observing improved AA performance through the integration of
+MFLM embeddings.
+</summary>
+    <author>
+      <name>Gregorios A Katsios</name>
+    </author>
+    <author>
+      <name>Ning Sa</name>
+    </author>
+    <author>
+      <name>Tomek Strzalkowski</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08218v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08218v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08255v1</id>
+    <updated>2024-06-12T14:28:25Z</updated>
+    <published>2024-06-12T14:28:25Z</published>
+    <title>M3T: A New Benchmark Dataset for Multi-Modal Document-Level Machine
+  Translation</title>
+    <summary>  Document translation poses a challenge for Neural Machine Translation (NMT)
+systems. Most document-level NMT systems rely on meticulously curated
+sentence-level parallel data, assuming flawless extraction of text from
+documents along with their precise reading order. These systems also tend to
+disregard additional visual cues such as the document layout, deeming it
+irrelevant. However, real-world documents often possess intricate text layouts
+that defy these assumptions. Extracting information from Optical Character
+Recognition (OCR) or heuristic rules can result in errors, and the layout
+(e.g., paragraphs, headers) may convey relationships between distant sections
+of text. This complexity is particularly evident in widely used PDF documents,
+which represent information visually. This paper addresses this gap by
+introducing M3T, a novel benchmark dataset tailored to evaluate NMT systems on
+the comprehensive task of translating semi-structured documents. This dataset
+aims to bridge the evaluation gap in document-level NMT systems, acknowledging
+the challenges posed by rich text layouts in real-world applications.
+</summary>
+    <author>
+      <name>Benjamin Hsu</name>
+    </author>
+    <author>
+      <name>Xiaoyu Liu</name>
+    </author>
+    <author>
+      <name>Huayang Li</name>
+    </author>
+    <author>
+      <name>Yoshinari Fujinuma</name>
+    </author>
+    <author>
+      <name>Maria Nadejde</name>
+    </author>
+    <author>
+      <name>Xing Niu</name>
+    </author>
+    <author>
+      <name>Yair Kittenplon</name>
+    </author>
+    <author>
+      <name>Ron Litman</name>
+    </author>
+    <author>
+      <name>Raghavendra Pappagari</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">NAACL 2024, dataset at
+  https://github.com/amazon-science/m3t-multi-modal-translation-bench</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08255v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08255v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08582v1</id>
+    <updated>2024-06-12T18:38:40Z</updated>
+    <published>2024-06-12T18:38:40Z</published>
+    <title>Exploring Fact Memorization and Style Imitation in LLMs Using QLoRA: An
+  Experimental Study and Quality Assessment Methods</title>
+    <summary>  There are various methods for adapting LLMs to different domains. The most
+common methods are prompting, finetuning, and RAG. In this work, we explore the
+possibility of adapting a model using one of the PEFT methods - QLoRA. The
+experiment aims to simulate human responses based on their interviews. The
+simulation quality is assessed by comparing the quality of the style and the
+quality of the generated facts.
+</summary>
+    <author>
+      <name>Eugene Vyborov</name>
+    </author>
+    <author>
+      <name>Oleksiy Osypenko</name>
+    </author>
+    <author>
+      <name>Serge Sotnyk</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">16 pages, 5 tables</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08582v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08582v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08657v1</id>
+    <updated>2024-06-12T21:42:13Z</updated>
+    <published>2024-06-12T21:42:13Z</published>
+    <title>Mistral-C2F: Coarse to Fine Actor for Analytical and Reasoning
+  Enhancement in RLHF and Effective-Merged LLMs</title>
+    <summary>  Despite the advances in Large Language Models (LLMs), exemplified by models
+like GPT-4 and Claude, smaller-scale LLMs such as Llama and Mistral often
+struggle with generating in-depth and coherent dialogues. This paper presents a
+novel two-step Coarse-to-Fine Actor model to address the inherent limitations
+in conversational and analytical capabilities of small-sized LLMs. Our approach
+begins with the Policy-based Coarse Actor, employing a technique we term
+"Continuous Maximization". The Coarse Actor establishes an enhanced,
+knowledge-rich pool adept at aligning with human preference styles in analysis
+and reasoning. Through the RLHF process, it employs Continuous Maximization, a
+strategy that dynamically and adaptively extends the output length limit,
+enabling the generation of more detailed and analytical content. Subsequently,
+the Fine Actor refines this analytical content, addressing the generation of
+excessively redundant information from the Coarse Actor. We introduce a
+"Knowledge Residue Merger" approach, refining the content from the Coarse Actor
+and merging it with an existing Instruction model to improve quality,
+correctness, and reduce redundancies. We applied our methodology to the popular
+Mistral model, creating Mistral-C2F, which has demonstrated exceptional
+performance across 11 general language tasks and the MT-Bench Dialogue task,
+outperforming similar-scale models and even larger models with 13B and 30B
+parameters. Our model has significantly improved conversational and analytical
+reasoning abilities.
+</summary>
+    <author>
+      <name>Chen Zheng</name>
+    </author>
+    <author>
+      <name>Ke Sun</name>
+    </author>
+    <author>
+      <name>Xun Zhou</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08657v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08657v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08680v1</id>
+    <updated>2024-06-12T22:43:38Z</updated>
+    <published>2024-06-12T22:43:38Z</published>
+    <title>Analyzing Large Language Models for Classroom Discussion Assessment</title>
+    <summary>  Automatically assessing classroom discussion quality is becoming increasingly
+feasible with the help of new NLP advancements such as large language models
+(LLMs). In this work, we examine how the assessment performance of 2 LLMs
+interacts with 3 factors that may affect performance: task formulation, context
+length, and few-shot examples. We also explore the computational efficiency and
+predictive consistency of the 2 LLMs. Our results suggest that the 3
+aforementioned factors do affect the performance of the tested LLMs and there
+is a relation between consistency and performance. We recommend a LLM-based
+assessment approach that has a good balance in terms of predictive performance,
+computational efficiency, and consistency.
+</summary>
+    <author>
+      <name>Nhat Tran</name>
+    </author>
+    <author>
+      <name>Benjamin Pierce</name>
+    </author>
+    <author>
+      <name>Diane Litman</name>
+    </author>
+    <author>
+      <name>Richard Correnti</name>
+    </author>
+    <author>
+      <name>Lindsay Clare Matsumura</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">EDM 2024 Short Paper</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08680v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08680v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08718v1</id>
+    <updated>2024-06-13T00:48:44Z</updated>
+    <published>2024-06-13T00:48:44Z</published>
+    <title>Enhancing Psychotherapy Counseling: A Data Augmentation Pipeline
+  Leveraging Large Language Models for Counseling Conversations</title>
+    <summary>  We introduce a pipeline that leverages Large Language Models (LLMs) to
+transform single-turn psychotherapy counseling sessions into multi-turn
+interactions. While AI-supported online counseling services for individuals
+with mental disorders exist, they are often constrained by the limited
+availability of multi-turn training datasets and frequently fail to fully
+utilize therapists' expertise. Our proposed pipeline effectively addresses
+these limitations. The pipeline comprises two main steps: 1) Information
+Extraction and 2) Multi-turn Counseling Generation. Each step is meticulously
+designed to extract and generate comprehensive multi-turn counseling
+conversations from the available datasets. Experimental results from both
+zero-shot and few-shot generation scenarios demonstrate that our approach
+significantly enhances the ability of LLMs to produce higher quality multi-turn
+dialogues in the context of mental health counseling. Our pipeline and dataset
+are publicly available
+https://github.com/jwkim-chat/A-Data-Augmentation-Pipeline-Leveraging-Large-Language-Models-for-Counseling-Conversations.
+</summary>
+    <author>
+      <name>Jun-Woo Kim</name>
+    </author>
+    <author>
+      <name>Ji-Eun Han</name>
+    </author>
+    <author>
+      <name>Jun-Seok Koh</name>
+    </author>
+    <author>
+      <name>Hyeon-Tae Seo</name>
+    </author>
+    <author>
+      <name>Du-Seong Chang</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">IJCAI 2024 AI4Research workshop</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08718v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08718v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08723v1</id>
+    <updated>2024-06-13T00:59:55Z</updated>
+    <published>2024-06-13T00:59:55Z</published>
+    <title>ECBD: Evidence-Centered Benchmark Design for NLP</title>
+    <summary>  Benchmarking is seen as critical to assessing progress in NLP. However,
+creating a benchmark involves many design decisions (e.g., which datasets to
+include, which metrics to use) that often rely on tacit, untested assumptions
+about what the benchmark is intended to measure or is actually measuring. There
+is currently no principled way of analyzing these decisions and how they impact
+the validity of the benchmark's measurements. To address this gap, we draw on
+evidence-centered design in educational assessments and propose
+Evidence-Centered Benchmark Design (ECBD), a framework which formalizes the
+benchmark design process into five modules. ECBD specifies the role each module
+plays in helping practitioners collect evidence about capabilities of interest.
+Specifically, each module requires benchmark designers to describe, justify,
+and support benchmark design choices -- e.g., clearly specifying the
+capabilities the benchmark aims to measure or how evidence about those
+capabilities is collected from model responses. To demonstrate the use of ECBD,
+we conduct case studies with three benchmarks: BoolQ, SuperGLUE, and HELM. Our
+analysis reveals common trends in benchmark design and documentation that could
+threaten the validity of benchmarks' measurements.
+</summary>
+    <author>
+      <name>Yu Lu Liu</name>
+    </author>
+    <author>
+      <name>Su Lin Blodgett</name>
+    </author>
+    <author>
+      <name>Jackie Chi Kit Cheung</name>
+    </author>
+    <author>
+      <name>Q. Vera Liao</name>
+    </author>
+    <author>
+      <name>Alexandra Olteanu</name>
+    </author>
+    <author>
+      <name>Ziang Xiao</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08723v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08723v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08726v1</id>
+    <updated>2024-06-13T01:08:40Z</updated>
+    <published>2024-06-13T01:08:40Z</published>
+    <title>Standard Language Ideology in AI-Generated Language</title>
+    <summary>  In this position paper, we explore standard language ideology in language
+generated by large language models (LLMs). First, we outline how standard
+language ideology is reflected and reinforced in LLMs. We then present a
+taxonomy of open problems regarding standard language ideology in AI-generated
+language with implications for minoritized language communities. We introduce
+the concept of standard AI-generated language ideology, the process by which
+AI-generated language regards Standard American English (SAE) as a linguistic
+default and reinforces a linguistic bias that SAE is the most "appropriate"
+language. Finally, we discuss tensions that remain, including reflecting on
+what desirable system behavior looks like, as well as advantages and drawbacks
+of generative AI tools imitating--or often not--different English language
+varieties. Throughout, we discuss standard language ideology as a manifestation
+of existing global power structures in and through AI-generated language before
+ending with questions to move towards alternative, more emancipatory digital
+futures.
+</summary>
+    <author>
+      <name>Genevieve Smith</name>
+    </author>
+    <author>
+      <name>Eve Fleisig</name>
+    </author>
+    <author>
+      <name>Madeline Bossi</name>
+    </author>
+    <author>
+      <name>Ishita Rustagi</name>
+    </author>
+    <author>
+      <name>Xavier Yin</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08726v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08726v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08747v1</id>
+    <updated>2024-06-13T02:08:28Z</updated>
+    <published>2024-06-13T02:08:28Z</published>
+    <title>StreamBench: Towards Benchmarking Continuous Improvement of Language
+  Agents</title>
+    <summary>  Recent works have shown that large language model (LLM) agents are able to
+improve themselves from experience, which is an important ability for
+continuous enhancement post-deployment. However, existing benchmarks primarily
+evaluate their innate capabilities and do not assess their ability to improve
+over time. To address this gap, we introduce StreamBench, a pioneering
+benchmark designed to evaluate the continuous improvement of LLM agents over an
+input-feedback sequence. StreamBench simulates an online learning environment
+where LLMs receive a continuous flow of feedback stream and iteratively enhance
+their performance. In addition, we propose several simple yet effective
+baselines for improving LLMs on StreamBench, and provide a comprehensive
+analysis to identify critical components that contribute to successful
+streaming strategies. Our work serves as a stepping stone towards developing
+effective online learning strategies for LLMs, paving the way for more adaptive
+AI systems in streaming scenarios.
+</summary>
+    <author>
+      <name>Cheng-Kuang Wu</name>
+    </author>
+    <author>
+      <name>Zhi Rui Tam</name>
+    </author>
+    <author>
+      <name>Chieh-Yen Lin</name>
+    </author>
+    <author>
+      <name>Yun-Nung Chen</name>
+    </author>
+    <author>
+      <name>Hung-yi Lee</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08747v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08747v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08796v1</id>
+    <updated>2024-06-13T04:10:17Z</updated>
+    <published>2024-06-13T04:10:17Z</published>
+    <title>Deep Exploration of Cross-Lingual Zero-Shot Generalization in
+  Instruction Tuning</title>
+    <summary>  Instruction tuning has emerged as a powerful technique, significantly
+boosting zero-shot performance on unseen tasks. While recent work has explored
+cross-lingual generalization by applying instruction tuning to multilingual
+models, previous studies have primarily focused on English, with a limited
+exploration of non-English tasks. For an in-depth exploration of cross-lingual
+generalization in instruction tuning, we perform instruction tuning
+individually for two distinct language meta-datasets. Subsequently, we assess
+the performance on unseen tasks in a language different from the one used for
+training. To facilitate this investigation, we introduce a novel non-English
+meta-dataset named "KORANI" (Korean Natural Instruction), comprising 51 Korean
+benchmarks. Moreover, we design cross-lingual templates to mitigate
+discrepancies in language and instruction-format of the template between
+training and inference within the cross-lingual setting. Our experiments reveal
+consistent improvements through cross-lingual generalization in both English
+and Korean, outperforming baseline by average scores of 20.7\% and 13.6\%,
+respectively. Remarkably, these enhancements are comparable to those achieved
+by monolingual instruction tuning and even surpass them in some tasks. The
+result underscores the significance of relevant data acquisition across
+languages over linguistic congruence with unseen tasks during instruction
+tuning.
+</summary>
+    <author>
+      <name>Janghoon Han</name>
+    </author>
+    <author>
+      <name>Changho Lee</name>
+    </author>
+    <author>
+      <name>Joongbo Shin</name>
+    </author>
+    <author>
+      <name>Stanley Jungkyu Choi</name>
+    </author>
+    <author>
+      <name>Honglak Lee</name>
+    </author>
+    <author>
+      <name>Kynghoon Bae</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Findings of ACL 2024 (Camera-ready), by Janghoon Han and Changho Lee,
+  with equal contribution</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08796v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08796v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08811v1</id>
+    <updated>2024-06-13T05:01:28Z</updated>
+    <published>2024-06-13T05:01:28Z</published>
+    <title>Mixture-of-Skills: Learning to Optimize Data Usage for Fine-Tuning Large
+  Language Models</title>
+    <summary>  Large language models (LLMs) are typically fine-tuned on diverse and
+extensive datasets sourced from various origins to develop a comprehensive
+range of skills, such as writing, reasoning, chatting, coding, and more. Each
+skill has unique characteristics, and these datasets are often heterogeneous
+and imbalanced, making the fine-tuning process highly challenging. Balancing
+the development of each skill while ensuring the model maintains its overall
+performance requires sophisticated techniques and careful dataset curation. In
+this work, we propose a general, model-agnostic, reinforcement learning
+framework, Mixture-of-Skills (MoS), that learns to optimize data usage
+automatically during the fine-tuning process. This framework ensures the
+optimal comprehensive skill development of LLMs by dynamically adjusting the
+focus on different datasets based on their current learning state. To validate
+the effectiveness of MoS, we conduct extensive experiments using three diverse
+LLM backbones on two widely used benchmarks and demonstrate that MoS
+substantially enhances model performance. Building on the success of MoS, we
+propose MoSpec, an adaptation for task-specific fine-tuning, which harnesses
+the utilities of various datasets for a specific purpose. Our work underlines
+the significance of dataset rebalancing and present MoS as a powerful, general
+solution for optimizing data usage in the fine-tuning of LLMs for various
+purposes.
+</summary>
+    <author>
+      <name>Minghao Wu</name>
+    </author>
+    <author>
+      <name>Thuy-Trang Vu</name>
+    </author>
+    <author>
+      <name>Lizhen Qu</name>
+    </author>
+    <author>
+      <name>Gholamreza Haffari</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Work in progress; 15 pages, 7 tables, 4 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08811v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08811v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08817v1</id>
+    <updated>2024-06-13T05:19:51Z</updated>
+    <published>2024-06-13T05:19:51Z</published>
+    <title>Automated Essay Scoring Using Grammatical Variety and Errors with
+  Multi-Task Learning and Item Response Theory</title>
+    <summary>  This study examines the effect of grammatical features in automatic essay
+scoring (AES). We use two kinds of grammatical features as input to an AES
+model: (1) grammatical items that writers used correctly in essays, and (2) the
+number of grammatical errors. Experimental results show that grammatical
+features improve the performance of AES models that predict the holistic scores
+of essays. Multi-task learning with the holistic and grammar scores, alongside
+using grammatical features, resulted in a larger improvement in model
+performance. We also show that a model using grammar abilities estimated using
+Item Response Theory (IRT) as the labels for the auxiliary task achieved
+comparable performance to when we used grammar scores assigned by human raters.
+In addition, we weight the grammatical features using IRT to consider the
+difficulty of grammatical items and writers' grammar abilities. We found that
+weighting grammatical features with the difficulty led to further improvement
+in performance.
+</summary>
+    <author>
+      <name>Kosuke Doi</name>
+    </author>
+    <author>
+      <name>Katsuhito Sudoh</name>
+    </author>
+    <author>
+      <name>Satoshi Nakamura</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted to BEA2024</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08817v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08817v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08842v1</id>
+    <updated>2024-06-13T06:08:04Z</updated>
+    <published>2024-06-13T06:08:04Z</published>
+    <title>ContraSolver: Self-Alignment of Language Models by Resolving Internal
+  Preference Contradictions</title>
+    <summary>  While substantial advancements have been made in developing large language
+models (LLMs), achieving control over their behavior can be difficult. Direct
+preference optimization (DPO) assumes the existence of a latent reward function
+to evaluate the responses of LLMs. This assumption indicates a strict
+preference ordering of different responses to the same input. However, there
+always exist contradictions of preference in LLMs according to our experimental
+observations. In this paper, we construct a graph structure of the preference
+relationship among different responses with self-annotation to find
+contradictions in the preference order. We propose ContraSolver, an algorithm
+that traverses all edges on the preference graph to identify those that might
+cause contradictions. ContraSolver initializes the graph with a maximum
+spanning tree and identifies contradictory edges, prioritizing the resolution
+of low-confidence preferences while preserving high-confidence ones.
+Experimental results on four different generation tasks show that the
+performance of different LLMs can be largely improved through our completely
+unsupervised self-alignment. Furthermore, by analyzing the preference graphs of
+LLMs with and without self-alignment by ContraSolver, we quantify the reduction
+in contradictions, suggesting that resolving preference contradictions is
+crucial for achieving better alignment performance.
+</summary>
+    <author>
+      <name>Xu Zhang</name>
+    </author>
+    <author>
+      <name>Xunjian Yin</name>
+    </author>
+    <author>
+      <name>Xiaojun Wan</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.08842v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08842v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08860v1</id>
+    <updated>2024-06-13T06:49:03Z</updated>
+    <published>2024-06-13T06:49:03Z</published>
+    <title>Plan, Generate and Complicate: Improving Low-resource Dialogue State
+  Tracking via Easy-to-Difficult Zero-shot Data Augmentation</title>
+    <summary>  Data augmentation methods have been a promising direction to improve the
+performance of small models for low-resource dialogue state tracking. However,
+traditional methods rely on pre-defined user goals and neglect the importance
+of data complexity in this task. In this paper, we propose EDZ-DA, an
+Easy-to-Difficult Zero-shot Data Augmentation framework for low-resource
+dialogue state tracking that utilizes large language models to automatically
+catch the relationships of different domains and then generate the dialogue
+data. We also complicate the dialogues based on the domain relation to enhance
+the model's capability for co-reference slot tracking. Furthermore, we permute
+slot values to mitigate the influence of output orders and the problem of
+incomplete value generation. Experimental results illustrate the superiority of
+our proposed method compared to previous strong data augmentation baselines on
+MultiWOZ.
+</summary>
+    <author>
+      <name>Ming Gu</name>
+    </author>
+    <author>
+      <name>Yan Yang</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted by ACL 2024 Findings</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08860v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08860v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08881v1</id>
+    <updated>2024-06-13T07:35:37Z</updated>
+    <published>2024-06-13T07:35:37Z</published>
+    <title>No perspective, no perception!! Perspective-aware Healthcare Answer
+  Summarization</title>
+    <summary>  Healthcare Community Question Answering (CQA) forums offer an accessible
+platform for individuals seeking information on various healthcare-related
+topics. People find such platforms suitable for self-disclosure, seeking
+medical opinions, finding simplified explanations for their medical conditions,
+and answering others' questions. However, answers on these forums are typically
+diverse and prone to off-topic discussions. It can be challenging for readers
+to sift through numerous answers and extract meaningful insights, making answer
+summarization a crucial task for CQA forums. While several efforts have been
+made to summarize the community answers, most of them are limited to the open
+domain and overlook the different perspectives offered by these answers. To
+address this problem, this paper proposes a novel task of perspective-specific
+answer summarization. We identify various perspectives, within
+healthcare-related responses and frame a perspective-driven abstractive summary
+covering all responses. To achieve this, we annotate 3167 CQA threads with 6193
+perspective-aware summaries in our PUMA dataset. Further, we propose PLASMA, a
+prompt-driven controllable summarization model. To encapsulate the
+perspective-specific conditions, we design an energy-controlled loss function
+for the optimization. We also leverage the prefix tuner to learn the
+intricacies of the health-care perspective summarization. Our evaluation
+against five baselines suggests the superior performance of PLASMA by a margin
+of 1.5-21% improvement. We supplement our experiments with ablation and
+qualitative analysis.
+</summary>
+    <author>
+      <name>Gauri Naik</name>
+    </author>
+    <author>
+      <name>Sharad Chandakacherla</name>
+    </author>
+    <author>
+      <name>Shweta Yadav</name>
+    </author>
+    <author>
+      <name>Md. Shad Akhtar</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">ACL 2024 Findings</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08881v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08881v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08903v1</id>
+    <updated>2024-06-13T07:57:27Z</updated>
+    <published>2024-06-13T07:57:27Z</published>
+    <title>Delta-CoMe: Training-Free Delta-Compression with Mixed-Precision for
+  Large Language Models</title>
+    <summary>  Fine-tuning is a crucial process for adapting large language models (LLMs) to
+diverse applications. In certain scenarios, such as multi-tenant serving,
+deploying multiple LLMs becomes necessary to meet complex demands. Recent
+studies suggest decomposing a fine-tuned LLM into a base model and
+corresponding delta weights, which are then compressed using low-rank or
+low-bit approaches to reduce costs. In this work, we observe that existing
+low-rank and low-bit compression methods can significantly harm the model
+performance for task-specific fine-tuned LLMs (e.g., WizardMath for math
+problems). Motivated by the long-tail distribution of singular values in the
+delta weights, we propose a delta quantization approach using mixed-precision.
+This method employs higher-bit representation for singular vectors
+corresponding to larger singular values. We evaluate our approach on various
+fine-tuned LLMs, including math LLMs, code LLMs, chat LLMs, and even VLMs.
+Experimental results demonstrate that our approach performs comparably to full
+fine-tuned LLMs, surpassing both low-rank and low-bit baselines by a
+considerable margin. Additionally, we show that our method is compatible with
+various backbone LLMs, such as Llama-2, Llama-3, and Mistral, highlighting its
+generalizability.
+</summary>
+    <author>
+      <name>Bowen Ping</name>
+    </author>
+    <author>
+      <name>Shuo Wang</name>
+    </author>
+    <author>
+      <name>Hanqing Wang</name>
+    </author>
+    <author>
+      <name>Xu Han</name>
+    </author>
+    <author>
+      <name>Yuzhuang Xu</name>
+    </author>
+    <author>
+      <name>Yukun Yan</name>
+    </author>
+    <author>
+      <name>Yun Chen</name>
+    </author>
+    <author>
+      <name>Baobao Chang</name>
+    </author>
+    <author>
+      <name>Zhiyuan Liu</name>
+    </author>
+    <author>
+      <name>Maosong Sun</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">12 pages</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08903v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08903v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08940v1</id>
+    <updated>2024-06-13T09:10:16Z</updated>
+    <published>2024-06-13T09:10:16Z</published>
+    <title>Word Order in English-Japanese Simultaneous Interpretation: Analyses and
+  Evaluation using Chunk-wise Monotonic Translation</title>
+    <summary>  This paper analyzes the features of monotonic translations, which follow the
+word order of the source language, in simultaneous interpreting (SI). The word
+order differences are one of the biggest challenges in SI, especially for
+language pairs with significant structural differences like English and
+Japanese. We analyzed the characteristics of monotonic translations using the
+NAIST English-to-Japanese Chunk-wise Monotonic Translation Evaluation Dataset
+and found some grammatical structures that make monotonic translation difficult
+in English-Japanese SI. We further investigated the features of monotonic
+translations through evaluating the output from the existing speech translation
+(ST) and simultaneous speech translation (simulST) models on NAIST
+English-to-Japanese Chunk-wise Monotonic Translation Evaluation Dataset as well
+as on existing test sets. The results suggest that the existing SI-based test
+set underestimates the model performance. We also found that the
+monotonic-translation-based dataset would better evaluate simulST models, while
+using an offline-based test set for evaluating simulST models underestimates
+the model performance.
+</summary>
+    <author>
+      <name>Kosuke Doi</name>
+    </author>
+    <author>
+      <name>Yuka Ko</name>
+    </author>
+    <author>
+      <name>Mana Makinae</name>
+    </author>
+    <author>
+      <name>Katsuhito Sudoh</name>
+    </author>
+    <author>
+      <name>Satoshi Nakamura</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted to IWSLT2024</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.08940v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.08940v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09008v1</id>
+    <updated>2024-06-13T11:19:50Z</updated>
+    <published>2024-06-13T11:19:50Z</published>
+    <title>LLM Reading Tea Leaves: Automatically Evaluating Topic Models with Large
+  Language Models</title>
+    <summary>  Topic modeling has been a widely used tool for unsupervised text analysis.
+However, comprehensive evaluations of a topic model remain challenging.
+Existing evaluation methods are either less comparable across different models
+(e.g., perplexity) or focus on only one specific aspect of a model (e.g., topic
+quality or document representation quality) at a time, which is insufficient to
+reflect the overall model performance. In this paper, we propose WALM (Words
+Agreement with Language Model), a new evaluation method for topic modeling that
+comprehensively considers the semantic quality of document representations and
+topics in a joint manner, leveraging the power of large language models (LLMs).
+With extensive experiments involving different types of topic models, WALM is
+shown to align with human judgment and can serve as a complementary evaluation
+method to the existing ones, bringing a new perspective to topic modeling. Our
+software package will be available at
+https://github.com/Xiaohao-Yang/Topic_Model_Evaluation, which can be integrated
+with many widely used topic models.
+</summary>
+    <author>
+      <name>Xiaohao Yang</name>
+    </author>
+    <author>
+      <name>He Zhao</name>
+    </author>
+    <author>
+      <name>Dinh Phung</name>
+    </author>
+    <author>
+      <name>Wray Buntine</name>
+    </author>
+    <author>
+      <name>Lan Du</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09008v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09008v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09012v1</id>
+    <updated>2024-06-13T11:33:30Z</updated>
+    <published>2024-06-13T11:33:30Z</published>
+    <title>Bayesian Statistical Modeling with Predictors from LLMs</title>
+    <summary>  State of the art large language models (LLMs) have shown impressive
+performance on a variety of benchmark tasks and are increasingly used as
+components in larger applications, where LLM-based predictions serve as proxies
+for human judgements or decision. This raises questions about the
+human-likeness of LLM-derived information, alignment with human intuition, and
+whether LLMs could possibly be considered (parts of) explanatory models of
+(aspects of) human cognition or language use. To shed more light on these
+issues, we here investigate the human-likeness of LLMs' predictions for
+multiple-choice decision tasks from the perspective of Bayesian statistical
+modeling. Using human data from a forced-choice experiment on pragmatic
+language use, we find that LLMs do not capture the variance in the human data
+at the item-level. We suggest different ways of deriving full distributional
+predictions from LLMs for aggregate, condition-level data, and find that some,
+but not all ways of obtaining condition-level predictions yield adequate fits
+to human data. These results suggests that assessment of LLM performance
+depends strongly on seemingly subtle choices in methodology, and that LLMs are
+at best predictors of human behavior at the aggregate, condition-level, for
+which they are, however, not designed to, or usually used to, make predictions
+in the first place.
+</summary>
+    <author>
+      <name>Michael Franke</name>
+    </author>
+    <author>
+      <name>Polina Tsvilodub</name>
+    </author>
+    <author>
+      <name>Fausto Carcassi</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">20 pages, 10 figures, parallel submission to a journal</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09012v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09012v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09044v1</id>
+    <updated>2024-06-13T12:30:02Z</updated>
+    <published>2024-06-13T12:30:02Z</published>
+    <title>MiLoRA: Harnessing Minor Singular Components for Parameter-Efficient LLM
+  Finetuning</title>
+    <summary>  Efficient finetuning of large language models (LLMs) aims to adapt the LLMs
+with reduced computation and memory cost. Previous LoRA-based approaches
+initialize the low-rank matrices with gaussian distribution and zero values,
+while keeping the original weight matrices frozen. However, the trainable model
+parameters optimized in an unguided subspace might have interference with the
+well-learned subspace of the pretrained weight matrix. In this paper, we
+propose MiLoRA, a simple yet effective LLM finetuning approach that only
+updates the minor singular components of the weight matrix while keeping the
+principle singular components frozen. It is observed that the minor matrix
+corresponds to the noisy or long-tail information, while the principle matrix
+contains important knowledge. The MiLoRA initializes the low-rank matrices
+within a subspace that is orthogonal to the principle matrix, thus the
+pretrained knowledge is expected to be well preserved. During finetuning,
+MiLoRA makes the most use of the less-optimized subspace for learning the
+finetuning dataset. Extensive experiments on commonsense reasoning, math
+reasoning and instruction following benchmarks present the superior performance
+of our method.
+</summary>
+    <author>
+      <name>Hanqing Wang</name>
+    </author>
+    <author>
+      <name>Zeguan Xiao</name>
+    </author>
+    <author>
+      <name>Yixia Li</name>
+    </author>
+    <author>
+      <name>Shuo Wang</name>
+    </author>
+    <author>
+      <name>Guanhua Chen</name>
+    </author>
+    <author>
+      <name>Yun Chen</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09044v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09044v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09072v1</id>
+    <updated>2024-06-13T12:56:21Z</updated>
+    <published>2024-06-13T12:56:21Z</published>
+    <title>Living in the Moment: Can Large Language Models Grasp Co-Temporal
+  Reasoning?</title>
+    <summary>  Temporal reasoning is fundamental for large language models (LLMs) to
+comprehend the world. Current temporal reasoning datasets are limited to
+questions about single or isolated events, falling short in mirroring the
+realistic temporal characteristics involving concurrent nature and intricate
+temporal interconnections. In this paper, we introduce CoTempQA, a
+comprehensive co-temporal Question Answering (QA) benchmark containing four
+co-temporal scenarios (Equal, Overlap, During, Mix) with 4,748 samples for
+evaluating the co-temporal comprehension and reasoning abilities of LLMs. Our
+extensive experiments reveal a significant gap between the performance of
+current LLMs and human-level reasoning on CoTempQA tasks. Even when enhanced
+with Chain of Thought (CoT) methodologies, models consistently struggle with
+our task. In our preliminary exploration, we discovered that mathematical
+reasoning plays a significant role in handling co-temporal events and proposed
+a strategy to boost LLMs' co-temporal reasoning from a mathematical
+perspective. We hope that our CoTempQA datasets will encourage further
+advancements in improving the co-temporal reasoning capabilities of LLMs. Our
+code is available at https://github.com/zhaochen0110/Cotempqa.
+</summary>
+    <author>
+      <name>Zhaochen Su</name>
+    </author>
+    <author>
+      <name>Juntao Li</name>
+    </author>
+    <author>
+      <name>Jun Zhang</name>
+    </author>
+    <author>
+      <name>Tong Zhu</name>
+    </author>
+    <author>
+      <name>Xiaoye Qu</name>
+    </author>
+    <author>
+      <name>Pan Zhou</name>
+    </author>
+    <author>
+      <name>Yan Bowen</name>
+    </author>
+    <author>
+      <name>Yu Cheng</name>
+    </author>
+    <author>
+      <name>Min zhang</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">This paper has been accepted to the ACL 2024 main conference</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09072v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09072v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09076v1</id>
+    <updated>2024-06-13T12:58:53Z</updated>
+    <published>2024-06-13T12:58:53Z</published>
+    <title>3M: Multi-modal Multi-task Multi-teacher Learning for Game Event
+  Detection</title>
+    <summary>  Esports has rapidly emerged as a global phenomenon with an ever-expanding
+audience via platforms, like YouTube. Due to the inherent complexity nature of
+the game, it is challenging for newcomers to comprehend what the event entails.
+The chaotic nature of online chat, the fast-paced speech of the game
+commentator, and the game-specific user interface further compound the
+difficulty for users in comprehending the gameplay. To overcome these
+challenges, it is crucial to integrate the Multi-Modal (MM) information from
+the platform and understand the event. The paper introduces a new MM
+multi-teacher-based game event detection framework, with the ultimate goal of
+constructing a comprehensive framework that enhances the comprehension of the
+ongoing game situation. While conventional MM models typically prioritise
+aligning MM data through concurrent training towards a unified objective, our
+framework leverages multiple teachers trained independently on different tasks
+to accomplish the Game Event Detection. The experiment clearly shows the
+effectiveness of the proposed MM multi-teacher framework.
+</summary>
+    <author>
+      <name>Thye Shan Ng</name>
+    </author>
+    <author>
+      <name>Feiqi Cao</name>
+    </author>
+    <author>
+      <name>Soyeon Caren Han</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09076v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09076v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09095v1</id>
+    <updated>2024-06-13T13:25:50Z</updated>
+    <published>2024-06-13T13:25:50Z</published>
+    <title>Modeling Comparative Logical Relation with Contrastive Learning for Text
+  Generation</title>
+    <summary>  Data-to-Text Generation (D2T), a classic natural language generation problem,
+aims at producing fluent descriptions for structured input data, such as a
+table. Existing D2T works mainly focus on describing the superficial
+associative relations among entities, while ignoring the deep comparative
+logical relations, such as A is better than B in a certain aspect with a
+corresponding opinion, which is quite common in our daily life. In this paper,
+we introduce a new D2T task named comparative logical relation generation
+(CLRG). Additionally, we propose a Comparative Logic (CoLo) based text
+generation method, which generates texts following specific comparative logical
+relations with contrastive learning. Specifically, we first construct various
+positive and negative samples by fine-grained perturbations in entities,
+aspects and opinions. Then, we perform contrastive learning in the encoder
+layer to have a better understanding of the comparative logical relations, and
+integrate it in the decoder layer to guide the model to correctly generate the
+relations. Noting the data scarcity problem, we construct a Chinese Comparative
+Logical Relation Dataset (CLRD), which is a high-quality human-annotated
+dataset and challenging for text generation with descriptions of multiple
+entities and annotations on their comparative logical relations. Extensive
+experiments show that our method achieves impressive performance in both
+automatic and human evaluations.
+</summary>
+    <author>
+      <name>Yuhao Dan</name>
+    </author>
+    <author>
+      <name>Junfeng Tian</name>
+    </author>
+    <author>
+      <name>Jie Zhou</name>
+    </author>
+    <author>
+      <name>Ming Yan</name>
+    </author>
+    <author>
+      <name>Ji Zhang</name>
+    </author>
+    <author>
+      <name>Qin Chen</name>
+    </author>
+    <author>
+      <name>Liang He</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09095v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09095v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09098v1</id>
+    <updated>2024-06-13T13:27:52Z</updated>
+    <published>2024-06-13T13:27:52Z</published>
+    <title>SciKnowEval: Evaluating Multi-level Scientific Knowledge of Large
+  Language Models</title>
+    <summary>  The burgeoning utilization of Large Language Models (LLMs) in scientific
+research necessitates advanced benchmarks capable of evaluating their
+understanding and application of scientific knowledge comprehensively. To
+address this need, we introduce the SciKnowEval benchmark, a novel framework
+that systematically evaluates LLMs across five progressive levels of scientific
+knowledge: studying extensively, inquiring earnestly, thinking profoundly,
+discerning clearly, and practicing assiduously. These levels aim to assess the
+breadth and depth of scientific knowledge in LLMs, including knowledge
+coverage, inquiry and exploration capabilities, reflection and reasoning
+abilities, ethic and safety considerations, as well as practice proficiency.
+Specifically, we take biology and chemistry as the two instances of SciKnowEval
+and construct a dataset encompassing 50K multi-level scientific problems and
+solutions. By leveraging this dataset, we benchmark 20 leading open-source and
+proprietary LLMs using zero-shot and few-shot prompting strategies. The results
+reveal that despite achieving state-of-the-art performance, the proprietary
+LLMs still have considerable room for improvement, particularly in addressing
+scientific computations and applications. We anticipate that SciKnowEval will
+establish a comprehensive standard for benchmarking LLMs in science research
+and discovery, and promote the development of LLMs that integrate scientific
+knowledge with strong safety awareness. The dataset and code are publicly
+available at https://github.com/hicai-zju/sciknoweval .
+</summary>
+    <author>
+      <name>Kehua Feng</name>
+    </author>
+    <author>
+      <name>Keyan Ding</name>
+    </author>
+    <author>
+      <name>Weijie Wang</name>
+    </author>
+    <author>
+      <name>Xiang Zhuang</name>
+    </author>
+    <author>
+      <name>Zeyuan Wang</name>
+    </author>
+    <author>
+      <name>Ming Qin</name>
+    </author>
+    <author>
+      <name>Yu Zhao</name>
+    </author>
+    <author>
+      <name>Jianhua Yao</name>
+    </author>
+    <author>
+      <name>Qiang Zhang</name>
+    </author>
+    <author>
+      <name>Huajun Chen</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">48 pages, 2 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09098v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09098v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09103v1</id>
+    <updated>2024-06-13T13:31:04Z</updated>
+    <published>2024-06-13T13:31:04Z</published>
+    <title>Chain-of-Though (CoT) prompting strategies for medical error detection
+  and correction</title>
+    <summary>  This paper describes our submission to the MEDIQA-CORR 2024 shared task for
+automatically detecting and correcting medical errors in clinical notes. We
+report results for three methods of few-shot In-Context Learning (ICL)
+augmented with Chain-of-Thought (CoT) and reason prompts using a large language
+model (LLM). In the first method, we manually analyse a subset of train and
+validation dataset to infer three CoT prompts by examining error types in the
+clinical notes. In the second method, we utilise the training dataset to prompt
+the LLM to deduce reasons about their correctness or incorrectness. The
+constructed CoTs and reasons are then augmented with ICL examples to solve the
+tasks of error detection, span identification, and error correction. Finally,
+we combine the two methods using a rule-based ensemble method. Across the three
+sub-tasks, our ensemble method achieves a ranking of 3rd for both sub-task 1
+and 2, while securing 7th place in sub-task 3 among all submissions.
+</summary>
+    <author>
+      <name>Zhaolong Wu</name>
+    </author>
+    <author>
+      <name>Abul Hasan</name>
+    </author>
+    <author>
+      <name>Jinge Wu</name>
+    </author>
+    <author>
+      <name>Yunsoo Kim</name>
+    </author>
+    <author>
+      <name>Jason P. Y. Cheung</name>
+    </author>
+    <author>
+      <name>Teng Zhang</name>
+    </author>
+    <author>
+      <name>Honghan Wu</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">accepted as NAACL workshop</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09103v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09103v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09128v1</id>
+    <updated>2024-06-13T14:01:08Z</updated>
+    <published>2024-06-13T14:01:08Z</published>
+    <title>CoastTerm: a Corpus for Multidisciplinary Term Extraction in Coastal
+  Scientific Literature</title>
+    <summary>  The growing impact of climate change on coastal areas, particularly active
+but fragile regions, necessitates collaboration among diverse stakeholders and
+disciplines to formulate effective environmental protection policies. We
+introduce a novel specialized corpus comprising 2,491 sentences from 410
+scientific abstracts concerning coastal areas, for the Automatic Term
+Extraction (ATE) and Classification (ATC) tasks. Inspired by the ARDI
+framework, focused on the identification of Actors, Resources, Dynamics and
+Interactions, we automatically extract domain terms and their distinct roles in
+the functioning of coastal systems by leveraging monolingual and multilingual
+transformer models. The evaluation demonstrates consistent results, achieving
+an F1 score of approximately 80\% for automated term extraction and F1 of 70\%
+for extracting terms and their labels. These findings are promising and signify
+an initial step towards the development of a specialized Knowledge Base
+dedicated to coastal areas.
+</summary>
+    <author>
+      <name>Julien Delaunay</name>
+    </author>
+    <author>
+      <name>Hanh Thi Hong Tran</name>
+    </author>
+    <author>
+      <name>Carlos-Emiliano González-Gallardo</name>
+    </author>
+    <author>
+      <name>Georgeta Bordea</name>
+    </author>
+    <author>
+      <name>Mathilde Ducos</name>
+    </author>
+    <author>
+      <name>Nicolas Sidere</name>
+    </author>
+    <author>
+      <name>Antoine Doucet</name>
+    </author>
+    <author>
+      <name>Senja Pollak</name>
+    </author>
+    <author>
+      <name>Olivier De Viron</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09128v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09128v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09133v1</id>
+    <updated>2024-06-13T14:04:34Z</updated>
+    <published>2024-06-13T14:04:34Z</published>
+    <title>RH-SQL: Refined Schema and Hardness Prompt for Text-to-SQL</title>
+    <summary>  Text-to-SQL is a technology that converts natural language queries into the
+structured query language SQL. A novel research approach that has recently
+gained attention focuses on methods based on the complexity of SQL queries,
+achieving notable performance improvements. However, existing methods entail
+significant storage and training costs, which hampers their practical
+application. To address this issue, this paper introduces a method for
+Text-to-SQL based on Refined Schema and Hardness Prompt. By filtering out
+low-relevance schema information with a refined schema and identifying query
+hardness through a Language Model (LM) to form prompts, this method reduces
+storage and training costs while maintaining performance. It's worth mentioning
+that this method is applicable to any sequence-to-sequence (seq2seq) LM. Our
+experiments on the Spider dataset, specifically with large-scale LMs, achieved
+an exceptional Execution accuracy (EX) of 82.6%, demonstrating the
+effectiveness and greater suitability of our method for real-world
+applications.
+</summary>
+    <author>
+      <name>Jiawen Yi</name>
+    </author>
+    <author>
+      <name>Guo Chen</name>
+    </author>
+    <author>
+      <name>Zixiang Shen</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">4 pages, 2 figures, 2024 6th International Conference on Electronic
+  Engineering and Informatics (EEI 2024)</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09133v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09133v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09138v1</id>
+    <updated>2024-06-13T14:07:52Z</updated>
+    <published>2024-06-13T14:07:52Z</published>
+    <title>Leveraging Explicit Reasoning for Inference Integration in
+  Commonsense-Augmented Dialogue Models</title>
+    <summary>  Open-domain dialogue systems need to grasp social commonsense to understand
+and respond effectively to human users. Commonsense-augmented dialogue models
+have been proposed that aim to infer commonsense knowledge from dialogue
+contexts in order to improve response quality. However, existing approaches to
+commonsense-augmented dialogue rely on implicit reasoning to integrate
+commonsense inferences during response generation. In this study, we explore
+the impact of explicit reasoning against implicit reasoning over commonsense
+for dialogue response generation. Our findings demonstrate that separating
+commonsense reasoning into explicit steps for generating, selecting, and
+integrating commonsense into responses leads to better dialogue interactions,
+improving naturalness, engagement, specificity, and overall quality. Subsequent
+analyses of these findings unveil insights into the effectiveness of various
+types of commonsense in generating responses and the particular response traits
+enhanced through explicit reasoning for commonsense integration. Our work
+advances research in open-domain dialogue by achieving a new state-of-the-art
+in commonsense-augmented response generation.
+</summary>
+    <author>
+      <name>Sarah E. Finch</name>
+    </author>
+    <author>
+      <name>Jinho D. Choi</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09138v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09138v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09140v1</id>
+    <updated>2024-06-13T14:08:56Z</updated>
+    <published>2024-06-13T14:08:56Z</published>
+    <title>Investigating the translation capabilities of Large Language Models
+  trained on parallel data only</title>
+    <summary>  In recent years, Large Language Models (LLMs) have demonstrated exceptional
+proficiency across a broad spectrum of Natural Language Processing (NLP) tasks,
+including Machine Translation. However, previous methods predominantly relied
+on iterative processes such as instruction fine-tuning or continual
+pre-training, leaving unexplored the challenges of training LLMs solely on
+parallel data. In this work, we introduce PLUME (Parallel Language Model), a
+collection of three 2B LLMs featuring varying vocabulary sizes (32k, 128k, and
+256k) trained exclusively on Catalan-centric parallel examples. These models
+perform comparably to previous encoder-decoder architectures on 16 supervised
+translation directions and 56 zero-shot ones. Utilizing this set of models, we
+conduct a thorough investigation into the translation capabilities of LLMs,
+probing their performance, the impact of the different elements of the prompt,
+and their cross-lingual representation space.
+</summary>
+    <author>
+      <name>Javier García Gilabert</name>
+    </author>
+    <author>
+      <name>Carlos Escolano</name>
+    </author>
+    <author>
+      <name>Aleix Sant Savall</name>
+    </author>
+    <author>
+      <name>Francesca De Luca Fornaciari</name>
+    </author>
+    <author>
+      <name>Audrey Mash</name>
+    </author>
+    <author>
+      <name>Xixian Liao</name>
+    </author>
+    <author>
+      <name>Maite Melero</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">We release our code at: https://github.com/projecte-aina/Plume</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09140v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09140v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09170v1</id>
+    <updated>2024-06-13T14:31:19Z</updated>
+    <published>2024-06-13T14:31:19Z</published>
+    <title>Test of Time: A Benchmark for Evaluating LLMs on Temporal Reasoning</title>
+    <summary>  Large language models (LLMs) have showcased remarkable reasoning
+capabilities, yet they remain susceptible to errors, particularly in temporal
+reasoning tasks involving complex temporal logic. Existing research has
+explored LLM performance on temporal reasoning using diverse datasets and
+benchmarks. However, these studies often rely on real-world data that LLMs may
+have encountered during pre-training or employ anonymization techniques that
+can inadvertently introduce factual inconsistencies. In this work, we address
+these limitations by introducing novel synthetic datasets specifically designed
+to assess LLM temporal reasoning abilities in various scenarios. The diversity
+of question types across these datasets enables systematic investigation into
+the impact of the problem structure, size, question type, fact order, and other
+factors on LLM performance. Our findings provide valuable insights into the
+strengths and weaknesses of current LLMs in temporal reasoning tasks. To foster
+further research in this area, we are open-sourcing the datasets and evaluation
+framework used in our experiments: https://huggingface.co/datasets/baharef/ToT.
+</summary>
+    <author>
+      <name>Bahare Fatemi</name>
+    </author>
+    <author>
+      <name>Mehran Kazemi</name>
+    </author>
+    <author>
+      <name>Anton Tsitsulin</name>
+    </author>
+    <author>
+      <name>Karishma Malkan</name>
+    </author>
+    <author>
+      <name>Jinyeong Yim</name>
+    </author>
+    <author>
+      <name>John Palowitch</name>
+    </author>
+    <author>
+      <name>Sungyong Seo</name>
+    </author>
+    <author>
+      <name>Jonathan Halcrow</name>
+    </author>
+    <author>
+      <name>Bryan Perozzi</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09170v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09170v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09200v1</id>
+    <updated>2024-06-13T14:57:18Z</updated>
+    <published>2024-06-13T14:57:18Z</published>
+    <title>Orthogonality and isotropy of speaker and phonetic information in
+  self-supervised speech representations</title>
+    <summary>  Self-supervised speech representations can hugely benefit downstream speech
+technologies, yet the properties that make them useful are still poorly
+understood. Two candidate properties related to the geometry of the
+representation space have been hypothesized to correlate well with downstream
+tasks: (1) the degree of orthogonality between the subspaces spanned by the
+speaker centroids and phone centroids, and (2) the isotropy of the space, i.e.,
+the degree to which all dimensions are effectively utilized. To study them, we
+introduce a new measure, Cumulative Residual Variance (CRV), which can be used
+to assess both properties. Using linear classifiers for speaker and phone ID to
+probe the representations of six different self-supervised models and two
+untrained baselines, we ask whether either orthogonality or isotropy correlate
+with linear probing accuracy. We find that both measures correlate with
+phonetic probing accuracy, though our results on isotropy are more nuanced.
+</summary>
+    <author>
+      <name>Mukhtar Mohamed</name>
+    </author>
+    <author>
+      <name>Oli Danyi Liu</name>
+    </author>
+    <author>
+      <name>Hao Tang</name>
+    </author>
+    <author>
+      <name>Sharon Goldwater</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Accepted to Interspeech</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09200v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09200v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09265v1</id>
+    <updated>2024-06-13T16:04:11Z</updated>
+    <published>2024-06-13T16:04:11Z</published>
+    <title>Sharing Matters: Analysing Neurons Across Languages and Tasks in LLMs</title>
+    <summary>  Multilingual large language models (LLMs) have greatly increased the ceiling
+of performance on non-English tasks. However the mechanisms behind
+multilingualism in these LLMs are poorly understood. Of particular interest is
+the degree to which internal representations are shared between languages.
+Recent work on neuron analysis of LLMs has focused on the monolingual case, and
+the limited work on the multilingual case has not considered the interaction
+between tasks and linguistic representations. In our work, we investigate how
+neuron activation is shared across languages by categorizing neurons into four
+distinct groups according to their responses across different languages for a
+particular input: all-shared, partial-shared, specific, and non-activated. This
+categorization is combined with a study of neuron attribution, i.e. the
+importance of a neuron w.r.t an output. Our analysis reveals the following
+insights: (i) the linguistic sharing patterns are strongly affected by the type
+of task, but neuron behaviour changes across different inputs even for the same
+task; (ii) all-shared neurons play a key role in generating correct responses;
+(iii) boosting multilingual alignment by increasing all-shared neurons can
+enhance accuracy on multilingual tasks. The code is available at
+https://github.com/weixuan-wang123/multilingual-neurons.
+</summary>
+    <author>
+      <name>Weixuan Wang</name>
+    </author>
+    <author>
+      <name>Barry Haddow</name>
+    </author>
+    <author>
+      <name>Wei Peng</name>
+    </author>
+    <author>
+      <name>Alexandra Birch</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09265v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09265v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09279v1</id>
+    <updated>2024-06-13T16:17:21Z</updated>
+    <published>2024-06-13T16:17:21Z</published>
+    <title>Unpacking DPO and PPO: Disentangling Best Practices for Learning from
+  Preference Feedback</title>
+    <summary>  Learning from preference feedback has emerged as an essential step for
+improving the generation quality and performance of modern language models
+(LMs). Despite its widespread use, the way preference-based learning is applied
+varies wildly, with differing data, learning algorithms, and evaluations used,
+making disentangling the impact of each aspect difficult. In this work, we
+identify four core aspects of preference-based learning: preference data,
+learning algorithm, reward model, and policy training prompts, systematically
+investigate the impact of these components on downstream model performance, and
+suggest a recipe for strong learning for preference feedback. Our findings
+indicate that all aspects are important for performance, with better preference
+data leading to the largest improvements, followed by the choice of learning
+algorithm, the use of improved reward models, and finally the use of additional
+unlabeled prompts for policy training. Notably, PPO outperforms DPO by up to
+2.5% in math and 1.2% in general domains. High-quality preference data leads to
+improvements of up to 8% in instruction following and truthfulness. Despite
+significant gains of up to 5% in mathematical evaluation when scaling up reward
+models, we surprisingly observe marginal improvements in other categories.
+  We publicly release the code used for training
+(https://github.com/hamishivi/EasyLM) and evaluating
+(https://github.com/allenai/open-instruct) our models, along with the models
+and datasets themselves
+(https://huggingface.co/collections/allenai/tulu-v25-suite-66676520fd578080e126f618).
+</summary>
+    <author>
+      <name>Hamish Ivison</name>
+    </author>
+    <author>
+      <name>Yizhong Wang</name>
+    </author>
+    <author>
+      <name>Jiacheng Liu</name>
+    </author>
+    <author>
+      <name>Zeqiu Wu</name>
+    </author>
+    <author>
+      <name>Valentina Pyatkin</name>
+    </author>
+    <author>
+      <name>Nathan Lambert</name>
+    </author>
+    <author>
+      <name>Noah A. Smith</name>
+    </author>
+    <author>
+      <name>Yejin Choi</name>
+    </author>
+    <author>
+      <name>Hannaneh Hajishirzi</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Preprint</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09279v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09279v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09325v1</id>
+    <updated>2024-06-13T17:02:32Z</updated>
+    <published>2024-06-13T17:02:32Z</published>
+    <title>REVS: Unlearning Sensitive Information in Language Models via Rank
+  Editing in the Vocabulary Space</title>
+    <summary>  Large language models (LLMs) risk inadvertently memorizing and divulging
+sensitive or personally identifiable information (PII) seen in training data,
+causing privacy concerns. Current approaches to address this issue involve
+costly dataset scrubbing, or model filtering through unlearning and model
+editing, which can be bypassed through extraction attacks. We propose REVS, a
+novel model editing method for unlearning sensitive information from LLMs. REVS
+identifies and modifies a small subset of neurons relevant for each piece of
+sensitive information. By projecting these neurons to the vocabulary space
+(unembedding), we pinpoint the components driving its generation. We then
+compute a model edit based on the pseudo-inverse of the unembedding matrix, and
+apply it to de-promote generation of the targeted sensitive data. To adequately
+evaluate our method on truly sensitive information, we curate two datasets: an
+email dataset inherently memorized by GPT-J, and a synthetic social security
+number dataset that we tune the model to memorize. Compared to other
+state-of-the-art model editing methods, REVS demonstrates superior performance
+in both eliminating sensitive information and robustness to extraction attacks,
+while retaining integrity of the underlying model. The code and a demo notebook
+are available at https://technion-cs-nlp.github.io/REVS.
+</summary>
+    <author>
+      <name>Tomer Ashuach</name>
+    </author>
+    <author>
+      <name>Martin Tutek</name>
+    </author>
+    <author>
+      <name>Yonatan Belinkov</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">18 pages, 3 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09325v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09325v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="I.2.7" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09330v1</id>
+    <updated>2024-06-13T17:08:58Z</updated>
+    <published>2024-06-13T17:08:58Z</published>
+    <title>Learning from Natural Language Explanations for Generalizable Entity
+  Matching</title>
+    <summary>  Entity matching is the task of linking records from different sources that
+refer to the same real-world entity. Past work has primarily treated entity
+linking as a standard supervised learning problem. However, supervised entity
+matching models often do not generalize well to new data, and collecting
+exhaustive labeled training data is often cost prohibitive. Further, recent
+efforts have adopted LLMs for this task in few/zero-shot settings, exploiting
+their general knowledge. But LLMs are prohibitively expensive for performing
+inference at scale for real-world entity matching tasks.
+  As an efficient alternative, we re-cast entity matching as a conditional
+generation task as opposed to binary classification. This enables us to
+"distill" LLM reasoning into smaller entity matching models via natural
+language explanations. This approach achieves strong performance, especially on
+out-of-domain generalization tests (10.85% F-1) where standalone generative
+methods struggle. We perform ablations that highlight the importance of
+explanations, both for performance and model robustness.
+</summary>
+    <author>
+      <name>Somin Wadhwa</name>
+    </author>
+    <author>
+      <name>Adit Krishnan</name>
+    </author>
+    <author>
+      <name>Runhui Wang</name>
+    </author>
+    <author>
+      <name>Byron C. Wallace</name>
+    </author>
+    <author>
+      <name>Chris Kong</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09330v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09330v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09334v2</id>
+    <updated>2024-06-14T14:52:05Z</updated>
+    <published>2024-06-13T17:15:33Z</published>
+    <title>ProxyLM: Predicting Language Model Performance on Multilingual Tasks via
+  Proxy Models</title>
+    <summary>  Performance prediction is a method to estimate the performance of Language
+Models (LMs) on various Natural Language Processing (NLP) tasks, mitigating
+computational costs associated with model capacity and data for fine-tuning.
+Our paper introduces ProxyLM, a scalable framework for predicting LM
+performance using proxy models in multilingual tasks. These proxy models act as
+surrogates, approximating the performance of the LM of interest. By leveraging
+proxy models, ProxyLM significantly reduces computational overhead on task
+evaluations, achieving up to a 37.08x speedup compared to traditional methods,
+even with our smallest proxy models. Additionally, our methodology showcases
+adaptability to previously unseen languages in pre-trained LMs, outperforming
+the state-of-the-art performance by 1.89x as measured by root-mean-square error
+(RMSE). This framework streamlines model selection, enabling efficient
+deployment and iterative LM enhancements without extensive computational
+resources.
+</summary>
+    <author>
+      <name>David Anugraha</name>
+    </author>
+    <author>
+      <name>Genta Indra Winata</name>
+    </author>
+    <author>
+      <name>Chenyue Li</name>
+    </author>
+    <author>
+      <name>Patrick Amadeus Irawan</name>
+    </author>
+    <author>
+      <name>En-Shiun Annie Lee</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">Preprint</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09334v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09334v2" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09688v1</id>
+    <updated>2024-06-14T03:18:28Z</updated>
+    <published>2024-06-14T03:18:28Z</published>
+    <title>FreeCtrl: Constructing Control Centers with Feedforward Layers for
+  Learning-Free Controllable Text Generation</title>
+    <summary>  Controllable text generation (CTG) seeks to craft texts adhering to specific
+attributes, traditionally employing learning-based techniques such as training,
+fine-tuning, or prefix-tuning with attribute-specific datasets. These
+approaches, while effective, demand extensive computational and data resources.
+In contrast, some proposed learning-free alternatives circumvent learning but
+often yield inferior results, exemplifying the fundamental machine learning
+trade-off between computational expense and model efficacy. To overcome these
+limitations, we propose FreeCtrl, a learning-free approach that dynamically
+adjusts the weights of selected feedforward neural network (FFN) vectors to
+steer the outputs of large language models (LLMs). FreeCtrl hinges on the
+principle that the weights of different FFN vectors influence the likelihood of
+different tokens appearing in the output. By identifying and adaptively
+adjusting the weights of attribute-related FFN vectors, FreeCtrl can control
+the output likelihood of attribute keywords in the generated content. Extensive
+experiments on single- and multi-attribute control reveal that the
+learning-free FreeCtrl outperforms other learning-free and learning-based
+methods, successfully resolving the dilemma between learning costs and model
+performance.
+</summary>
+    <author>
+      <name>Zijian Feng</name>
+    </author>
+    <author>
+      <name>Hanzhang Zhou</name>
+    </author>
+    <author>
+      <name>Zixiao Zhu</name>
+    </author>
+    <author>
+      <name>Kezhi Mao</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">ACL 2024</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09688v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09688v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09702v1</id>
+    <updated>2024-06-14T04:03:24Z</updated>
+    <published>2024-06-14T04:03:24Z</published>
+    <title>Detecting Response Generation Not Requiring Factual Judgment</title>
+    <summary>  With the remarkable development of large language models (LLMs), ensuring the
+factuality of output has become a challenge. However, having all the contents
+of the response with given knowledge or facts is not necessarily a good thing
+in dialogues. This study aimed to achieve both attractiveness and factuality in
+a dialogue response for which a task was set to predict sentences that do not
+require factual correctness judgment such as agreeing, or personal
+opinions/feelings. We created a dataset, dialogue dataset annotated with
+fact-check-needed label (DDFC), for this task via crowdsourcing, and
+classification tasks were performed on several models using this dataset. The
+model with the highest classification accuracy could yield about 88% accurate
+classification results.
+</summary>
+    <author>
+      <name>Ryohei Kamei</name>
+    </author>
+    <author>
+      <name>Daiki Shiono</name>
+    </author>
+    <author>
+      <name>Reina Akama</name>
+    </author>
+    <author>
+      <name>Jun Suzuki</name>
+    </author>
+    <link href="http://arxiv.org/abs/2406.09702v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09702v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.09717v2</id>
+    <updated>2024-06-17T04:05:39Z</updated>
+    <published>2024-06-14T04:55:30Z</published>
+    <title>UniBridge: A Unified Approach to Cross-Lingual Transfer Learning for
+  Low-Resource Languages</title>
+    <summary>  In this paper, we introduce UniBridge (Cross-Lingual Transfer Learning with
+Optimized Embeddings and Vocabulary), a comprehensive approach developed to
+improve the effectiveness of Cross-Lingual Transfer Learning, particularly in
+languages with limited resources. Our approach tackles two essential elements
+of a language model: the initialization of embeddings and the optimal
+vocabulary size. Specifically, we propose a novel embedding initialization
+method that leverages both lexical and semantic alignment for a language. In
+addition, we present a method for systematically searching for the optimal
+vocabulary size, ensuring a balance between model complexity and linguistic
+coverage. Our experiments across multilingual datasets show that our approach
+greatly improves the F1-Score in several languages. UniBridge is a robust and
+adaptable solution for cross-lingual systems in various languages, highlighting
+the significance of initializing embeddings and choosing the right vocabulary
+size in cross-lingual environments.
+</summary>
+    <author>
+      <name>Trinh Pham</name>
+    </author>
+    <author>
+      <name>Khoi M. Le</name>
+    </author>
+    <author>
+      <name>Luu Anh Tuan</name>
+    </author>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">First two authors contribute equally. Accepted at ACL 2024</arxiv:comment>
+    <link href="http://arxiv.org/abs/2406.09717v2" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2406.09717v2" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+</feed>

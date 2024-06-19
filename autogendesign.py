@@ -138,4 +138,5 @@ def invokeagent():
                 <div class="container">{rttxt}</div>            
                 </body>
                 </html>"""
-                st.html(htmloutput)
+                #st.html(htmloutput)
+                st.markdown(rttxt)
