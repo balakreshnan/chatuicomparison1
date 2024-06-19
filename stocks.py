@@ -50,22 +50,24 @@ def processstockagent(query, selected_model):
     returntxt = ""
     # create an AssistantAgent instance named "assistant"
     assistant = autogen.AssistantAgent(
-        name="assistant",
+        name="Coder",
         llm_config=llm_config,
+        system_message="""You are stock AI Agent, based on provided symbols try to understand trends and provide insights, 
+        Create code and execute code and show the output as markdown. please reply with `TERMINATE` to end the conversation.""",
     )
     # create a UserProxyAgent instance named "user_proxy"
     user_proxy = autogen.UserProxyAgent(
         name="user_proxy",
-        human_input_mode="NEVER",
+        human_input_mode="TERMINATE",
         max_consecutive_auto_reply=5,
-        is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
+        #is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
         code_execution_config={
             "work_dir": "web",
             "use_docker": False,
         },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
         llm_config=llm_config,
-        system_message="""You are stock AI Agent, based on provided symbols try to understand trends and provide insights, Create code and execute and show the output. please reply with `TERMINATE` to end the conversation.""",
-        default_auto_reply="exit",
+        system_message="Code generator and excutor"
+        #default_auto_reply="exit",
     )
 
     message=f"""

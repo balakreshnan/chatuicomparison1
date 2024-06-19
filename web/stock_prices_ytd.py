@@ -1,43 +1,39 @@
 # filename: stock_prices_ytd.py
 
+import pandas as pd
 import yfinance as yf
 import matplotlib.pyplot as plt
-import datetime
 
-# Define the stock tickers
-tickers = {
-    'Costco': 'COST',
-    'Chipotle': 'CMG',
-    'Tesla': 'TSLA',
-    'Eli Lilly': 'LLY'
-}
+# Define the stock symbols
+stocks = ['COST', 'CMG', 'TSLA', 'LLY']
 
-# Get the current date and the start of the year
-end_date = datetime.datetime.now()
-start_date = datetime.datetime(end_date.year, 1, 1)
+# Fetch the stock data YTD
+data = yf.download(stocks, start='2023-01-01', end=pd.Timestamp.today().strftime('%Y-%m-%d'))
 
-# Fetch the stock data
-data = {}
-for company, ticker in tickers.items():
-    stock_data = yf.download(ticker, start=start_date, end=end_date)
-    data[company] = stock_data
+# Extract the opening and closing prices
+open_prices = data['Open']
+close_prices = data['Close']
 
-# Plot the data
+# Plot the opening prices
 plt.figure(figsize=(14, 7))
+for stock in stocks:
+    plt.plot(open_prices.index, open_prices[stock], label=f'{stock} Open')
 
-for company, stock_data in data.items():
-    plt.plot(stock_data.index, stock_data['Open'], label=f'{company} Open')
-    plt.plot(stock_data.index, stock_data['Close'], label=f'{company} Close')
-
-plt.title('Stock Prices YTD (Opening and Closing)')
+plt.title('Opening Prices YTD')
 plt.xlabel('Date')
-plt.ylabel('Price (USD)')
+plt.ylabel('Price')
 plt.legend()
 plt.grid(True)
-plt.tight_layout()
+plt.show()
 
-# Save the plot as an image file
-plt.savefig('stock_prices_ytd.png')
+# Plot the closing prices
+plt.figure(figsize=(14, 7))
+for stock in stocks:
+    plt.plot(close_prices.index, close_prices[stock], label=f'{stock} Close')
 
-# Show the plot
+plt.title('Closing Prices YTD')
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.legend()
+plt.grid(True)
 plt.show()
