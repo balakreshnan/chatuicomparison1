@@ -14,6 +14,9 @@ import autogen
 from typing import Optional
 from typing_extensions import Annotated
 from autogen import AssistantAgent
+from autogen.code_utils import create_virtual_env
+from autogen.coding import LocalCommandLineCodeExecutor
+from autogen import ConversableAgent
 
 config = dotenv_values("env.env")
 
@@ -46,8 +49,23 @@ llm_config={
 
 import json
 
+
+
 def processstockagent(query, selected_model):
     returntxt = ""
+    venv_dir = ".venv"
+    #venv_context = create_virtual_env(venv_dir)
+    #venv_context = load_virtual_env(venv_dir)
+
+    code_writer_system_message = """
+    You have been given coding capability to solve tasks using Python code.
+    In the following cases, suggest python code (in a python coding block) or shell script (in a sh coding block) for the user to execute.
+        1. When you need to collect info, use the code to output the info you need, for example, browse or search the web, download/read a file, print the content of a webpage or a file, get the current date/time, check the operating system. After sufficient info is printed and the task is ready to be solved based on your language skill, you can solve the task by yourself.
+        2. When you need to perform some task with code, use the code to perform the task and output the result. Finish the task smartly.
+    Solve the task step by step if you need to. If a plan is not provided, explain your plan first. Be clear which step uses code, and which step uses your language skill.
+    When using code, you must indicate the script type in the code block. The user cannot provide any other feedback or perform any other action beyond executing the code you suggest. The user can't modify your code. So do not suggest incomplete code which requires users to modify. Don't use a code block if it's not intended to be executed by the user.
+    If you want the user to save the code in a file before executing it, put # filename: <filename> inside the code block as the first line. Don't include multiple code blocks in one response. Do not ask users to copy and paste the result. Instead, use 'print' function for the output when relevant. Check the execution result returned by the user.
+    """
     # create an AssistantAgent instance named "assistant"
     assistant = autogen.AssistantAgent(
         name="Coder",
@@ -58,15 +76,20 @@ def processstockagent(query, selected_model):
     # create a UserProxyAgent instance named "user_proxy"
     user_proxy = autogen.UserProxyAgent(
         name="user_proxy",
-        human_input_mode="TERMINATE",
+        human_input_mode="NEVER",
         max_consecutive_auto_reply=5,
         #is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
+        #code_execution_config={
+        #    "work_dir": "web",
+        #    "use_docker": False,
+        #},  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
         code_execution_config={
             "work_dir": "web",
             "use_docker": False,
-        },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
+            # "virtual_env": venv_context,
+        }, 
         llm_config=llm_config,
-        system_message="Code generator and excutor"
+        system_message=code_writer_system_message
         #default_auto_reply="exit",
     )
 
@@ -75,9 +98,33 @@ def processstockagent(query, selected_model):
     """
 
     # the assistant receives a message from the user, which contains the task description
-    result = user_proxy.initiate_chat(
-        assistant,
-        message=message,
+    #result = user_proxy.initiate_chat(
+    #    assistant,
+    #    message=message,
+    #    n_results=5,
+    #)
+
+    code_executor_agent = ConversableAgent(
+        name="code_executor_agent",
+        llm_config=False,
+        code_execution_config={
+            "work_dir": "web",
+            "use_docker": False,
+        },
+        human_input_mode="NEVER",
+    )
+
+    code_writer_agent = ConversableAgent(
+        "code_writer",
+        system_message=code_writer_system_message,
+        llm_config=llm_config,
+        code_execution_config=False,  # Turn off code execution for this agent.
+        max_consecutive_auto_reply=2,
+        human_input_mode="NEVER",
+    )
+
+    result = code_executor_agent.initiate_chat(
+        code_writer_agent, message=message, n_results=5
     )
 
     # returntxt = str(result)
@@ -86,6 +133,10 @@ def processstockagent(query, selected_model):
     # returntxt = result.chat_history
     for chat in result.chat_history:
         returntxt += f"{chat['role']} : {chat['content']}  " + "\n <br><br>"
+
+    #returntxt += f"Execution time: {result.execution_time:.2f} seconds"
+    returntxt += f" Sumamry: {result.summary} \n <br><br>"
+    returntxt += f" Cost: {result.cost} \n <br><br>"
 
     return returntxt
 
