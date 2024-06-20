@@ -13,6 +13,7 @@ from workbench import processtext
 from stocks import invokestocks 
 #from vaagent import vaprocess
 from videochat import processvideo
+from comedytrack import comedytrack
 
 # Set page size
 st.set_page_config(
@@ -37,7 +38,7 @@ st.sidebar.image("bblogo1.png", use_column_width=True)
 nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "ImgtoText", 
                                                  "AgentDesign", "ArxivPapers", "Design with Agents", 
                                                  "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", 
-                                                 "Stocks", "VideoChat", "About"])
+                                                 "Stocks", "VideoChat", "ComedyTrack", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -66,6 +67,8 @@ elif nav_option == "Stocks":
     invokestocks()
 elif nav_option == "VideoChat":
     processvideo()
+elif nav_option == "ComedyTrack":
+    comedytrack()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 
