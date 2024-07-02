@@ -15,6 +15,7 @@ from stocks import invokestocks
 from videochat import processvideo
 from comedytrack import comedytrack
 from codeautogen import codeautogen
+from csicheesegpt import csicheesegpt
 
 # Set page size
 st.set_page_config(
@@ -40,7 +41,7 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "AgentDesign", "ArxivPapers", "Design with Agents", 
                                                  "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", 
                                                  "Stocks", "VideoChat", "ComedyTrack",
-                                                 "Code Autogen", "About"])
+                                                 "Code Autogen", "Cheese GPT", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -73,6 +74,8 @@ elif nav_option == "ComedyTrack":
     comedytrack()
 elif nav_option == "Code Autogen":
     codeautogen()
+elif nav_option == "Cheese GPT":
+    csicheesegpt()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 

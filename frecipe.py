@@ -32,30 +32,31 @@ css = """
 client = AzureOpenAI(
   azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION"], 
   api_key=config["AZURE_OPENAI_KEY_VISION"],  
-  api_version="2024-02-01"
-  #api_version="2024-02-15-preview"
+  #api_version="2024-02-01"
+  api_version="2024-02-15-preview"
   #api_version="2024-05-13"
   #api_version="2023-12-01-preview"
   #api_version="2023-09-01-preview"
 )
 
 #model_name = "gpt-4-turbo"
-model_name = "gpt-35-turbo-16k"
+#model_name = "gpt-35-turbo-16k"
+model_name = "gpt-4o-g"
 
-llm_config={"config_list": [
-    {"model": "gpt-35-turbo", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
-    "api_type" : "azure", "api_version" : "2024-02-01"},
-    {"model": "gpt-35-turbo-16k", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
-    "api_type" : "azure", "api_version" : "2024-02-01"},
-    {"model": "gpt-4-turbo", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
-    "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
-    "api_type" : "azure", "api_version" : "2024-02-01"}
-    ],
+
+llm_config={
+    "config_list": [
+        {"model": "gpt-4o-g", "api_key": config["AZURE_OPENAI_KEY_VISION"], 
+         "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_VISION"],
+         "api_type" : "azure", "api_version" : "2024-02-01"
+         },
+         {"model": "gpt-35-turbo", "api_key": config["AZURE_OPENAI_KEY_ASSITANT"], 
+        "cache_seed" : None, "base_url" : config["AZURE_OPENAI_ENDPOINT_ASSITANT"],
+        "api_type" : "azure", "api_version" : "2024-02-01"},
+        ],
     "timeout": 600,
-    "cache_seed": 44,
-    "temperature": 0.0}
+    "seed": 42,
+    "temperature": 0,}
 
 import json
 
@@ -271,7 +272,7 @@ def foodreceipe():
 
     with col1:
         st.write("Enter the food item to search for")
-        modeloptions1 = ["gpt-35-turbo", "gpt-4-turbo", "gpt-4-vision"]
+        modeloptions1 = ["gpt-4o-g", "gpt-4o", "gpt-35-turbo", "gpt-4-turbo"]
         # Create a dropdown menu using selectbox method
         selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)
         options = ['Normal', 'Agent', 'Historical']
@@ -303,4 +304,5 @@ def foodreceipe():
                 <div class="container">{rttxt}</div>            
                 </body>
                 </html>"""
-            st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+            # st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+            st.markdown(rttxt, unsafe_allow_html=True)
