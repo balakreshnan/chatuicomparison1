@@ -62,7 +62,6 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
                 "parameters": {
                     "endpoint": search_endpoint,
                     "index_name": search_index,
-                    #"key": search_key,
                     "authentication": {
                         "type": "api_key",
                         "key": search_key
@@ -71,11 +70,17 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
                     "top_n_documents": 5,
                     "query_type": selected_optionsearch,
                     "semantic_configuration": "azureml-default",
-                    #"embeddingendpoint": "text-embedding-ada-002",
-                    #"embeddingEndpoint": "text-embedding-ada-002",
                     "embedding_dependency": {
                         "type": "deployment_name",
                         "deployment_name": "text-embedding-ada-002"
+                    },
+                    "fields_mapping": {
+                        "content_fields": ["content"],
+                        "vector_fields": ["contentVector"],
+                        "title_field": "title",
+                        "url_field": "url",
+                        "filepath_field": "filepath",
+                        "content_fields_separator": "\n",
                     }
                 }
             }
@@ -107,7 +112,7 @@ def csicheesegpt():
     st.write("## CSI Cheese Manufacturing GPT")
 
     count = 0
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([1,2])
 
     with col1:        
         user_input1 = st.text_area("Enter Question to Ask:", "what are the steps to make cheese?")
