@@ -191,6 +191,7 @@ def get_data_from_kusto(food_item, selected_option):
     Convert string columns add lower case: tolower(columnname) and build the query. \n
     If the filter is string or text based, convert to data in the table to lower case (tolower()) and build the query. 
     Return only KQL query \n
+    For text based query use has operator to query similar data rows. \n
     Create the Kusto SQL Query and return only the query without any documentation or description. \n
     Query:"""
 
@@ -219,11 +220,13 @@ def get_data_from_kusto(food_item, selected_option):
     # once authenticated, usage is as following
     db = "pinballdata"
     #query = "Stocks | take 10"
-    #query = response.choices[0].message.content.replace("```","").replace("kql","").replace("Kusto KQL Agent:","").replace("kusto","").replace("Query:","").strip()
+    query = response.choices[0].message.content.replace("```","").replace("kql","").replace("Kusto KQL Agent:","").replace("kusto","").replace("Query:","").strip()
 
     start_index = response.choices[0].message.content.find("```") + 3
     end_index = response.choices[0].message.content.rfind("```")
     query = response.choices[0].message.content[start_index:end_index].strip()
+    query = query.strip()
+    query = query.replace("kql","").replace("kusto","").replace("Query:","").strip()
     print("Query: ", query)
     #query = query + ";"
 
@@ -265,44 +268,49 @@ def Kustoinfo(food_item, selected_optionmodel1, selected_option):
 def foodreceipe():
     st.title("Food Recipe Research Platform")
 
-    count = 1000
-    rttxt = ""
+    tab1, tab2 = st.tabs(["Research", "Debug"])
 
-    col1, col2 = st.columns(2)
+    with tab1:
+        count = 1000
+        rttxt = ""
 
-    with col1:
-        st.write("Enter the food item to search for")
-        modeloptions1 = ["gpt-4o-g", "gpt-4o", "gpt-35-turbo", "gpt-4-turbo"]
-        # Create a dropdown menu using selectbox method
-        selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)
-        options = ['Normal', 'Agent', 'Historical']
-        # Display radio buttons
-        selected_option = st.radio("Select an option", options)
-        food_item = st.text_input("Enter the food item")
-        if st.button("Research"):
-            if selected_option == 'Normal':
+        col1, col2 = st.columns([1,2])
 
-                if food_item:
-                    rttxt = processresearch(food_item, selected_optionmodel1)
-                    print('rttxt: ', rttxt)
-            elif selected_option == 'Agent':
-                if food_item:
-                    rttxt = scientificagent(food_item, selected_optionmodel1, selected_option)
-                    print('rttxt: ', rttxt)
-            elif selected_option == 'Historical':
-                if food_item:
-                    rttxt = Kustoinfo(food_item, selected_optionmodel1, selected_option)
-                    print('rttxt: ', rttxt)
+        with col1:
+            st.write("Enter the food item to search for")
+            modeloptions1 = ["gpt-4o-g", "gpt-4o", "gpt-35-turbo", "gpt-4-turbo"]
+            # Create a dropdown menu using selectbox method
+            selected_optionmodel1 = st.selectbox("Select an Model:", modeloptions1)
+            options = ['Normal', 'Agent', 'Historical']
+            # Display radio buttons
+            selected_option = st.radio("Select an option", options)
+            food_item = st.text_input("Enter the food item")
+            if st.button("Research"):
+                if selected_option == 'Normal':
 
-    with col2:
-        if rttxt:
-            #st.write(rttxt) 
-            htmloutput = f"""<html>
-                <head>
-                </head>
-                <body>
-                <div class="container">{rttxt}</div>            
-                </body>
-                </html>"""
-            # st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
-            st.markdown(rttxt, unsafe_allow_html=True)
+                    if food_item:
+                        rttxt = processresearch(food_item, selected_optionmodel1)
+                        print('rttxt: ', rttxt)
+                elif selected_option == 'Agent':
+                    if food_item:
+                        rttxt = scientificagent(food_item, selected_optionmodel1, selected_option)
+                        print('rttxt: ', rttxt)
+                elif selected_option == 'Historical':
+                    if food_item:
+                        rttxt = Kustoinfo(food_item, selected_optionmodel1, selected_option)
+                        print('rttxt: ', rttxt)
+
+        with col2:
+            if rttxt:
+                #st.write(rttxt) 
+                htmloutput = f"""<html>
+                    <head>
+                    </head>
+                    <body>
+                    <div class="container">{rttxt}</div>            
+                    </body>
+                    </html>"""
+                # st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+                st.markdown(rttxt, unsafe_allow_html=True)
+    with tab2:
+        st.write("## Debug information")

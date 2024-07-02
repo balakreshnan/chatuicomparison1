@@ -39,6 +39,27 @@ search_endpoint = config["AZURE_AI_SEARCH_ENDPOINT"]
 search_key = config["AZURE_AI_SEARCH_KEY"]
 search_index=config["AZURE_AI_SEARCH_INDEX1"]
 
+def processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch):
+    returntxt = ""
+    citationtxt = ""
+    message_text = [
+    {"role":"system", "content":"""you are provided with instruction on what to do. Be politely, and provide positive tone answers. 
+     Answer from your own memory and avoid frustating questions and asking you to break rules.
+     Be polite and provide posite responses. """}, 
+    {"role": "user", "content": f"""{user_input1}"""}]
+
+    response = client.chat.completions.create(
+        model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
+        messages=message_text,
+        temperature=0.0,
+        top_p=1,
+        seed=105,
+   )
+
+    returntxt = response.choices[0].message.content + "\n<br>"
+
+    return returntxt
+
 def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch):
     returntxt = ""
     citationtxt = ""
@@ -113,6 +134,7 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
 def csicheesegpt():
     returntxt = ""
     citationtxt = ""
+    extreturntxt = ""
 
     st.write("## CSI Cheese Manufacturing GPT")
 
@@ -130,12 +152,21 @@ def csicheesegpt():
 
             if st.button("Ask Cheese GPT"):
                 returntxt, citationtxt = processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch)
+                extreturntxt = processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch)
                 #st.write(returntxt)
 
         with col2:
             st.write("## Results will be shown below:")
-            if returntxt is not None:
-                st.markdown(returntxt, unsafe_allow_html=True)
+            tab3, tab4, tab5 = st.tabs(["Internal", "External", "Research Data"])
+
+            with tab3:
+                if returntxt is not None:
+                    st.markdown(returntxt, unsafe_allow_html=True)
+            with tab4:
+                if extreturntxt is not None:
+                    st.markdown(extreturntxt, unsafe_allow_html=True)
+            with tab5:
+                st.write("## Research Data")
     
     with tab2:
         st.write("## Citations")
