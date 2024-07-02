@@ -41,6 +41,7 @@ search_index=config["AZURE_AI_SEARCH_INDEX1"]
 
 def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch):
     returntxt = ""
+    citationtxt = ""
     message_text = [
     {"role":"system", "content":"""you are provided with instruction on what to do. Be politely, and provide positive tone answers. 
      answer only from data source provided. unable to find answer, please respond politely and ask for more information.
@@ -95,35 +96,49 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
 
     parsed_json = json.loads(json_string)
 
+    # print(parsed_json)
+
     if parsed_json['citations'] is not None:
         returntxt = returntxt + f"""<br> Citations: """
         for row in parsed_json['citations']:
             #returntxt = returntxt + f"""<br> Title: {row['filepath']} as {row['url']}"""
-            returntxt = returntxt + f"""<br> [{row['url']}]"""
-    #    for cit in url.citations:
-    #        returntxt = returntxt + f"""<br> Title: {cit.filepath} as {cit.url}"""
-        #returntxt = returntxt + f"""<br> Title: {url.filepath} as {url.url}"""
+            returntxt = returntxt + f"""<br> [{row['url']}_{row['chunk_id']}]"""
+            citationtxt = citationtxt + f"""<br><br> Title: {row['title']} <br> URL: {row['url']} 
+            <br> Chunk ID: {row['chunk_id']} 
+            <br> Content: {row['content']} 
+            <br> ------------------------------------------------------------------------------------------ <br>\n"""
 
-    return returntxt
+    return returntxt, citationtxt
 
 def csicheesegpt():
     returntxt = ""
+    citationtxt = ""
 
     st.write("## CSI Cheese Manufacturing GPT")
 
-    count = 0
-    col1, col2 = st.columns([1,2])
+    # Create tabs
+    tab1, tab2 = st.tabs(["Chat", "Citations"])
 
-    with col1:        
-        user_input1 = st.text_area("Enter Question to Ask:", "what are the steps to make cheese?")
-        selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-g", "gpt-4o"])
-        selected_optionsearch = st.selectbox("Select Search Type", ["simple", "semantic", "vector", "vector_simple_hybrid", "vector_semantic_hybrid"])
+    with tab1:
+        count = 0
+        col1, col2 = st.columns([1,2])
 
-        if st.button("Ask Cheese GPT"):
-            returntxt = processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch)
-            #st.write(returntxt)
+        with col1:        
+            user_input1 = st.text_area("Enter Question to Ask:", "what are the steps to make cheese?")
+            selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-g", "gpt-4o"])
+            selected_optionsearch = st.selectbox("Select Search Type", ["simple", "semantic", "vector", "vector_simple_hybrid", "vector_semantic_hybrid"])
 
-    with col2:
-        st.write("## Results will be shown below:")
-        if returntxt is not None:
-            st.markdown(returntxt, unsafe_allow_html=True)
+            if st.button("Ask Cheese GPT"):
+                returntxt, citationtxt = processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch)
+                #st.write(returntxt)
+
+        with col2:
+            st.write("## Results will be shown below:")
+            if returntxt is not None:
+                st.markdown(returntxt, unsafe_allow_html=True)
+    
+    with tab2:
+        st.write("## Citations")
+        if citationtxt is not None:
+            st.markdown(citationtxt, unsafe_allow_html=True)
+
