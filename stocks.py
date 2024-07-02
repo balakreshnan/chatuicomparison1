@@ -144,43 +144,52 @@ def invokestocks():
     #query = "display a simple bar chart?"
     # agentconfig()
 
-    count = 0
-    col1, col2 = st.columns(2)
-    rttxt = ""
+    tab1, tab2 = st.tabs(["AutoGenCode", "Citations"])
 
-    with col1:
-        modeloptions = ["gpt-4g-o", "gpt-4o", "gpt-4-turbo", "gpt-35-turbo", "llama2", "mixstral"]
+    with tab1:
+        count = 0
+        col1, col2 = st.columns([1,2])
+        rttxt = ""
 
-        # Create a dropdown menu using selectbox method
-        selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
-        query = st.text_input("Provide the task to execute:", key=count, value="Plot a chart of Costco, Chipotle, Tesla and Elly Lilly stock prices closing, open YTD")
-        count += 1
-        #st.write(query)
-        # Create a button to generate a response when clicked
-        if st.button("Generate Response"):
-            if query:
-                start_time = time.time()  # Record start time
-                # Generate a response based on the user input
-                rttxt = processstockagent(query, selected_optionmodel)
-                #st.text_area("AI Response:", value=response, height=200) 
-                end_time = time.time()  # Record end time
-                execution_time = end_time - start_time
-                st.write(f"Execution time: {execution_time:.2f} seconds")
+        with col1:
+            modeloptions = ["gpt-4g-o", "gpt-4o", "gpt-4-turbo", "gpt-35-turbo", "llama2", "mixstral"]
 
-    with col2:
+            # Create a dropdown menu using selectbox method
+            selected_optionmodel = st.selectbox("Select an Model:", modeloptions)
+            query = st.text_input("Provide the task to execute:", key=count, 
+                                  value="Plot a chart of Tesla stock prices YTD save as image file as tesla_stock_ytd.png and display it.")
+            count += 1
+            #st.write(query)
+            # Create a button to generate a response when clicked
+            if st.button("Generate Response"):
+                if query:
+                    start_time = time.time()  # Record start time
+                    # Generate a response based on the user input
+                    rttxt = processstockagent(query, selected_optionmodel)
+                    #st.text_area("AI Response:", value=response, height=200) 
+                    end_time = time.time()  # Record end time
+                    execution_time = end_time - start_time
+                    st.write(f"Execution time: {execution_time:.2f} seconds")
+
+        with col2:
+            if rttxt:
+                    htmloutput = f"""<html>
+                    <head>
+                    <style>
+                    //.container {{
+                    //    height: 200vh;
+                    //}}
+                    </style>
+                    </head>
+                    <body>
+                    <div class="container">{rttxt}</div>            
+                    </body>
+                    </html>"""
+                    #st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
+                    # st.text_area("AI Response:", value=rttxt, height=400) 
+                    st.markdown(rttxt, unsafe_allow_html=True)
+    with tab2:
+        st.write("## Code Debug")
         if rttxt:
-                htmloutput = f"""<html>
-                <head>
-                <style>
-                //.container {{
-                //    height: 200vh;
-                //}}
-                </style>
-                </head>
-                <body>
-                <div class="container">{rttxt}</div>            
-                </body>
-                </html>"""
-                #st.components.v1.html(htmloutput, height=550, width=600, scrolling=True)
-                # st.text_area("AI Response:", value=rttxt, height=400) 
-                st.markdown(rttxt, unsafe_allow_html=True)
+            image_path = "web/tesla_stock_ytd.png"
+            st.image(image_path, use_column_width=True)

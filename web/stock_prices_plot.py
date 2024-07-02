@@ -4,32 +4,36 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import datetime
 
-# Define the stock symbols
-stocks = {
-    'Costco': 'COST',
-    'Chipotle': 'CMG',
-    'Tesla': 'TSLA',
-    'Eli Lilly': 'LLY'
-}
+# Define the stock tickers
+tickers = ['COST', 'CMG', 'TSLA', 'LLY']
 
-# Get the current date and the start of the year
-end_date = datetime.datetime.now()
-start_date = datetime.datetime(end_date.year, 1, 1)
+# Get the current date
+end_date = datetime.datetime.now().strftime('%Y-%m-%d')
 
-# Fetch the stock data
-stock_data = {}
-for company, symbol in stocks.items():
-    stock_data[company] = yf.download(symbol, start=start_date, end=end_date)
+# Get the start date for YTD
+start_date = f"{datetime.datetime.now().year}-01-01"
 
-# Plot the stock data
+# Download stock data
+data = yf.download(tickers, start=start_date, end=end_date)
+
+# Extract the opening and closing prices
+open_prices = data['Open']
+close_prices = data['Close']
+
+# Plot the data
 plt.figure(figsize=(14, 7))
 
-for company, data in stock_data.items():
-    plt.plot(data['Close'], label=company)
+# Plot opening prices
+for ticker in tickers:
+    plt.plot(open_prices.index, open_prices[ticker], label=f'{ticker} Open')
 
-plt.title('YTD Stock Prices')
+# Plot closing prices
+for ticker in tickers:
+    plt.plot(close_prices.index, close_prices[ticker], label=f'{ticker} Close', linestyle='--')
+
+plt.title('YTD Stock Prices for Costco, Chipotle, Tesla, and Eli Lilly')
 plt.xlabel('Date')
-plt.ylabel('Closing Price (USD)')
+plt.ylabel('Price (USD)')
 plt.legend()
 plt.grid(True)
 plt.show()
