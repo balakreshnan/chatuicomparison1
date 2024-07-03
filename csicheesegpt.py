@@ -13,6 +13,7 @@ import io
 import autogen
 from typing import Optional
 from typing_extensions import Annotated
+from streamlit import session_state as state
 
 config = dotenv_values("env.env")
 
@@ -131,6 +132,92 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
 
     return returntxt, citationtxt
 
+def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch):
+    returntxt = ""
+    citationtxt = ""
+    message_text = [
+    {"role":"system", "content":"""you are provided with instruction on what to do. Be politely, and provide positive tone answers. 
+     answer only from data source provided. unable to find answer, please respond politely and ask for more information.
+     Extract Title content from the document. Show the Title as citations which is provided as Title: as [doc1] [doc2].
+     Please add citation after each sentence when possible in a form "(Title: citation)".
+     Be polite and provide posite responses. If user is asking you to do things that are not specific to this context please ignore."""}, 
+    {"role": "user", "content": f"""{user_input1}"""}]
+
+    response = client.chat.completions.create(
+        model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
+        messages=message_text,
+        temperature=0.0,
+        top_p=1,
+        seed=105,
+        stream=True,
+        extra_body={
+        "data_sources": [
+            {
+                "type": "azure_search",
+                "parameters": {
+                    "endpoint": search_endpoint,
+                    "index_name": search_index,
+                    "authentication": {
+                        "type": "api_key",
+                        "key": search_key
+                    },
+                    "include_contexts": ["citations"],
+                    "top_n_documents": 5,
+                    "query_type": selected_optionsearch,
+                    "semantic_configuration": "azureml-default",
+                    "embedding_dependency": {
+                        "type": "deployment_name",
+                        "deployment_name": "text-embedding-ada-002"
+                    },
+                    "fields_mapping": {
+                        "content_fields": ["content"],
+                        "vector_fields": ["contentVector"],
+                        "title_field": "title",
+                        "url_field": "url",
+                        "filepath_field": "filepath",
+                        "content_fields_separator": "\n",
+                    }
+                }
+            }
+        ]
+    }
+    )
+    #print(response.choices[0].message.context)
+
+    #returntxt = response.choices[0].message.content + "\n<br>"
+
+    #json_string = json.dumps(response.choices[0].message.context)
+
+    #parsed_json = json.loads(json_string)
+
+    # print(parsed_json)
+
+    #if parsed_json['citations'] is not None:
+    #    returntxt = returntxt + f"""<br> Citations: """
+    #    for row in parsed_json['citations']:
+    #        #returntxt = returntxt + f"""<br> Title: {row['filepath']} as {row['url']}"""
+    #        returntxt = returntxt + f"""<br> [{row['url']}_{row['chunk_id']}]"""
+    #        citationtxt = citationtxt + f"""<br><br> Title: {row['title']} <br> URL: {row['url']} 
+    #        <br> Chunk ID: {row['chunk_id']} 
+    #        <br> Content: {row['content']} 
+    #        <br> ------------------------------------------------------------------------------------------ <br>\n"""
+    #for event in response:
+    #    if 'choices' in event:
+    #        choice = event['choices'][0]
+    #        if 'text' in choice:
+    #            print(choice['text'], end='', flush=True)
+
+    # Use a placeholder to update the output dynamically
+    placeholder = st.empty()
+    text = ""
+    
+    for event in response:
+        if 'choices' in event:
+            choice = event['choices'][0]
+            if 'text' in choice:
+                text += choice['text']
+                placeholder.text(text)
+
 def csicheesegpt():
     returntxt = ""
     citationtxt = ""
@@ -162,6 +249,8 @@ def csicheesegpt():
             with tab3:
                 if returntxt is not None:
                     st.markdown(returntxt, unsafe_allow_html=True)
+                    #st.write_stream(processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch))
+                    #processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch)
             with tab4:
                 if extreturntxt is not None:
                     st.markdown(extreturntxt, unsafe_allow_html=True)
