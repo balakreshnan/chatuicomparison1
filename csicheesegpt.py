@@ -124,7 +124,8 @@ def processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsear
         returntxt = returntxt + f"""<br> Citations: """
         for row in parsed_json['citations']:
             #returntxt = returntxt + f"""<br> Title: {row['filepath']} as {row['url']}"""
-            returntxt = returntxt + f"""<br> [{row['url']}_{row['chunk_id']}]"""
+            #returntxt = returntxt + f"""<br> [{row['url']}_{row['chunk_id']}]"""
+            returntxt = returntxt + f"""<br> <a href='{row['url']}' target='_blank'>[{row['url']}_{row['chunk_id']}]</a>"""
             citationtxt = citationtxt + f"""<br><br> Title: {row['title']} <br> URL: {row['url']} 
             <br> Chunk ID: {row['chunk_id']} 
             <br> Content: {row['content']} 
@@ -244,7 +245,7 @@ def csicheesegpt():
 
         with col2:
             st.write("## Results will be shown below:")
-            tab3, tab4, tab5 = st.tabs(["Internal", "External", "Research Data"])
+            tab3, tab4, tab5, tab6 = st.tabs(["Internal", "External", "Research Data", "Citations"])
 
             with tab3:
                 if returntxt is not None:
@@ -256,9 +257,11 @@ def csicheesegpt():
                     st.markdown(extreturntxt, unsafe_allow_html=True)
             with tab5:
                 st.write("## Research Data")
+            with tab6:
+                if citationtxt is not None:
+                    st.markdown(citationtxt, unsafe_allow_html=True)
     
     with tab2:
-        st.write("## Citations")
-        if citationtxt is not None:
-            st.markdown(citationtxt, unsafe_allow_html=True)
+        st.write("## Help Dcoumentation")
+        
 
