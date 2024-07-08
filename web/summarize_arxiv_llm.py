@@ -1,36 +1,62 @@
 # filename: summarize_arxiv_llm.py
 
-import arxiv
-from datetime import datetime, timedelta, timezone
-from transformers import pipeline
+import requests
+import datetime
+from newspaper import Article
+from bs4 import BeautifulSoup
 
-# Define the date range for the last 7 days
-end_date = datetime.now(timezone.utc)
-start_date = end_date - timedelta(days=7)
+def fetch_arxiv_papers(query, max_results=100):
+    url = f'http://export.arxiv.org/api/query?search_query={query}&start=0&max_results={max_results}'
+    response = requests.get(url)
+    return response.text
 
-# Search for papers in the "cs.CL" category (Computation and Language)
-search = arxiv.Search(
-    query="cat:cs.CL",
-    max_results=50,
-    sort_by=arxiv.SortCriterion.SubmittedDate,
-    sort_order=arxiv.SortOrder.Descending
-)
+def parse_arxiv_response(response):
+    soup = BeautifulSoup(response, 'html.parser')
+    entries = soup.find_all('entry')
+    papers = []
+    for entry in entries:
+        paper = {
+            'title': entry.title.text,
+            'summary': entry.summary.text,
+            'published': entry.published.text,
+            'link': entry.id.text
+        }
+        papers.append(paper)
+    return papers
 
-# Fetch the results
-results = list(search.results())
+def filter_recent_papers(papers, days=7):
+    recent_papers = []
+    now = datetime.datetime.now()
+    for paper in papers:
+        published_date = datetime.datetime.strptime(paper['published'], '%Y-%m-%dT%H:%M:%SZ')
+        if (now - published_date).days <= days:
+            recent_papers.append(paper)
+    return recent_papers
 
-# Filter results based on the date range
-filtered_results = [result for result in results if start_date <= result.updated <= end_date]
+def summarize_paper(url):
+    article = Article(url)
+    article.download()
+    article.parse()
+    article.nlp()
+    return article.summary
 
-# Extract the abstracts
-abstracts = [result.summary for result in filtered_results]
+def main():
+    query = 'large language models'
+    response = fetch_arxiv_papers(query)
+    papers = parse_arxiv_response(response)
+    recent_papers = filter_recent_papers(papers)
+    
+    for paper in recent_papers:
+        print(f"Title: {paper['title']}")
+        print(f"Published: {paper['published']}")
+        print(f"Link: {paper['link']}")
+        print("Summary:")
+        try:
+            summary = summarize_paper(paper['link'])
+            print(summary)
+        except Exception as e:
+            print("Could not summarize the paper. Error:", e)
+        print("\n" + "-"*80 + "\n")
 
-# Load a pre-trained summarization model
-summarizer = pipeline("summarization")
-
-# Summarize each abstract
-summaries = [summarizer(abstract, max_length=150, min_length=30, do_sample=False)[0]['summary_text'] for abstract in abstracts]
-
-# Print the summaries
-for i, summary in enumerate(summaries):
-    print(f"Paper {i+1} Summary:\n{summary}\n")
+if __name__ == "__main__":
+    main()

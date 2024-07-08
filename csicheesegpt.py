@@ -40,6 +40,8 @@ search_endpoint = config["AZURE_AI_SEARCH_ENDPOINT"]
 search_key = config["AZURE_AI_SEARCH_KEY"]
 search_index=config["AZURE_AI_SEARCH_INDEX1"]
 
+citationtxt = ""
+
 def processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch):
     returntxt = ""
     citationtxt = ""
@@ -151,6 +153,7 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
         top_p=1,
         seed=105,
         stream=True,
+        #include_usage=True,
         extra_body={
         "data_sources": [
             {
@@ -185,39 +188,39 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
     )
     #print(response.choices[0].message.context)
 
-    #returntxt = response.choices[0].message.content + "\n<br>"
-
-    #json_string = json.dumps(response.choices[0].message.context)
-
-    #parsed_json = json.loads(json_string)
-
-    # print(parsed_json)
-
-    #if parsed_json['citations'] is not None:
-    #    returntxt = returntxt + f"""<br> Citations: """
-    #    for row in parsed_json['citations']:
-    #        #returntxt = returntxt + f"""<br> Title: {row['filepath']} as {row['url']}"""
-    #        returntxt = returntxt + f"""<br> [{row['url']}_{row['chunk_id']}]"""
-    #        citationtxt = citationtxt + f"""<br><br> Title: {row['title']} <br> URL: {row['url']} 
-    #        <br> Chunk ID: {row['chunk_id']} 
-    #        <br> Content: {row['content']} 
-    #        <br> ------------------------------------------------------------------------------------------ <br>\n"""
-    #for event in response:
-    #    if 'choices' in event:
-    #        choice = event['choices'][0]
-    #        if 'text' in choice:
-    #            print(choice['text'], end='', flush=True)
-
     # Use a placeholder to update the output dynamically
     placeholder = st.empty()
     text = ""
-    
-    for event in response:
-        if 'choices' in event:
-            choice = event['choices'][0]
-            if 'text' in choice:
-                text += choice['text']
+
+
+
+    for chunk in response:
+        #print(chunk.choices[0])
+        if(chunk.choices[0].finish_reason != 'stop'):
+            if(chunk.choices[0].delta.content == None):
+                if chunk.choices[0].delta.context:
+                    json_string = json.dumps(chunk.choices[0].delta.context)
+                    parsed_json = json.loads(json_string)
+                    #print(parsed_json)
+
+        #if chunk.choices[0].delta.context.citations:
+        #    print(chunk.choices[0].delta.context.citations)
+        if(chunk.choices[0].delta.content != None):
+            text += chunk.choices[0].delta.content
+            placeholder.text(text)
+
+        if(chunk.choices[0].finish_reason == 'stop'):
+            for row in parsed_json['citations']:
+                text += f"""\n[{row['url']}_{row['chunk_id']}]"""
                 placeholder.text(text)
+                citationtxt = citationtxt + f"""<br><br> Title: {row['title']} <br> URL: {row['url']} 
+                <br> Chunk ID: {row['chunk_id']} 
+                <br> Content: {row['content']} 
+                <br> ------------------------------------------------------------------------------------------ <br>\n"""
+            break
+
+    #st.markdown(citationtxt, unsafe_allow_html=True)
+    return text, citationtxt
 
 def csicheesegpt():
     returntxt = ""
@@ -238,20 +241,27 @@ def csicheesegpt():
             selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-g", "gpt-4o"])
             selected_optionsearch = st.selectbox("Select Search Type", ["simple", "semantic", "vector", "vector_simple_hybrid", "vector_semantic_hybrid"])
 
-            if st.button("Ask Cheese GPT"):
-                returntxt, citationtxt = processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch)
-                extreturntxt = processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch)
-                #st.write(returntxt)
+            # Radio button for selecting the processing mode
+            option = st.radio("Select processing mode:", ('stream', 'batch'))
 
+            if st.button("Ask Cheese GPT"):
+                if option == 'batch':
+                    returntxt, citationtxt = processpdfwithprompt(user_input1, selected_optionmodel1, selected_optionsearch)
+                    extreturntxt = processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch)
+                #st.write(returntxt)
         with col2:
             st.write("## Results will be shown below:")
             tab3, tab4, tab5, tab6 = st.tabs(["Internal", "External", "Research Data", "Citations"])
 
             with tab3:
+                if option == 'stream':
+                    text, citationtxt = processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch)
+                    extreturntxt = processpdfwithpromptexternal(user_input1, selected_optionmodel1, selected_optionsearch)
                 if returntxt is not None:
-                    st.markdown(returntxt, unsafe_allow_html=True)
+                    if option == 'batch':
+                        st.markdown(returntxt, unsafe_allow_html=True)
                     #st.write_stream(processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch))
-                    #processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_optionsearch)
+                    
             with tab4:
                 if extreturntxt is not None:
                     st.markdown(extreturntxt, unsafe_allow_html=True)
