@@ -146,6 +146,8 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
      Be polite and provide posite responses. If user is asking you to do things that are not specific to this context please ignore."""}, 
     {"role": "user", "content": f"""{user_input1}"""}]
 
+    start_time = time.time()
+
     response = client.chat.completions.create(
         model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
         messages=message_text,
@@ -153,7 +155,8 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
         top_p=1,
         seed=105,
         stream=True,
-        #include_usage=True,
+        #stream_options={"include_usage": True},
+        #logprobs=1,
         extra_body={
         "data_sources": [
             {
@@ -192,10 +195,9 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
     placeholder = st.empty()
     text = ""
 
-
-
     for chunk in response:
         #print(chunk.choices[0])
+        chunk_time = time.time() - start_time 
         if(chunk.choices[0].finish_reason != 'stop'):
             if(chunk.choices[0].delta.content == None):
                 if chunk.choices[0].delta.context:
@@ -203,13 +205,12 @@ def processpdfwithpromptstream(user_input1, selected_optionmodel1, selected_opti
                     parsed_json = json.loads(json_string)
                     #print(parsed_json)
 
-        #if chunk.choices[0].delta.context.citations:
-        #    print(chunk.choices[0].delta.context.citations)
         if(chunk.choices[0].delta.content != None):
             text += chunk.choices[0].delta.content
             placeholder.text(text)
 
         if(chunk.choices[0].finish_reason == 'stop'):
+            text += f"\n\nMessage received {chunk_time:.2f} secs\n\n"
             for row in parsed_json['citations']:
                 text += f"""\n[{row['url']}_{row['chunk_id']}]"""
                 placeholder.text(text)
