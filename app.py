@@ -17,6 +17,8 @@ from comedytrack import comedytrack
 from codeautogen import codeautogen
 from csicheesegpt import csicheesegpt
 from pickagent import pickagent
+from foodresearch import foodresearchmain
+from csirecipe import csirecipedesignmain
 
 # Set page size
 st.set_page_config(
@@ -43,7 +45,8 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "Food Recipe", "PDFExtract", "Diagrams", "URLtoDoc", 
                                                  "Stocks", "VideoChat", "ComedyTrack",
                                                  "Code Autogen", "Cheese GPT",
-                                                 "Pick Agent", "About"])
+                                                 "Pick Agent", "Food Research",
+                                                 "CSI Receipe", "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -80,6 +83,10 @@ elif nav_option == "Cheese GPT":
     csicheesegpt()
 elif nav_option == "Pick Agent":
     pickagent()
+elif nav_option == "Food Research":
+    foodresearchmain()
+elif nav_option == "CSI Receipe":
+    csirecipedesignmain()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 
