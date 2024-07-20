@@ -92,11 +92,80 @@ def process_query(query, selected_optionmodel1, selected_optionmodel2, selected_
 
     return returntxt
 
+def process_query_json(query, selected_optionmodel1, selected_optionmodel2, selected_optionmodel3, values, caloriesrange,
+                  healthyoptions, guiltypleasure, foodalergy, diabetes, obesity):
+    returntxt = ""
+    caloriesrange1 = ""
+
+    if caloriesrange == "Sedentary":
+        caloriesrange1 = "2,200 to 2,400 calories per day"
+    elif caloriesrange == "Moderately Active":
+        caloriesrange1 = "2,400 to 2,800 calories per day"
+    elif caloriesrange == "Active":
+        caloriesrange1 = "2,800 to 3,000 calories per day"
+
+    start_time = time.time()
+
+    message_text = [
+    {"role":"system", "content":"""you are Food research scientist, your job is to provide guidance on new research based on what paramters are provided.
+     Be politely, and provide positive tone answers. 
+     Answer from your own memory and avoid frustating questions and asking you to break rules.
+     Be polite and provide posite responses. """}, 
+    {"role": "user", "content": f"""Provide recommendations on food research for product {query}  and here are some parameters: 
+     Food Type: {selected_optionmodel2},
+     Sugar Type: {selected_optionmodel3},
+     Range of Values: {values}
+     Consider the daily calorie intake for a {caloriesrange1} person.
+     Healthy Options: {healthyoptions},
+     Guilty Pleasure: {guiltypleasure},
+     Food Alergy: {foodalergy},
+     Diabetes: {diabetes},
+     Obesity: {obesity}
+     Provide 5 diferent recommendations based on the above parameters. Show how the parameters were used to making the decision. 
+     Provide details when diabetes and obesity are selected. 
+     Only respond output in JSON format. For String enclose in double quotes."""}]
+
+    response = client.chat.completions.create(
+        model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
+        messages=message_text,
+        temperature=0.0,
+        top_p=1,
+        seed=105,
+        #response_format="json"
+   )
+
+    #returntxt = response.choices[0].message.content + "\n<br>"
+
+    returntxt = json.dumps(response.choices[0].message.content, indent=4)
+
+    reponse_time = time.time() - start_time 
+
+    #returntxt += f"<br>\nResponse Time: {reponse_time:.2f} seconds"
+    print(f"Response Time: {reponse_time:.2f} seconds")
+
+    return response.choices[0].message.content
+
+# Define a function that performs some logic  
+def process_selection(option, json_object):  
+    for object in json_object["recommendations"]:
+        #print(object)
+        #print(f"Recipe Name: {object['recipe_name']}")
+        if option == object['recipe_name']:
+            st.write(f"### Recipe: {object['recipe_name']}")
+            for ing in object['ingredients']:
+                st.write(f"#### Ingredients: {ing}")
+            for nutr in object['nutritional_info']:
+                st.write(f"#### Nutrition: {nutr}")
+            st.write(f"#### Detals: {object['details']}")
+
 
 def foodresearchmain():
     returntxt = ""
     citationtxt = ""
     extreturntxt = ""
+    returnjson = None
+    recommended = []
+    data = {}
 
     st.write("## Food Research Platform")
 
@@ -134,23 +203,46 @@ def foodresearchmain():
                 obesity = st.selectbox("Select Obesity", ["Yes", "No"])
 
                 if st.button("Submit"):
-                    returntxt = process_query(query, selected_optionmodel1, selected_optionmodel2, 
+                    returntxt = process_query_json(query, selected_optionmodel1, selected_optionmodel2, 
                                               selected_optionmodel3, values, caloriesrange,
                                               healthyoptions, guiltypleasure, foodalergy, 
                                               diabetes, obesity)
+                    
+                    returntxt = returntxt.replace("```", "").replace("json", "").replace("JSON", "").replace("```", "")
+                    # print(returntxt)
+                    #returnjson = json.loads(returntxt)
+                    #print(returnjson)
 
                     #st.write(returntxt)
             with col2:
                 #st.write("### Output")
-                if returntxt != "":
+                if returntxt:
                     #st.write(returntxt)
-                    st.markdown(returntxt, unsafe_allow_html=True)
+                    #st.markdown(returntxt, unsafe_allow_html=True)
+                    #st.json(returnjson)
+                    # Parse JSON string into Python dictionary
+                    #data = json.loads(returntxt)
+                    # print(data)
+                    json_object = json.loads(returntxt)  
+                    for object in json_object["recommendations"]:
+                        #print(object)
+                        #print(f"Recipe Name: {object['recipe_name']}")
+                        recommended.append(object['recipe_name'])
+
+                    # Access the data
+                    #for recommendation in data["recommendations"]:
+                    #    print(f"Recipe Name: {recommendation['recipe_name']}")
+
+                    recipelist = st.selectbox("Experiments:", recommended)
+
+                    process_selection(recipelist, json_object)
                 #st.write(returntxt)
             with tab12:
                 #st.write("### External")
                 if returntxt != "":
                     #st.write(returntxt)
-                    st.markdown(returntxt, unsafe_allow_html=True)
+                    #st.markdown(returntxt, unsafe_allow_html=True)
+                    st.json(returnjson)
         
     with tab2:
         st.write("### Citations")
