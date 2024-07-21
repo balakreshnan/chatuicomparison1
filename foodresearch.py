@@ -14,6 +14,7 @@ import autogen
 from typing import Optional
 from typing_extensions import Annotated
 from streamlit import session_state as state
+import azure.cognitiveservices.speech as speechsdk
 
 config = dotenv_values("env.env")
 
@@ -39,6 +40,9 @@ model_name = "gpt-4o-g"
 search_endpoint = config["AZURE_AI_SEARCH_ENDPOINT"]
 search_key = config["AZURE_AI_SEARCH_KEY"]
 search_index=config["AZURE_AI_SEARCH_INDEX1"]
+SPEECH_KEY = config['SPEECH_KEY']
+SPEECH_REGION = config['SPEECH_REGION']
+SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 
 citationtxt = ""
 
@@ -147,6 +151,19 @@ def process_query_json(query, selected_optionmodel1, selected_optionmodel2, sele
 
 # Define a function that performs some logic  
 def process_selection(option, json_object):  
+    #print(json_object)
+    # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+    speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
+    audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+    # The neural multilingual voice can speak different languages based on the input text.
+    speech_config.speech_synthesis_voice_name='en-US-AvaMultilingualNeural'
+
+    pull_stream = speechsdk.audio.PullAudioOutputStream()
+    stream_config = speechsdk.audio.AudioOutputConfig(stream=pull_stream)
+
+    speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+    #speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=stream_config)
     for object in json_object["recommendations"]:
         #print(object)
         #print(f"Recipe Name: {object['recipe_name']}")
@@ -154,9 +171,20 @@ def process_selection(option, json_object):
             st.write(f"### Recipe: {object['recipe_name']}")
             for ing in object['ingredients']:
                 st.write(f"#### Ingredients: {ing}")
-            for nutr in object['nutritional_info']:
-                st.write(f"#### Nutrition: {nutr}")
-            st.write(f"#### Detals: {object['details']}")
+                speech_synthesis_result = speech_synthesizer.speak_text(ing)
+                if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+                    print("Speech synthesized for text [{}] \n".format(ing))
+                elif speech_synthesis_result.reason == speechsdk.ResultReason.Canceled:
+                    cancellation_details = speech_synthesis_result.cancellation_details
+                    print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+                    if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                        if cancellation_details.error_details:
+                            print("Error details: {}".format(cancellation_details.error_details))
+                            print("Did you set the speech resource key and region values?")
+            #for nutr in object['nutritional_info']:
+            #    st.write(f"#### Nutrition: {nutr}")
+            #st.write(f"#### Detals: {object['details']}")
+
 
 
 def foodresearchmain():
@@ -166,8 +194,18 @@ def foodresearchmain():
     returnjson = None
     recommended = []
     data = {}
+    json_object = {}
 
     st.write("## Food Research Platform")
+
+    #if 'selectbox_options' not in st.session_state:
+    #    st.session_state.recipelist = []
+
+    if 'recipelist' not in st.session_state:
+        st.session_state.recipelist = recommended
+
+    if 'json_object' not in st.session_state:
+        st.session_state.json_object = json_object
 
     # Create tabs
     tab1, tab2 = st.tabs(["Chat", "Citations"])
@@ -217,26 +255,33 @@ def foodresearchmain():
             with col2:
                 #st.write("### Output")
                 if returntxt:
-                    #st.write(returntxt)
-                    #st.markdown(returntxt, unsafe_allow_html=True)
-                    #st.json(returnjson)
-                    # Parse JSON string into Python dictionary
-                    #data = json.loads(returntxt)
-                    # print(data)
+
                     json_object = json.loads(returntxt)  
                     for object in json_object["recommendations"]:
                         #print(object)
                         #print(f"Recipe Name: {object['recipe_name']}")
                         recommended.append(object['recipe_name'])
+                        st.session_state.recipelist.append(object['recipe_name'])
 
                     # Access the data
                     #for recommendation in data["recommendations"]:
                     #    print(f"Recipe Name: {recommendation['recipe_name']}")
+                    # Initialize session state for the selectbox options
+                    st.session_state.json_object = json_object
+                    
 
-                    recipelist = st.selectbox("Experiments:", recommended)
+                #if recommended:
+                #    recipelist = st.selectbox("Experiments:", recommended)
 
-                    process_selection(recipelist, json_object)
-                #st.write(returntxt)
+                #    process_selection(recipelist, json_object)
+                    #st.write(returntxt)
+                #recipelist = st.selectbox("Experiments:", recommended)
+                recipelist = st.selectbox('Choose an Experiment:', st.session_state.recipelist)
+
+                if st.session_state.json_object:
+                    process_selection(recipelist, st.session_state.json_object)
+                    #st.experimental_rerun()
+
             with tab12:
                 #st.write("### External")
                 if returntxt != "":
