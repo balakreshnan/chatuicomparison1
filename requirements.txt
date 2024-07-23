@@ -8,3 +8,6 @@ pyautogen
 vision-agent
 azure-cognitiveservices-speech
 bs4
+streamlit-audiorecorder
+ffmpeg-python
+pyaudio

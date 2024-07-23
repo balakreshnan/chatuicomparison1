@@ -15,6 +15,9 @@ from typing import Optional
 from typing_extensions import Annotated
 from streamlit import session_state as state
 import azure.cognitiveservices.speech as speechsdk
+from audiorecorder import audiorecorder
+import pyaudio
+import wave
 
 config = dotenv_values("env.env")
 
@@ -185,7 +188,68 @@ def process_selection(option, json_object):
             #    st.write(f"#### Nutrition: {nutr}")
             #st.write(f"#### Detals: {object['details']}")
 
+def processaudio(audio):
+    returntxt = ""
+    returntxt = "Audio file processed"
+    if len(audio) > 0:
+        # To play audio in frontend:
+        #st.audio(audio.export().read())
+        # 
+        audiodata = audio.export().read()  
 
+        # To save audio to a file, use pydub export method:
+        audio.export("audio.wav", format="wav")
+
+        # To get audio properties, use pydub AudioSegment properties:
+        st.write(f"Frame rate: {audio.frame_rate}, Frame width: {audio.frame_width}, Duration: {audio.duration_seconds} seconds")
+
+        returntxt += f"Frame rate: {audio.frame_rate}, Frame width: {audio.frame_width}, Duration: {audio.duration_seconds} seconds"
+
+    return returntxt
+
+
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+RECORD_SECONDS = 5
+WAVE_OUTPUT_FILENAME = "output.wav"
+
+def record_audio():
+    returntxt = ""
+
+    p = pyaudio.PyAudio()
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    frames_per_buffer=CHUNK)
+
+    print("* recording")
+
+    frames = []
+
+    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("* done recording")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+
+    st.audio(WAVE_OUTPUT_FILENAME, format="audio/wav")
+
+    returntxt = "Audio file processed"
 
 def foodresearchmain():
     returntxt = ""
@@ -252,6 +316,16 @@ def foodresearchmain():
                     #print(returnjson)
 
                     #st.write(returntxt)
+                #st.title("Audio Recorder")
+                #audio = audiorecorder("Click to record", "Click to stop recording")
+
+                #if len(audio) > 0:
+                #    returntxt = processaudio(audio)
+                #    st.write(returntxt)
+                if st.button("Record Audio"):
+                    record_audio()
+                
+
             with col2:
                 #st.write("### Output")
                 if returntxt:
