@@ -251,6 +251,60 @@ def record_audio():
 
     returntxt = "Audio file processed"
 
+def speech_to_text_extract(text, selected_optionmodel1):
+    returntxt = ""
+
+    start_time = time.time()
+
+    message_text = [
+    {"role":"system", "content":"""You are a Lanugage AI Agent, based on the text provided, extract intent and also the value provided.
+     For example change sugar from 5g to 10g. change sugar to 10g.
+     Provide the extracted intent and value.     
+     """}, 
+    {"role": "user", "content": f"""Content: {text}."""}]
+
+    response = client.chat.completions.create(
+        model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
+        messages=message_text,
+        temperature=0.0,
+        top_p=1,
+        seed=105,
+   )
+
+    returntxt = response.choices[0].message.content + "\n<br>"
+
+    reponse_time = time.time() - start_time 
+
+    st.write(returntxt)
+
+    returntxt += f"<br>\nResponse Time: {reponse_time:.2f} seconds"
+
+    return returntxt
+
+def recognize_from_microphone():
+    # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+    speech_config = speechsdk.SpeechConfig(subscription=config['SPEECH_KEY'], region=config['SPEECH_REGION'])
+    speech_config.speech_recognition_language="en-US"
+
+    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+    print("Speak into your microphone.")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
+
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+        st.write(f"Recognized: {speech_recognition_result.text}")
+        speech_to_text_extract(speech_recognition_result.text, "gpt-4o-g")
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
+
 def foodresearchmain():
     returntxt = ""
     citationtxt = ""
@@ -323,7 +377,8 @@ def foodresearchmain():
                 #    returntxt = processaudio(audio)
                 #    st.write(returntxt)
                 if st.button("Record Audio"):
-                    record_audio()
+                    #record_audio()
+                    recognize_from_microphone()
                 
 
             with col2:
