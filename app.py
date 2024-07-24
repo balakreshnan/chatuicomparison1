@@ -19,6 +19,7 @@ from csicheesegpt import csicheesegpt
 from pickagent import pickagent
 from foodresearch import foodresearchmain
 from csirecipe import csirecipedesignmain
+from speechtospeech import showaudio
 
 # Set page size
 st.set_page_config(
@@ -46,7 +47,8 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "Stocks", "VideoChat", "ComedyTrack",
                                                  "Code Autogen", "Cheese GPT",
                                                  "Pick Agent", "Food Research",
-                                                 "CSI Receipe", "About"])
+                                                 "CSI Receipe", "SpeechToSpeech", 
+                                                 "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -87,6 +89,8 @@ elif nav_option == "Food Research":
     foodresearchmain()
 elif nav_option == "CSI Receipe":
     csirecipedesignmain()
+elif nav_option == "SpeechToSpeech":
+    showaudio()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 

@@ -14,6 +14,10 @@ import autogen
 from typing import Optional
 from typing_extensions import Annotated
 from streamlit import session_state as state
+import azure.cognitiveservices.speech as speechsdk
+from audiorecorder import audiorecorder
+import pyaudio
+import wave
 
 config = dotenv_values("env.env")
 
@@ -39,6 +43,9 @@ model_name = "gpt-4o-g"
 search_endpoint = config["AZURE_AI_SEARCH_ENDPOINT"]
 search_key = config["AZURE_AI_SEARCH_KEY"]
 search_index=config["AZURE_AI_SEARCH_INDEX1"]
+SPEECH_KEY = config['SPEECH_KEY']
+SPEECH_REGION = config['SPEECH_REGION']
+SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 
 citationtxt = ""
 
@@ -106,6 +113,32 @@ def update_sliders(sliders, index, new_value):
         sliders[index] = 100 - sum(sliders[:index] + sliders[index+1:])
     return sliders
 
+# Define a function that performs some logic  
+def process_text_to_speech(text1):  
+    #print(json_object)
+    # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
+    speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
+    audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+    # The neural multilingual voice can speak different languages based on the input text.
+    speech_config.speech_synthesis_voice_name='en-US-AvaMultilingualNeural'
+
+    pull_stream = speechsdk.audio.PullAudioOutputStream()
+    stream_config = speechsdk.audio.AudioOutputConfig(stream=pull_stream)
+
+    speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+    #speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=stream_config)
+
+    speech_synthesis_result = speech_synthesizer.speak_text(text1)
+    if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+        print("Speech synthesized for text [{}] \n".format(text1))
+    elif speech_synthesis_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_synthesis_result.cancellation_details
+        print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            if cancellation_details.error_details:
+                print("Error details: {}".format(cancellation_details.error_details))
+                print("Did you set the speech resource key and region values?")
 
 def csirecipedesignmain():
     returntxt = ""
@@ -114,6 +147,9 @@ def csirecipedesignmain():
     sliders = [25, 25, 25, 25]
 
     st.write("## Food Research Platform")
+
+    if 'returntxt' not in st.session_state:
+        st.session_state.recipelist = returntxt
 
     # Create tabs
     tab1, tab2 = st.tabs(["Chat", "Citations"])
@@ -162,10 +198,16 @@ def csirecipedesignmain():
                 if st.button("Submit"):
                     #returntxt = csirecipedesign(query, selected_optionmodel1, blue, green, orange, red)
                     returntxt = csirecipedesign(query, selected_optionmodel1, slider1, slider2, slider3, slider4)
+                    st.session_state.returntxt = returntxt
 
                     #st.write(returntxt)
             with col2:
-                if returntxt != "":
+                if st.button("Play Audio"):
+                    if st.session_state.returntxt:
+                        process_text_to_speech(st.session_state.returntxt)
+                        st.markdown(st.session_state.returntxt, unsafe_allow_html=True)
+                    #process_text_to_speech(returntxt)
+                if returntxt:                    
                     #st.write(returntxt)
                     st.markdown(returntxt, unsafe_allow_html=True)
                 #st.write(returntxt)

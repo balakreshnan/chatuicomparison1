@@ -259,7 +259,7 @@ def speech_to_text_extract(text, selected_optionmodel1):
     message_text = [
     {"role":"system", "content":"""You are a Lanugage AI Agent, based on the text provided, extract intent and also the value provided.
      For example change sugar from 5g to 10g. change sugar to 10g.
-     Provide the extracted intent and value.     
+     Provide the extracted ingredient and value to update only.     
      """}, 
     {"role": "user", "content": f"""Content: {text}."""}]
 
@@ -410,6 +410,10 @@ def foodresearchmain():
                 if st.session_state.json_object:
                     process_selection(recipelist, st.session_state.json_object)
                     #st.experimental_rerun()
+
+                #if st.button("Play Audio"):
+                #    #record_audio()
+                #    recognize_from_microphone()
 
             with tab12:
                 #st.write("### External")

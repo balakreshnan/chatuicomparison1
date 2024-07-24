@@ -39,8 +39,8 @@ client = AzureOpenAI(
 model_name = "gpt-4-vision"
 #deployment_name = "gpt-4-vision"
 
-videourl = ["https://videostore24.blob.core.windows.net/aivideos/csifactory-business.mp4?sp=r&st=2024-06-06T21:17:40Z&se=2024-06-30T05:17:40Z&spr=https&sv=2022-11-02&sr=b&sig=ser9%2BRRz9vjUmZvnlwPOia0D8LbqWoJEqOGIUq48Nd4%3D"]
-videourlstr = "https://videostore24.blob.core.windows.net/aivideos/csifactory-business.mp4?sp=r&st=2024-06-06T21:17:40Z&se=2024-06-30T05:17:40Z&spr=https&sv=2022-11-02&sr=b&sig=ser9%2BRRz9vjUmZvnlwPOia0D8LbqWoJEqOGIUq48Nd4%3D"
+videourl = ["https://videostore24.blob.core.windows.net/aivideos/csifactory-business.mp4?sp=r&st=2024-07-24T20:46:26Z&se=2025-01-02T05:46:26Z&spr=https&sv=2022-11-02&sr=b&sig=lvb6ERTgBuks8d5KbM9BCKAHPfvlxEZnSCHmzkcV6%2FE%3D"]
+videourlstr = "https://videostore24.blob.core.windows.net/aivideos/csifactory-business.mp4?sp=r&st=2024-07-24T20:46:26Z&se=2025-01-02T05:46:26Z&spr=https&sv=2022-11-02&sr=b&sig=lvb6ERTgBuks8d5KbM9BCKAHPfvlxEZnSCHmzkcV6%2FE%3D"
 
 def create_video_index(vision_api_endpoint: str, vision_api_key: str, index_name: str) -> object:
     url = f"{vision_api_endpoint}/computervision/retrieval/indexes/{index_name}?api-version=2023-05-01-preview"
