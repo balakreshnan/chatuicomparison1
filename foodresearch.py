@@ -338,6 +338,8 @@ def foodresearchmain():
             with col1: 
                 query = st.text_area("Enter your query here:", height=50, value="Create a low carb, low sugar food recipe for a diabetic person.")
 
+                commands = st.text_input("Enter your commands here:", value="can you change sugar from 5g to 10g")
+
                 selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-g", "gpt-4o"])
 
                 selected_optionmodel2 = st.selectbox("Select Food", ["Cheese", "Burger", "Panner Tikka Masala"])
@@ -379,6 +381,10 @@ def foodresearchmain():
                 if st.button("Record Audio"):
                     #record_audio()
                     recognize_from_microphone()
+
+                if st.button("Execute Commands"):
+                    returntxt1 = speech_to_text_extract(commands, selected_optionmodel1)
+                    st.write(returntxt1)
                 
 
             with col2:

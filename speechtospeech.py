@@ -18,6 +18,9 @@ import azure.cognitiveservices.speech as speechsdk
 from audiorecorder import audiorecorder
 import pyaudio
 import wave
+from azure.ai.translation.text import TextTranslationClient, TranslatorCredential
+from azure.ai.translation.text.models import InputTextItem
+from azure.core.exceptions import HttpResponseError
 
 config = dotenv_values("env.env")
 
@@ -57,6 +60,7 @@ def recognize_from_microphone(option1, option2, option3):
     engrttext = None
     whispertext = None
     rsstream = None
+    translatedtext = ""
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
     speech_config = speechsdk.SpeechConfig(subscription=config['SPEECH_KEY'], region=config['SPEECH_REGION'])
     speech_config.speech_recognition_language="en-US"
@@ -71,7 +75,10 @@ def recognize_from_microphone(option1, option2, option3):
     if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
         print("Recognized: {}".format(speech_recognition_result.text))
         text1 = speech_recognition_result.text
-        st.write(f"Recognized: {speech_recognition_result.text}")
+        #st.write(f"Recognized: {speech_recognition_result.text}")
+        #translate the text into the target language
+        translatedtext = translatetext(option1, option2, option3, text1)
+        #st.write(f"Translated Text: \n {translatedtext}")
         #st.write(f"Translated Text: {speech_recognition_result.translations[option1]}")
         #speech_to_text_extract(speech_recognition_result.text, "gpt-4o-g")
         speech_translation_config = speechsdk.translation.SpeechTranslationConfig(subscription=speechkey, region=speechregion)
@@ -83,8 +90,8 @@ def recognize_from_microphone(option1, option2, option3):
         #speech_config.speech_synthesis_voice_name='en-US-AvaMultilingualNeural'
         speech_config.speech_synthesis_voice_name=option3
 
-        speech_config.speech_recognition_language=option2
-        speech_config.speech_synthesis_language=option2    
+        #speech_config.speech_recognition_language=option2
+        speech_config.speech_synthesis_language=option1    
 
         #speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
         #speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
@@ -92,18 +99,17 @@ def recognize_from_microphone(option1, option2, option3):
             
         # Creates a speech synthesizer using pull stream as audio output.
         stream_config = speechsdk.audio.AudioOutputConfig(stream=pull_stream)
-        speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=stream_config)
+        speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_translation_config, audio_config=stream_config)
             
         #speech_synthesis_result = speech_synthesizer.speak_text_async(rttext).get()
-        speech_synthesis_result = speech_synthesizer.speak_text(text1)
+        speech_synthesis_result = speech_synthesizer.speak_text(translatedtext)
         rsstream = speech_synthesis_result.audio_data
-        
+       
         print("Audio duration: {} seconds \n".format(speech_synthesis_result.audio_duration.total_seconds()))
-        #rsstream = speechsdk.AudioDataStream(speech_synthesis_result)
-        
+        st.write(f"Audio duration: {speech_synthesis_result.audio_duration.total_seconds()} seconds")
 
         if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-            print("Speech synthesized for text [{}] \n".format(text1))
+            print("Speech synthesized for text [{}] \n".format(text1))            
         elif speech_synthesis_result.reason == speechsdk.ResultReason.Canceled:
             cancellation_details = speech_synthesis_result.cancellation_details
             print("Speech synthesis canceled: {}".format(cancellation_details.reason))
@@ -120,8 +126,42 @@ def recognize_from_microphone(option1, option2, option3):
         if cancellation_details.reason == speechsdk.CancellationReason.Error:
             print("Error details: {}".format(cancellation_details.error_details))
             print("Did you set the speech resource key and region values?")
-    return text1, rsstream
+    return text1, rsstream, translatedtext
 
+def translatetext(option1, option2, option3, text1):
+    returntext = ""
+
+    TRANSLATOR_ENDPOINT=config["TRANSLATOR_ENDPOINT"]
+    TRANSLATOR_KEY=config["TRANSLATOR_KEY"]
+    TRANSLATOR_REGION=config["TRANSLATOR_REGION"]
+
+    # Create a translation client
+
+    key = TRANSLATOR_KEY
+    endpoint = TRANSLATOR_ENDPOINT
+    region = TRANSLATOR_REGION
+
+    credential = TranslatorCredential(key, region)
+    text_translator = TextTranslationClient(endpoint=endpoint, credential=credential)
+
+    try:
+        source_language = "en"
+        target_languages = [option1]
+        input_text_elements = [ InputTextItem(text = text1) ]
+
+        response = text_translator.translate(content = input_text_elements, to = target_languages, from_parameter = source_language)
+        translation = response[0] if response else None
+
+        if translation:
+            for translated_text in translation.translations:
+                print(f"Text was translated to: '{translated_text.to}' and the result is: '{translated_text.text}'.")
+                returntext = translated_text.text
+
+    except HttpResponseError as exception:
+        print(f"Error Code: {exception.error.code}")
+        print(f"Message: {exception.error.message}")
+
+    return returntext
 
 def showaudio():
     returntxt = ""
@@ -169,11 +209,14 @@ def showaudio():
             if st.button("Record Audio"):
                 #record_audio()
                 #recognize_from_microphone()
-                displaytext, rsstream = recognize_from_microphone(option1, option2, option3)
+                displaytext, rsstream, translatedtext = recognize_from_microphone(option1, option2, option3)
             if rsstream:
                 st.audio(rsstream)
             if displaytext:
+                st.write("Recognized Text: \n")
                 st.markdown(displaytext, unsafe_allow_html=True)
+                st.write("Translated Text: \n")
+                st.markdown(translatedtext, unsafe_allow_html=True)
         
     with tab2:
         st.write("Citations")
