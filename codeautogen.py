@@ -55,24 +55,30 @@ def executeagent(query, selected_model):
     assistant = autogen.AssistantAgent(
         name="assistant",
         llm_config=llm_config,
+        system_message="""You are the Coder. Given a topic, write code to retrieve related papers from the arXiv API, print their title, authors, abstract, and link.
+        You write python/shell code to solve tasks. Wrap the code in a code block that specifies the script type. The user can't modify your code. So do not suggest incomplete code which requires others to modify. Don't use a code block if it's not intended to be executed by the executor.
+        Don't include multiple code blocks in one response. Do not ask others to copy and paste the result. Check the execution result returned by the executor.
+        If the result indicates there is an error, fix the error and output the code again. Suggest the full code instead of partial code or code changes. If the error can't be fixed or if the task is not solved even after the code is executed successfully, analyze the problem, revisit your assumption, collect additional info you need, and think of a different approach to try.
+        """,
     )
     # create a UserProxyAgent instance named "user_proxy"
     user_proxy = autogen.UserProxyAgent(
         name="user_proxy",
         human_input_mode="NEVER",
-        max_consecutive_auto_reply=10,
-        is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
+        #max_consecutive_auto_reply=10,
+        #is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
         code_execution_config={
             "work_dir": "web",
             "use_docker": False,
+            "last_n_messages": 3,
         },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
         #code_execution_config={
         ##    # the executor to run the generated code
         ##    "executor": LocalCommandLineCodeExecutor(work_dir="web"),
         #},
         llm_config=llm_config,
-        system_message="""Once the answer is obtained, please reply with `TERMINATE` to end the conversation.""",
-        default_auto_reply="exit",
+        system_message="""Executor. Execute the code written by the Coder and report the result.""",
+        #default_auto_reply="exit",
     )
 
     message=f"""
@@ -83,6 +89,7 @@ def executeagent(query, selected_model):
     result = user_proxy.initiate_chat(
         assistant,
         message=message,
+        max_round=2,
     )
 
     # returntxt = str(result)
