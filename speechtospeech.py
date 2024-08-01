@@ -182,10 +182,11 @@ def showaudio():
         text1 = ""
         with col1:
             option1 = st.selectbox('Translate to Lanugage:',
-                    ('en', 'es', 'ta'))
+                    ('en', 'es', 'ta', 'de', 'fr','fr-ca','it','ga'))
             
             option2 = st.selectbox('Output Voice language:',
-                    ('en-US', 'es-ES', 'en-IN', 'es-MX', 'es-US', 'ta-IN'))
+                    ('en-US', 'es-ES', 'en-IN', 'es-MX', 'es-US', 'ta-IN', 'de-DE', 'en-CA', 'fr-CA', 'fr-FR',
+                     'ga-IE', 'it-IT'))
             #st.video(video_bytes)
 
             option3 = st.selectbox('Output Voice language:',
@@ -203,7 +204,10 @@ def showaudio():
                         'es-MX-DaliaNeural', 'es-MX-JorgeNeural', 'es-MX-BeatrizNeural', 'es-MX-CandelaNeural',
                         'es-MX-CarlotaNeural', 'es-MX-CecilioNeural', 'es-MX-GerardoNeural', 'es-MX-LarissaNeural',
                         'es-MX-LibertoNeural', 'es-MX-LucianoNeural', 'es-MX-MarinaNeural', 'es-MX-NuriaNeural',
-                        'es-MX-PelayoNeural', 'es-MX-RenataNeural', 'es-MX-YagoNeural', 'ta-IN-PallaviNeural') 
+                        'es-MX-PelayoNeural', 'es-MX-RenataNeural', 'es-MX-YagoNeural', 'ta-IN-PallaviNeural',
+                        'de-DE-KatjaNeural', 'de-DE-ConradNeural', 'en-CA-ClaraNeural', 'en-CA-LiamNeural',
+                        'fr-CA-SylvieNeural', 'fr-CA-JeanNeural','fr-FR-DeniseNeural', 'fr-FR-HenriNeural',
+                        'ga-IE-OrlaNeural', 'ga-IE-ColmNeural', 'it-IT-ElsaNeural', 'it-IT-DiegoNeural') 
                         )
         with col2:
             if st.button("Record Audio"):
