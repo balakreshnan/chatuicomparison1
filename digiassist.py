@@ -23,6 +23,9 @@ import wave
 if 'cart' not in st.session_state:
     st.session_state['cart'] = {}
 
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
 config = dotenv_values("env.env")
 
 css = """
@@ -63,6 +66,12 @@ def add_to_cart(items):
     print(st.session_state['cart'])
     st.success(txt)
     #st.success(f"Added {', '.join([f'{item['quantity']} : {item['product']}(s)' for item in items])} to cart!")
+
+# Function to add a new message to the chat history
+def add_message(user_message):
+    st.session_state.messages.append({"role": "user", "content": user_message})
+    # Simulate a response from the assistant
+    st.session_state.messages.append({"role": "assistant", "content": f"Assistant's response to: '{user_message}'"})
 
 
 def show_cart():
@@ -126,6 +135,7 @@ def digiassit():
     #main()
     st.title("Shopping Cart Application")
     count = 0
+    
     col1, col2 = st.columns([1,2])
     with col1:
         modeloptions1 = ["gpt-4o-g", "gpt-4o", "gpt-4-turbo", "gpt-35-turbo"]
@@ -145,16 +155,23 @@ def digiassit():
             image = Image.open(io.BytesIO(image_bytes))   
             st.image(image, caption='Uploaded Image.', use_column_width=True)  
             image.convert('RGB').save('temp.jpeg')
+        
+        #now display chat message to store history
+        if st.session_state.messages:
+            st.write(st.session_state.messages)
+            #print('Chat history:' , st.session_state.messages)
     with col2:
         st.write("### Chat Interface")
         #prompt = st.chat_input("You: ", key="user_input")
         #with st.sidebar:
         #    messages = st.container(height=300)
+        #messages = st.container(height=300)
         messages = st.container(height=300)
         if prompt := st.chat_input("i would like to add 7 apples and 5 oranges", key="user_input"):
             messages.chat_message("user").write(prompt)
             #messages.chat_message("assistant").write(f"Echo: {prompt}")
             itemtoadd = processinput(prompt, selected_optionmodel1)
+            add_message(prompt)
             #print("Item to add:", itemtoadd)
             item = json.loads(itemtoadd.replace("```", "").replace("json", "").replace("`",""))
             # add_to_cart(item["product"], item["quantity"])
