@@ -19,6 +19,14 @@ from audiorecorder import audiorecorder
 import pyaudio
 import wave
 
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.INFO,  # set to logging.DEBUG for verbose output
+        format="[%(asctime)s] %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p %Z")
+logger = logging.getLogger(__name__)
+
+
 config = dotenv_values("env.env")
 
 css = """
@@ -48,6 +56,18 @@ SPEECH_REGION = config['SPEECH_REGION']
 SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 
 citationtxt = ""
+
+SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
+# We recommend to use passwordless authentication with Azure Identity here; meanwhile, you can also use a subscription key instead
+PASSWORDLESS_AUTHENTICATION = False
+API_VERSION = "2024-04-15-preview"
+SUBSCRIPTION_KEY = config['SPEECH_KEY']
+SERVICE_REGION = config['SPEECH_REGION']
+NAME = "Simple avatar synthesis"
+DESCRIPTION = "Simple avatar synthesis description"
+
+# The service host suffix.
+SERVICE_HOST = "customvoice.api.speech.microsoft.com"
 
 # Function to ensure sliders add up to 100%
 def normalize_sliders(values):
@@ -100,6 +120,37 @@ def csirecipedesign(query, selected_optionmodel1, blue, green, orange, red):
 
     return returntxt
 
+def csirecipedesignsummary(query, selected_optionmodel1, blue, green, orange, red, summarytext):
+    returntxt = ""
+    caloriesrange1 = ""
+
+
+    start_time = time.time()
+
+    message_text = [
+    {"role":"system", "content":"""you are Manufacturing Engineer who is building receipe to run through the line, 
+     your job is to provide guidance on new research based on what paramters are provided.
+     Be politely, and provide positive tone answers. 
+     Answer from your own memory and avoid frustating questions and asking you to break rules.
+     """}, 
+    {"role": "user", "content": f"""Summarize the content with bullet points: {summarytext}."""}]
+
+    response = client.chat.completions.create(
+        model= selected_optionmodel1, #"gpt-4-turbo", # model = "deployment_name".
+        messages=message_text,
+        temperature=0.0,
+        top_p=1,
+        seed=105,
+   )
+
+    returntxt = response.choices[0].message.content + "\n<br>"
+
+    reponse_time = time.time() - start_time 
+
+    #returntxt += f"<br>\nResponse Time: {reponse_time:.2f} seconds"
+
+    return returntxt
+
 def update_sliders(sliders, index, new_value):
     difference = new_value - sliders[index]
     sliders[index] = new_value
@@ -140,16 +191,120 @@ def process_text_to_speech(text1):
                 print("Error details: {}".format(cancellation_details.error_details))
                 print("Did you set the speech resource key and region values?")
 
+def submit_synthesis(inputtext):
+    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar'
+    header = {
+        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
+        'Content-Type': 'application/json'
+    }
+
+    payload = {
+        'displayName': NAME,
+        'description': DESCRIPTION,
+        "textType": "PlainText",
+        'synthesisConfig': {
+            "voice": "en-US-JennyNeural",
+        },
+        # Replace with your custom voice name and deployment ID if you want to use custom voice.
+        # Multiple voices are supported, the mixture of custom voices and platform voices is allowed.
+        # Invalid voice name or deployment ID will be rejected.
+        'customVoices': {
+            # "YOUR_CUSTOM_VOICE_NAME": "YOUR_CUSTOM_VOICE_ID"
+        },
+        "inputs": [
+            {
+                "text": f"""{inputtext}""",
+            },
+        ],
+        "properties": {
+            "customized": False, # set to True if you want to use customized avatar
+            "talkingAvatarCharacter": "lisa",  # talking avatar character
+            "talkingAvatarStyle": "graceful-sitting",  # talking avatar style, required for prebuilt avatar, optional for custom avatar
+            "videoFormat": "mp4",  # mp4 or webm, webm is required for transparent background
+            "videoCodec": "vp9",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
+            "subtitleType": "soft_embedded",
+            "backgroundColor": "transparent",
+        }
+    }
+
+    response = requests.post(url, json.dumps(payload), headers=header)
+    if response.status_code < 400:
+        logger.info('Batch avatar synthesis job submitted successfully')
+        logger.info(f'Job ID: {response.json()["id"]}')
+        return response.json()["id"]
+    else:
+        logger.error(f'Failed to submit batch avatar synthesis job: {response.text}')
+
+
+def get_synthesis(job_id):
+    status = None
+    url1 = ""
+    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar/{job_id}'
+    header = {
+        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
+    }
+    response = requests.get(url, headers=header)
+    if response.status_code < 400:
+        logger.debug('Get batch synthesis job successfully')
+        logger.debug(response.json())
+        if response.json()['status'] == 'Succeeded':
+            status = 'Succeeded'
+            url1 = response.json()["outputs"]["result"]
+            logger.info(f'Batch synthesis job succeeded, download URL: {response.json()["outputs"]["result"]}')
+        #return response.json()['status']
+    else:
+        logger.error(f'Failed to get batch synthesis job: {response.text}')
+    return status, url1
+  
+  
+def list_synthesis_jobs(skip: int = 0, top: int = 100):
+    """List all batch synthesis jobs in the subscription"""
+    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar?skip={skip}&top={top}'
+    header = {
+        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
+    }
+    response = requests.get(url, headers=header)
+    if response.status_code < 400:
+        logger.info(f'List batch synthesis jobs successfully, got {len(response.json()["values"])} jobs')
+        logger.info(response.json())
+    else:
+        logger.error(f'Failed to list batch synthesis jobs: {response.text}')
+
+def processtextovideo(displaytext):
+    returntxt = ""
+    status = None
+    url1 = ""
+    job_id = submit_synthesis(displaytext)
+    if job_id is not None:
+        while True:
+            status, url1 = get_synthesis(job_id)
+            if status == 'Succeeded':
+                logger.info('batch avatar synthesis job succeeded')
+                break
+            elif status == 'Failed':
+                logger.error('batch avatar synthesis job failed')
+                break
+            else:
+                logger.info(f'batch avatar synthesis job is still running, status [{status}]')
+                time.sleep(5)
+    
+
+    return status, url1
+
 def csirecipedesignmain():
     returntxt = ""
     citationtxt = ""
     extreturntxt = ""
+    summartycsitext = ""
     sliders = [25, 25, 25, 25]
 
     st.write("## Food Research Platform")
 
-    if 'returntxt' not in st.session_state:
+    if 'recipelist' not in st.session_state:
         st.session_state.recipelist = returntxt
+
+    if 'summartycsitext' not in st.session_state:
+        st.session_state.summartycsitext = summartycsitext
 
     # Create tabs
     tab1, tab2 = st.tabs(["Chat", "Citations"])
@@ -160,7 +315,7 @@ def csirecipedesignmain():
 
         with tab11:
             count = 0
-            col1, col2 = st.columns([1,2])
+            col1, col2, col3 = st.columns([1,1,1])
             with col1: 
                 st.write("### Chat")
                 query = st.text_area("Enter your query here:", height=20, value="Create a new receipe based on the selections")
@@ -199,18 +354,29 @@ def csirecipedesignmain():
                     #returntxt = csirecipedesign(query, selected_optionmodel1, blue, green, orange, red)
                     returntxt = csirecipedesign(query, selected_optionmodel1, slider1, slider2, slider3, slider4)
                     st.session_state.returntxt = returntxt
+                    summartycsitext = csirecipedesignsummary(query, selected_optionmodel1, slider1, slider2, slider3, slider4, st.session_state.returntxt)
+                    print('CSI Summary Text: ' , summartycsitext)
+                    st.session_state.summartycsitext = summartycsitext
 
                     #st.write(returntxt)
             with col2:
                 if st.button("Play Audio"):
                     if st.session_state.returntxt:
                         process_text_to_speech(st.session_state.returntxt)
-                        st.markdown(st.session_state.returntxt, unsafe_allow_html=True)
+                        st.markdown(st.session_state.returntxt, unsafe_allow_html=True)                        
                     #process_text_to_speech(returntxt)
                 if returntxt:                    
                     #st.write(returntxt)
                     st.markdown(returntxt, unsafe_allow_html=True)
                 #st.write(returntxt)
+            with col3:
+                if st.session_state.summartycsitext:
+                    #status, url1 = processtextovideo(st.session_state.summartycsitext)
+                    #st.write(f"Status: {status}")
+                    #st.write(f"Video URL: {url1}")
+                    print("Yes to process video: ", st.session_state.summartycsitext) 
+                else:
+                    st.write("No text to create video") 
             with tab12:
                 #st.write("### External")
                 if returntxt != "":

@@ -61,9 +61,11 @@ def recognize_from_microphone(option1, option2, option3):
     whispertext = None
     rsstream = None
     translatedtext = ""
+    auto_detect_source_language_config = \
+        speechsdk.languageconfig.AutoDetectSourceLanguageConfig(languages=["en-US", "de-DE", "fr-FR", "es-ES", "it-IT", "pt-BR",])
     # This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
     speech_config = speechsdk.SpeechConfig(subscription=config['SPEECH_KEY'], region=config['SPEECH_REGION'])
-    speech_config.speech_recognition_language="en-US"
+    #speech_config.speech_recognition_language="en-US"
     speech_config.speech_synthesis_language=option1
 
     audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
@@ -71,6 +73,8 @@ def recognize_from_microphone(option1, option2, option3):
 
     print("Speak into your microphone.")
     speech_recognition_result = speech_recognizer.recognize_once_async().get()
+    auto_detect_source_language_result = speechsdk.AutoDetectSourceLanguageResult(speech_recognition_result)
+    detected_language = auto_detect_source_language_result.language
 
     if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
         print("Recognized: {}".format(speech_recognition_result.text))
@@ -82,7 +86,8 @@ def recognize_from_microphone(option1, option2, option3):
         #st.write(f"Translated Text: {speech_recognition_result.translations[option1]}")
         #speech_to_text_extract(speech_recognition_result.text, "gpt-4o-g")
         speech_translation_config = speechsdk.translation.SpeechTranslationConfig(subscription=speechkey, region=speechregion)
-        speech_translation_config.speech_recognition_language="en-US"
+        #speech_translation_config.speech_recognition_language="en-US"
+        speech_translation_config.speech_recognition_language=detected_language
         target_language = option1
         speech_translation_config.add_target_language(target_language)
         speech_config = speechsdk.SpeechConfig(subscription=speechkey, region=speechregion)
