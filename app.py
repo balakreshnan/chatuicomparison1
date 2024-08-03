@@ -21,6 +21,7 @@ from foodresearch import foodresearchmain
 from csirecipe import csirecipedesignmain
 from speechtospeech import showaudio
 from digiassist import digiassit
+from azcustomvision import process_cv
 
 # Set page size
 st.set_page_config(
@@ -49,7 +50,8 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "Code Autogen", "Cheese GPT",
                                                  "Pick Agent", "Food Research",
                                                  "CSI Receipe", "SpeechToSpeech", 
-                                                 "Shopping Cart", "About"])
+                                                 "Shopping Cart", "Steel Scratches",
+                                                 "About"])
 
 # Display the selected page
 if nav_option == "Home":
@@ -94,6 +96,8 @@ elif nav_option == "SpeechToSpeech":
     showaudio()
 elif nav_option == "Shopping Cart":
     digiassit()
+elif nav_option == "Steel Scratches":
+    process_cv()
 #elif nav_option == "VisionAgent":
 #    vaprocess()
 

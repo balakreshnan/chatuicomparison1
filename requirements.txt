@@ -12,3 +12,4 @@ streamlit-audiorecorder
 ffmpeg-python
 pyaudio
 azure-ai-translation-text==1.0.0b1
+PyQt5
