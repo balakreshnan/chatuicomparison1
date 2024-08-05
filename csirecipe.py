@@ -18,6 +18,8 @@ import azure.cognitiveservices.speech as speechsdk
 from audiorecorder import audiorecorder
 import pyaudio
 import wave
+from azure.identity import DefaultAzureCredential
+import uuid
 
 import logging
 import sys
@@ -60,7 +62,7 @@ citationtxt = ""
 SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 # We recommend to use passwordless authentication with Azure Identity here; meanwhile, you can also use a subscription key instead
 PASSWORDLESS_AUTHENTICATION = False
-API_VERSION = "2024-04-15-preview"
+#API_VERSION = "2024-04-15-preview"
 SUBSCRIPTION_KEY = config['SPEECH_KEY']
 SERVICE_REGION = config['SPEECH_REGION']
 NAME = "Simple avatar synthesis"
@@ -68,6 +70,13 @@ DESCRIPTION = "Simple avatar synthesis description"
 
 # The service host suffix.
 SERVICE_HOST = "customvoice.api.speech.microsoft.com"
+# The endpoint (and key) could be gotten from the Keys and Endpoint page in the Speech service resource.
+# The endpoint would be like: https://<region>.api.cognitive.microsoft.com or https://<custom_domain>.cognitiveservices.azure.com
+# If you want to use passwordless authentication, custom domain is required.
+SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
+# We recommend to use passwordless authentication with Azure Identity here; meanwhile, you can also use a subscription key instead
+PASSWORDLESS_AUTHENTICATION = True
+API_VERSION = "2024-08-01"
 
 # Function to ensure sliders add up to 100%
 def normalize_sliders(values):
@@ -141,6 +150,7 @@ def csirecipedesignsummary(query, selected_optionmodel1, blue, green, orange, re
         temperature=0.0,
         top_p=1,
         seed=105,
+        max_tokens=100
    )
 
     returntxt = response.choices[0].message.content + "\n<br>"
@@ -191,17 +201,41 @@ def process_text_to_speech(text1):
                 print("Error details: {}".format(cancellation_details.error_details))
                 print("Did you set the speech resource key and region values?")
 
-def submit_synthesis(inputtext):
-    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar'
+def _create_job_id():
+    # the job ID must be unique in current speech resource
+    # you can use a GUID or a self-increasing number
+    return uuid.uuid4()
+
+def _authenticate():
+    if PASSWORDLESS_AUTHENTICATION:
+        # Refer to https://learn.microsoft.com/python/api/overview/azure/identity-readme?view=azure-python#defaultazurecredential
+        # for more information about Azure Identity
+        # For example, your app can authenticate using your Azure CLI sign-in credentials with when developing locally.
+        # Your app can then use a managed identity once it has been deployed to Azure. No code changes are required for this transition.
+
+        # When developing locally, make sure that the user account that is accessing batch avatar synthesis has the right permission.
+        # You'll need Cognitive Services User or Cognitive Services Speech User role to submit batch avatar synthesis jobs.
+        credential = DefaultAzureCredential()
+        token = credential.get_token('https://cognitiveservices.azure.com/.default')
+        return {'Authorization': f'Bearer {token.token}'}
+    else:
+        SUBSCRIPTION_KEY = os.environ.get('SPEECH_KEY')
+        return {'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY}
+    
+def submit_synthesis(job_id: str, displaytext: str):
+    url = f'{SPEECH_ENDPOINT}/avatar/batchsyntheses/{job_id}?api-version={API_VERSION}'
+    #header = {
+    #    'Content-Type': 'application/json'
+    #}
+    #header.update(_authenticate())
+    print("URL: ", url)
+
     header = {
         'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY,
         'Content-Type': 'application/json'
     }
 
     payload = {
-        'displayName': NAME,
-        'description': DESCRIPTION,
-        "textType": "PlainText",
         'synthesisConfig': {
             "voice": "en-US-JennyNeural",
         },
@@ -211,38 +245,44 @@ def submit_synthesis(inputtext):
         'customVoices': {
             # "YOUR_CUSTOM_VOICE_NAME": "YOUR_CUSTOM_VOICE_ID"
         },
+        "inputKind": "PlainText",  # PlainText or SSML
         "inputs": [
             {
-                "text": f"""{inputtext}""",
+                "content": f"{displaytext}",
             },
         ],
-        "properties": {
+        "avatarConfig": {
             "customized": False, # set to True if you want to use customized avatar
             "talkingAvatarCharacter": "lisa",  # talking avatar character
             "talkingAvatarStyle": "graceful-sitting",  # talking avatar style, required for prebuilt avatar, optional for custom avatar
             "videoFormat": "mp4",  # mp4 or webm, webm is required for transparent background
-            "videoCodec": "vp9",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
+            "videoCodec": "h264",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
             "subtitleType": "soft_embedded",
+            #"backgroundColor": "#FFFFFFFF", # background color in RGBA format, default is white; can be set to 'transparent' for transparent background
             "backgroundColor": "transparent",
+            # "backgroundImage": "https://samples-files.com/samples/Images/jpg/1920-1080-sample.jpg", # background image URL, only support https, either backgroundImage or backgroundColor can be set
+            #"backgroundImage": "https://github.com/balakreshnan/publicimageaccess/blob/main/aidesignlab3.png",
         }
     }
 
-    response = requests.post(url, json.dumps(payload), headers=header)
+    response = requests.put(url, json.dumps(payload), headers=header)
     if response.status_code < 400:
         logger.info('Batch avatar synthesis job submitted successfully')
         logger.info(f'Job ID: {response.json()["id"]}')
-        return response.json()["id"]
+        return True
     else:
-        logger.error(f'Failed to submit batch avatar synthesis job: {response.text}')
+        logger.error(f'Failed to submit batch avatar synthesis job: [{response.status_code}], {response.text}')
 
 
 def get_synthesis(job_id):
     status = None
     url1 = ""
-    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar/{job_id}'
+    url = f'{SPEECH_ENDPOINT}/avatar/batchsyntheses/{job_id}?api-version={API_VERSION}'
+    #header = _authenticate()
     header = {
         'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
     }
+
     response = requests.get(url, headers=header)
     if response.status_code < 400:
         logger.debug('Get batch synthesis job successfully')
@@ -255,14 +295,13 @@ def get_synthesis(job_id):
     else:
         logger.error(f'Failed to get batch synthesis job: {response.text}')
     return status, url1
-  
-  
-def list_synthesis_jobs(skip: int = 0, top: int = 100):
+
+
+def list_synthesis_jobs(skip: int = 0, max_page_size: int = 100):
     """List all batch synthesis jobs in the subscription"""
-    url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar?skip={skip}&top={top}'
-    header = {
-        'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
-    }
+    url = f'{SPEECH_ENDPOINT}/avatar/batchsyntheses?api-version={API_VERSION}&skip={skip}&maxpagesize={max_page_size}'
+    header = _authenticate()
+
     response = requests.get(url, headers=header)
     if response.status_code < 400:
         logger.info(f'List batch synthesis jobs successfully, got {len(response.json()["values"])} jobs')
@@ -274,8 +313,8 @@ def processtextovideo(displaytext):
     returntxt = ""
     status = None
     url1 = ""
-    job_id = submit_synthesis(displaytext)
-    if job_id is not None:
+    job_id = _create_job_id()
+    if submit_synthesis(job_id, displaytext):
         while True:
             status, url1 = get_synthesis(job_id)
             if status == 'Succeeded':
@@ -287,8 +326,6 @@ def processtextovideo(displaytext):
             else:
                 logger.info(f'batch avatar synthesis job is still running, status [{status}]')
                 time.sleep(5)
-    
-
     return status, url1
 
 def csirecipedesignmain():
@@ -370,13 +407,17 @@ def csirecipedesignmain():
                     st.markdown(returntxt, unsafe_allow_html=True)
                 #st.write(returntxt)
             with col3:
-                if st.session_state.summartycsitext:
-                    #status, url1 = processtextovideo(st.session_state.summartycsitext)
-                    #st.write(f"Status: {status}")
-                    #st.write(f"Video URL: {url1}")
-                    print("Yes to process video: ", st.session_state.summartycsitext) 
-                else:
-                    st.write("No text to create video") 
+                if st.button("Create Video"):
+                    if st.session_state.summartycsitext:
+                        st.write('Summarize Text: ', st.session_state.summartycsitext)
+                        status, url1 = processtextovideo(st.session_state.summartycsitext)
+                        st.video(url1)
+                        st.write(f"Status: {status}")
+                        #st.write(f"Video URL: {url1}")
+                        #print("Yes to process video: ", st.session_state.summartycsitext) 
+                        
+                    else:
+                        st.write("No text to create video") 
             with tab12:
                 #st.write("### External")
                 if returntxt != "":
