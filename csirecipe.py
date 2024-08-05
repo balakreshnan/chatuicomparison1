@@ -78,6 +78,8 @@ SPEECH_ENDPOINT = config['SPEECH_ENDPOINT']
 PASSWORDLESS_AUTHENTICATION = True
 API_VERSION = "2024-08-01"
 
+# https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/samples/batch-avatar/python/synthesis.py
+
 # Function to ensure sliders add up to 100%
 def normalize_sliders(values):
     total = sum(values)
@@ -261,7 +263,7 @@ def submit_synthesis(job_id: str, displaytext: str):
             #"backgroundColor": "#FFFFFFFF", # background color in RGBA format, default is white; can be set to 'transparent' for transparent background
             "backgroundColor": "transparent",
             # "backgroundImage": "https://samples-files.com/samples/Images/jpg/1920-1080-sample.jpg", # background image URL, only support https, either backgroundImage or backgroundColor can be set
-            #"backgroundImage": "https://github.com/balakreshnan/publicimageaccess/blob/main/aidesignlab3.png",
+            "backgroundImage": "https://github.com/balakreshnan/publicimageaccess/blob/main/aidesignlab3.png",
         }
     }
 

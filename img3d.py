@@ -68,6 +68,7 @@ def process_image(text="Newyork skyline in night skies"):
 def image_display():
   st.title("DALL-E 3 Image Generation")
   count = 0
+  image_url = ""
   col1, col2 = st.columns([1,2])
 
   with col1:
