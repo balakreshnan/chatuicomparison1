@@ -28,6 +28,19 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO,  # set to logging.DEB
         format="[%(asctime)s] %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p %Z")
 logger = logging.getLogger(__name__)
 
+if 'returntxt' not in st.session_state:
+    st.session_state['returntxt'] = ""
+
+if 'summartycsitext' not in st.session_state:
+    st.session_state.summartycsitext = ""
+
+# Initialize session state for shopping cart
+if 'cart' not in st.session_state:
+    st.session_state['cart'] = {}
+
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
 
 config = dotenv_values("env.env")
 
@@ -261,9 +274,9 @@ def submit_synthesis(job_id: str, displaytext: str):
             "videoCodec": "h264",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
             "subtitleType": "soft_embedded",
             #"backgroundColor": "#FFFFFFFF", # background color in RGBA format, default is white; can be set to 'transparent' for transparent background
-            "backgroundColor": "transparent",
-            # "backgroundImage": "https://samples-files.com/samples/Images/jpg/1920-1080-sample.jpg", # background image URL, only support https, either backgroundImage or backgroundColor can be set
-            "backgroundImage": "https://github.com/balakreshnan/publicimageaccess/blob/main/aidesignlab3.png",
+            #"backgroundColor": "transparent",
+            "backgroundImage": "https://samples-files.com/samples/Images/jpg/1920-1080-sample.jpg", # background image URL, only support https, either backgroundImage or backgroundColor can be set
+            #"backgroundImage": "https://github.com/balakreshnan/publicimageaccess/blob/main/aidesignlab3.png",
         }
     }
 
@@ -337,13 +350,16 @@ def csirecipedesignmain():
     summartycsitext = ""
     sliders = [25, 25, 25, 25]
 
-    st.write("## Food Research Platform")
+    st.write("## Manufacturing Recipe Research Platform")
 
     if 'recipelist' not in st.session_state:
         st.session_state.recipelist = returntxt
 
     if 'summartycsitext' not in st.session_state:
         st.session_state.summartycsitext = summartycsitext
+
+    if 'returntxt' not in st.session_state:
+        st.session_state.returntxt = returntxt
 
     # Create tabs
     tab1, tab2 = st.tabs(["Chat", "Citations"])
@@ -407,6 +423,9 @@ def csirecipedesignmain():
                 if returntxt:                    
                     #st.write(returntxt)
                     st.markdown(returntxt, unsafe_allow_html=True)
+                elif st.session_state.returntxt:
+                    st.markdown(st.session_state.returntxt, unsafe_allow_html=True)
+                
                 #st.write(returntxt)
             with col3:
                 if st.button("Create Video"):
