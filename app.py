@@ -22,6 +22,7 @@ from csirecipe import csirecipedesignmain
 from speechtospeech import showaudio
 from digiassist import digiassit
 from azcustomvision import process_cv
+from custplanning import cust_planning
 from img3d import image_display
 
 # Set page size
@@ -52,6 +53,7 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "Pick Agent", "Food Research",
                                                  "CSI Receipe", "SpeechToSpeech", 
                                                  "Shopping Cart", "Steel Scratches",
+                                                 "Customer Planning",
                                                  "Img3D","About"])
 
 # Display the selected page
@@ -99,6 +101,8 @@ elif nav_option == "Shopping Cart":
     digiassit()
 elif nav_option == "Steel Scratches":
     process_cv()
+elif nav_option == "Customer Planning":
+    cust_planning()
 elif nav_option == "Img3D":
     image_display()
 #elif nav_option == "VisionAgent":
