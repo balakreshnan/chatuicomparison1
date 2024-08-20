@@ -25,6 +25,7 @@ from azcustomvision import process_cv
 from custplanning import cust_planning
 from img3d import image_display
 from videoinfyolov5 import videoinfyolov5
+from digiassit1 import multitierchatui
 
 # Set page size
 st.set_page_config(
@@ -55,6 +56,7 @@ nav_option = st.sidebar.selectbox("Navigation", ["Home", "Workbench", "Chart", "
                                                  "CSI Receipe", "SpeechToSpeech", 
                                                  "Shopping Cart", "Steel Scratches",
                                                  "Customer Planning", "Video Inference",
+                                                 "Multi Agent Product",
                                                  "Img3D","About"])
 
 # Display the selected page
@@ -106,6 +108,8 @@ elif nav_option == "Customer Planning":
     cust_planning()
 elif nav_option == "Video Inference":
     videoinfyolov5()
+elif nav_option == "Multi Agent Product":
+    multitierchatui()
 elif nav_option == "Img3D":
     image_display()
 #elif nav_option == "VisionAgent":
