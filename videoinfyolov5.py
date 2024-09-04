@@ -4,19 +4,39 @@ import torch
 import numpy as np
 from PIL import Image
 from dotenv import dotenv_values
-
-config = dotenv_values("env.env")
-
-# Load YOLOv5 model
-# model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
-# Download the YOLOv5s model weights
-# Set page configuration
-# st.set_page_config(page_title="YOLOv5 RTSP Stream", page_icon=":video_camera:", layout="wide")
+from pathlib import Path
+#import logging
+#logging.basicConfig(level=logging.INFO)
 
 # Load the manually downloaded model weights
-model = torch.load('yolov5s.pt')
+#model = torch.load('yolov5s.pt')
+#model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, force_reload=True)
+#model.eval()  # Set the model to evaluation mode
+
+#@st.cache_resource
+#def load_model():
+#    # Ensure the model is loaded only once
+#    #return torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True, force_reload=True)
+#    return torch.load('yolov5s.pt')
+
+st.write("Starting to load model...")
+#logging.info("Starting to load model...")
+
+model_path = Path("yolov5s.pt")
+# Load the model
+model = torch.load(model_path, map_location=torch.device('cpu'))  # Map to CPU if not using CUDA
+
+# If necessary, extract the model from the loaded dictionary (depends on how the model was saved)
+if isinstance(model, dict) and 'model' in model:
+    model = model['model']
+
+# Set the model to evaluation mode
+# model.eval()
+st.write("Model loaded successfully!")
+#logging.info("Model loaded successfully!")
 
 #print(f"Model weights saved as {model_path}")
+config = dotenv_values("env.env")
 
 # RTSP stream URL
 # RTSP_URL = "rtsp://your_camera_ip_address/your_stream"
@@ -34,6 +54,7 @@ def get_stream_frame(rtsp_url):
     # Save the model weights
     #model_path = 'yolov5s.pt'
     #torch.save(model.state_dict(), model_path)
+    #model.eval()
 
     cap = cv2.VideoCapture(rtsp_url)
 

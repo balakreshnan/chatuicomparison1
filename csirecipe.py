@@ -51,8 +51,8 @@ css = """
 """
 
 client = AzureOpenAI(
-  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION"], 
-  api_key=config["AZURE_OPENAI_KEY_VISION"],  
+  azure_endpoint = config["AZURE_OPENAI_ENDPOINT_VISION_4o_LATEST"], 
+  api_key=config["AZURE_OPENAI_KEY_VISION_4o_LATEST"],  
   api_version="2024-05-01-preview"
   #api_version="2024-02-01"
   #api_version="2023-12-01-preview"
@@ -61,7 +61,7 @@ client = AzureOpenAI(
 
 #model_name = "gpt-4-turbo"
 #model_name = "gpt-35-turbo-16k"
-model_name = "gpt-4o-g"
+model_name = "gpt-4o-2"
 
 search_endpoint = config["AZURE_AI_SEARCH_ENDPOINT"]
 search_key = config["AZURE_AI_SEARCH_KEY"]
@@ -375,7 +375,7 @@ def csirecipedesignmain():
                 st.write("### Chat")
                 query = st.text_area("Enter your query here:", height=20, value="Create a new receipe based on the selections")
 
-                selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-g", "gpt-4o"])
+                selected_optionmodel1 = st.selectbox("Select Model", ["gpt-4o-2", "gpt-4o-g", "gpt-4o"])
 
                 #blue = st.slider("Select a Blue range of values", 0, 100, 25)
                 #green = st.slider("Select a Green range of values", 0, 100, 25)

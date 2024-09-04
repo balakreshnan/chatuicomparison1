@@ -13,7 +13,7 @@ import io
 import autogen
 from typing import Optional
 from typing_extensions import Annotated
-from autogen import AssistantAgent
+from autogen import AssistantAgent, UserProxyAgent
 
 config = dotenv_values("env.env")
 
