@@ -18,9 +18,9 @@ import azure.cognitiveservices.speech as speechsdk
 from audiorecorder import audiorecorder
 import pyaudio
 import wave
-import fitz
 import PyPDF2
 import docx
+import fitz  # PyMuPDF
 
 config = dotenv_values("env.env")
 
@@ -245,5 +245,5 @@ def labelverfication():
         st.image(imgfile, caption=f"Dunnes Stores", use_column_width=True)
     
     with col2:
-        st.image("DunnesStoresImmuneClosedCups450gLabel.jpg", caption=f"Page {i+1}", use_column_width=True)
         labelver = label_verify(docfile, selected_optionmodel1, imgfile, "Compare the image with label specifications")
+        st.markdown(labelver, unsafe_allow_html=True)
