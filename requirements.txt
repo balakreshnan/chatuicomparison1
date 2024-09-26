@@ -17,3 +17,5 @@ opencv-python
 ultralytics
 PyMuPDF
 python-docx
+torch
+opencv-python
